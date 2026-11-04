@@ -8,7 +8,7 @@ Plan produit par l'agent **architect** le 2026-11-04 (`/plan`). C'est la référ
 
 Pour chaque jalon : `/build`, puis `/review`, puis `/ship`. Une branche, une PR squash en auto-merge, CI verte. Cocher le jalon ci-dessous dans la PR qui le livre. Ne jamais inventer de fait sur Maxime : marquer `TODO(maxime)`.
 
-## État au 2026-11-04
+## État au 2026-11-05
 
 - [x] Bootstrap : Astro 7, outillage, CI/CD, docs, page « Hello, universe » en production.
 - [x] Jalon 1 `feat/design-system-i18n`
@@ -17,7 +17,7 @@ Pour chaque jalon : `/build`, puis `/review`, puis `/ship`. Une branche, une PR 
 - [x] Jalon 4 `feat/space-scene`
 - [x] Jalon 5 `feat/game-layer`
 - [x] Jalon 6 `feat/sound`
-- [ ] Jalon 7 `feat/seo-polish`
+- [x] Jalon 7 `feat/seo-polish`
 
 Infra en place : dépôt public `Maxime-Garcia/portfolio` (main protégée : PR, check `ci`, historique linéaire) ; Vercel, projet `nova-eddf/portfolio`, intégration Git déconnectée, seuls nos workflows déploient ; production https://portfolio-umber-five-g3sqam9gtt.vercel.app (variable `PRODUCTION_URL`) ; secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.
 

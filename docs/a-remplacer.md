@@ -14,4 +14,9 @@ Chaque contenu provisoire est marqué `TODO(maxime)` dans le code (`grep -rn "TO
 | Projets réels (titre, résumé, technos, liens, visuels) | `src/content/projects/{fr,en}/` (même nom de fichier dans les deux langues) | 3 fiches `exemple-*.mdx`, `placeholder: true`, badge « Exemple » |
 | Visuels de projets                                     | `src/components/projects/ProjectCover.astro`                                | Planète SVG générée depuis le slug                               |
 
+| Image de partage (Open Graph) | `public/og.png` (1200×630) | Visuel généré : planète et nom |
+| Favicon et icône Apple | `public/favicon.svg`, `public/apple-touch-icon.png` | Planète générée |
+| LinkedIn dans le JSON-LD | `src/lib/site.ts` (`sameAs`) | GitHub seul |
+| Domaine dans `robots.txt` | `public/robots.txt` | URL Vercel |
+
 Quand les vrais projets sont ajoutés : supprimer les `exemple-*.mdx` et le test « lists the example projects still to replace » de `tests/unit/projects.test.ts`.

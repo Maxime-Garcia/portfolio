@@ -2,6 +2,21 @@
 
 Journal de veille. Une entrée par session de travail, la plus récente en haut. Chaque entrée : ce qui a été appris, les pièges rencontrés, les liens utiles.
 
+## 2026-11-05 : jalon 7, SEO et finitions
+
+### Pièges
+
+**a. Lighthouse SEO d'une page `noindex`.**
+La 404 est volontairement non indexable : Lighthouse lui donne 63 en SEO. `lighthouserc.json` utilise un `assertMatrix` : les quatre scores pour toutes les pages, sauf le SEO de la 404.
+
+**b. Découverte des pages par lhci.**
+`staticDistDir` n'audite que 5 pages par défaut. `maxAutodiscoverUrls` est monté à 20.
+
+### Ce qui a été appris
+
+- `@astrojs/sitemap` avec `i18n` produit les `xhtml:link` hreflang à partir des préfixes de chemin.
+- Les visuels provisoires (image OG, icônes) se génèrent par capture Playwright d'une page HTML : aucun outil graphique nécessaire.
+
 ## 2026-11-04 : jalon 6, son
 
 ### Pièges
