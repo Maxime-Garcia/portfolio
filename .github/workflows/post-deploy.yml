@@ -1,0 +1,66 @@
+name: Post-deploy checks
+
+on:
+  workflow_call:
+    inputs:
+      url:
+        type: string
+        required: true
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Production URL to check
+        type: string
+        required: true
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BASE_URL: ${{ inputs.url }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: package.json
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Smoke tests on production
+        run: pnpm test:e2e --project=desktop --project=mobile
+      - name: Lighthouse on production
+        run: pnpm exec lhci autorun --config=./lighthouserc.prod.json --collect.url="$BASE_URL"
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --max-redirects 5 ${{ inputs.url }}
+          fail: true
+
+  rollback:
+    needs: verify
+    if: failure()
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Roll back to previous production deployment
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx --yes vercel@65 rollback --yes --token="$VERCEL_TOKEN"
+      - name: Open an issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh issue create --repo "${{ github.repository }}" \
+            --title "Production checks failed — rolled back ($(echo "${{ github.sha }}" | cut -c1-7))" \
+            --body "Post-deploy checks failed on ${{ inputs.url }} for commit ${{ github.sha }}. Production was rolled back to the previous deployment. Run: $RUN_URL
+
+          Note: after a Vercel rollback, automatic production domain assignment is paused until the next \`vercel promote\` or a fixed deployment."

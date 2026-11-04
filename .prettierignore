@@ -1,0 +1,11 @@
+dist/
+.astro/
+pnpm-lock.yaml
+playwright-report/
+test-results/
+.lighthouseci/
+CHANGELOG.md
+PROJECT.md
+.devcontainer/devcontainer-lock.json
+.claude/
+.devcontainer/
