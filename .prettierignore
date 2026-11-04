@@ -9,3 +9,4 @@ PROJECT.md
 .devcontainer/devcontainer-lock.json
 .claude/
 .devcontainer/
+coverage/

@@ -30,21 +30,43 @@ Le build sort du HTML pour toutes les pages. Les islands sont compilées à part
 
 ```
 src/
-├── components/        # composants Astro et islands React        (à créer)
-├── layouts/           # BaseLayout.astro                          (présent)
-├── pages/             # index.astro : page « Hello, universe »   (présent)
-├── content/projects/  # fiches projets en MDX + schémas Zod      (à créer)
-├── animations/        # timelines GSAP réutilisables             (à créer)
-├── styles/            # global.css, Tailwind v4                   (présent)
-└── lib/               # site.ts : SITE, pageTitle                 (présent)
+├── animations/        # lenis.ts, timeline.ts (chargés en import dynamique)
+├── audio/             # engine.ts, blips.ts, analyser.ts (Web Audio, à la demande)
+├── components/
+│   ├── hud/           # Hud.astro : carte stellaire et contrôles
+│   ├── projects/      # cartes, couvertures générées, page détail
+│   ├── sections/      # Hero, About, Skills, Projects, Passions, Contact
+│   ├── space/         # SpaceScene.tsx (R3F), planètes, étoiles, nébuleuse, shaders/
+│   ├── terminal/      # Terminal.tsx (island à la demande), commands.ts (logique pure)
+│   └── ui/            # Badge
+├── content/           # projects/{fr,en}/*.mdx, timeline.yaml
+├── directives/        # client:intent (3D), client:event (terminal)
+├── i18n/              # ui.ts (textes typés FR/EN), utils.ts
+├── layouts/           # BaseLayout.astro : SEO, thème, ClientRouter, scène persistée
+├── lib/               # site, schemas (Zod), projects, skills, achievements, capability
+├── pages/             # index, en/index, projects/[id], en/projects/[id], 404
+├── scripts/           # theme, motion, game, sound, konami, filters, contact, toasts
+├── stores/            # nanostores : section, quality, achievements, sound, audio
+└── styles/            # global.css : jetons, thèmes, failsafes
 ```
 
-Tests : `tests/unit/` (Vitest) et `tests/e2e/` (Playwright, desktop et mobile).
+Tests : `tests/unit/` (Vitest, happy-dom pour le DOM) et `tests/e2e/` (Playwright, desktop et mobile, axe).
+
+## Chargement du JavaScript
+
+| Quoi                                | Quand                                            |
+| ----------------------------------- | ------------------------------------------------ |
+| Thème (inline `<head>`)             | Avant l'affichage                                |
+| ClientRouter, HUD, raccourcis, son  | Au chargement (environ 17 Ko gzip)               |
+| Couche jeu (succès, toasts, Konami) | Temps mort du navigateur (`requestIdleCallback`) |
+| GSAP + Lenis                        | Import dynamique après le chargement             |
+| Scène 3D (three, R3F)               | Première intention (`client:intent`)             |
+| Terminal (React, Motion)            | Première ouverture (`client:event`)              |
+| Synthé et analyseur audio           | Premier clic sur ♪ ou premier `play`             |
 
 ## Pistes ouvertes
 
-- Content Collections et schémas Zod pour les projets.
-- Première island 3D (React Three Fiber), chargée en `client:visible`.
-- Décision sur la structure des pages de projets (routes dynamiques).
+- Remplacer les contenus provisoires ([a-remplacer.md](a-remplacer.md)).
+- Nom de domaine : mettre à jour `site`, `robots.txt` et `PRODUCTION_URL`.
 
 Voir aussi : [stack](stack.md), [animations](animations.md), [décisions](decisions/README.md).

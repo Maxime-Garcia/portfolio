@@ -19,6 +19,9 @@ const fr = {
   'skip.link': 'Aller au contenu',
   'placeholder.badge': 'Exemple',
   'placeholder.todo': 'À compléter',
+  'notfound.title': 'Signal perdu',
+  'notfound.body': 'Cette page a dérivé hors de l’orbite. Elle n’existe pas, ou plus.',
+  'notfound.home': 'Retour à la base',
 
   'hud.label': 'Carte stellaire',
   'hud.home': 'Retour au départ',
@@ -138,6 +141,9 @@ const en: Record<UiKey, string> = {
   'skip.link': 'Skip to content',
   'placeholder.badge': 'Example',
   'placeholder.todo': 'To be completed',
+  'notfound.title': 'Signal lost',
+  'notfound.body': 'This page drifted out of orbit. It does not exist, or no longer does.',
+  'notfound.home': 'Back to base',
 
   'hud.label': 'Star map',
   'hud.home': 'Back to launch',

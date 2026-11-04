@@ -2,7 +2,7 @@
 import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
-import { pageTitle } from '../lib/site';
+import { SITE, pageTitle, personJsonLd } from '../lib/site';
 import SpaceScene from '../components/space/SpaceScene';
 import Terminal from '../components/terminal/Terminal';
 import { getCollection } from 'astro:content';
@@ -12,14 +12,31 @@ import { alternates, getLangFromUrl, useTranslations } from '../i18n/utils';
 interface Props {
   title?: string;
   description?: string;
+  /** Open Graph type: the home pages are "profile", project pages "article". */
+  type?: 'profile' | 'article' | 'website';
+  /** Adds the schema.org Person JSON-LD (home pages). */
+  person?: boolean;
+  /** 404 and other pages that must not be indexed. */
+  noindex?: boolean;
 }
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const { title, description = t('meta.description') } = Astro.props;
+const {
+  title,
+  description = t('meta.description'),
+  type = 'website',
+  person = false,
+  noindex = false,
+} = Astro.props;
 const site = Astro.site;
 const canonical = site ? new URL(Astro.url.pathname, site).href : undefined;
-const links = site ? alternates(Astro.url.pathname, site) : [];
+const links = site && !noindex ? alternates(Astro.url.pathname, site) : [];
+const ogImage = site ? new URL(SITE.ogImage, site).href : SITE.ogImage;
+const ogLocale = lang === 'fr' ? 'fr_FR' : 'en_US';
+const ogAlternate = lang === 'fr' ? 'en_US' : 'fr_FR';
+const jsonLd =
+  person && canonical ? JSON.stringify(personJsonLd(canonical, t('site.role'))) : undefined;
 const terminalProjects = sortProjects(
   await getCollection('projects', ({ id }) => id.startsWith(`${lang}/`)),
 ).map((project) => ({
@@ -65,8 +82,23 @@ const terminalProjects = sortProjects(
     <Font cssVariable="--font-atkinson" />
     <Font cssVariable="--font-jetbrains" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#05060f" />
+    {noindex && <meta name="robots" content="noindex" />}
+    {canonical && !noindex && <link rel="canonical" href={canonical} />}
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={pageTitle(title)} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name} · ${t('site.role')}`} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogAlternate} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd} />}
     {links.map((link) => (
       <link rel="alternate" hreflang={link.hreflang} href={link.href} />
     ))}
