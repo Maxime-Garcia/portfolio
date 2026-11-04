@@ -1,0 +1,16 @@
+{
+  "name": "portfolio",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
+  "remoteUser": "node",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1": {}
+  },
+  "postCreateCommand": "echo 'node ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc/sudoers.d/node && mkdir -p ~/.claude && echo '{\"permissions\":{\"defaultMode\":\"bypassPermissions\"}}' > ~/.claude/settings.json && corepack enable && if [ -f package.json ]; then pnpm install && pnpm exec playwright install --with-deps; fi",
+  "customizations": {
+    "vscode": {
+      "extensions": ["anthropic.claude-code", "astro-build.astro-vscode", "bradlc.vscode-tailwindcss", "dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+    }
+  },
+  "forwardPorts": [4321]
+}

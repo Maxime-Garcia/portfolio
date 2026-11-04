@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": ["Bash", "Read", "Edit", "Write", "WebFetch", "WebSearch", "mcp__*"],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push origin main:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(rm -rf /:*)",
+      "Bash(rm -rf ~:*)",
+      "Read(~/.ssh/**)",
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [{ "type": "command", "command": "test -f package.json || exit 0; pnpm -s lint --fix && pnpm -s typecheck || exit 2" }]
+      }
+    ],
+    "Stop": [
+      { "hooks": [{ "type": "command", "command": "test -f package.json || exit 0; pnpm -s test" }] }
+    ]
+  }
+}
