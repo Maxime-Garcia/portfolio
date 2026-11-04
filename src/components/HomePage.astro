@@ -4,7 +4,7 @@ import Hud from './hud/Hud.astro';
 import Hero from './sections/Hero.astro';
 import About from './sections/About.astro';
 import Skills from './sections/Skills.astro';
-import Section from './sections/Section.astro';
+import Projects from './sections/Projects.astro';
 import Passions from './sections/Passions.astro';
 import Contact from './sections/Contact.astro';
 import type { Lang } from '../i18n/ui';
@@ -22,7 +22,7 @@ const { lang } = Astro.props;
     <Hero lang={lang} />
     <About lang={lang} />
     <Skills lang={lang} />
-    <Section id="projects" lang={lang} />
+    <Projects lang={lang} />
     <Passions lang={lang} />
     <Contact lang={lang} />
   </main>
