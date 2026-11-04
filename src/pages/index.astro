@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../lib/site';
+---
+
+<BaseLayout>
+  <main class="grid min-h-dvh place-items-center px-4 text-center">
+    <div>
+      <h1 class="text-5xl font-bold tracking-tight sm:text-7xl">Hello, universe</h1>
+      <p class="mt-4 text-lg text-slate-300">
+        {SITE.name} — {SITE.role}
+      </p>
+    </div>
+  </main>
+</BaseLayout>
