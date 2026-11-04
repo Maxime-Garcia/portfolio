@@ -4,13 +4,14 @@ import { defineConfig, fontProviders } from 'astro/config';
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
+import { intentDirective } from './src/directives/register.ts';
 
 // https://astro.build/config
 export default defineConfig({
   // TODO(maxime): replace with the custom domain once it is bought.
   site: 'https://portfolio-umber-five-g3sqam9gtt.vercel.app',
 
-  integrations: [react(), mdx()],
+  integrations: [react(), mdx(), intentDirective()],
 
   // FR lives at the root, EN under /en/. No redirect, no browser-language detection.
   i18n: {
