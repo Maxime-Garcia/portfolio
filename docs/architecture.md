@@ -54,14 +54,15 @@ Tests : `tests/unit/` (Vitest, happy-dom pour le DOM) et `tests/e2e/` (Playwrigh
 
 ## Chargement du JavaScript
 
-| Quoi                             | Quand                                |
-| -------------------------------- | ------------------------------------ |
-| Thème (inline `<head>`)          | Avant l'affichage                    |
-| ClientRouter, HUD, jeu, son (UI) | Au chargement (environ 18 Ko gzip)   |
-| GSAP + Lenis                     | Import dynamique après le chargement |
-| Scène 3D (three, R3F)            | Première intention (`client:intent`) |
-| Terminal (React, Motion)         | Première ouverture (`client:event`)  |
-| Synthé et analyseur audio        | Premier clic sur ♪ ou premier `play` |
+| Quoi                                | Quand                                            |
+| ----------------------------------- | ------------------------------------------------ |
+| Thème (inline `<head>`)             | Avant l'affichage                                |
+| ClientRouter, HUD, raccourcis, son  | Au chargement (environ 17 Ko gzip)               |
+| Couche jeu (succès, toasts, Konami) | Temps mort du navigateur (`requestIdleCallback`) |
+| GSAP + Lenis                        | Import dynamique après le chargement             |
+| Scène 3D (three, R3F)               | Première intention (`client:intent`)             |
+| Terminal (React, Motion)            | Première ouverture (`client:event`)              |
+| Synthé et analyseur audio           | Premier clic sur ♪ ou premier `play`             |
 
 ## Pistes ouvertes
 
