@@ -51,16 +51,33 @@ jobs:
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - name: Roll back to previous production deployment
+        id: rollback
+        continue-on-error: true
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: npx --yes vercel@65 rollback --yes --token="$VERCEL_TOKEN"
+        run: |
+          # rollback needs a linked project: vercel pull links it from VERCEL_ORG_ID / VERCEL_PROJECT_ID.
+          npx --yes vercel@65 pull --yes --environment=production --token="$VERCEL_TOKEN"
+          npx --yes vercel@65 rollback --yes --token="$VERCEL_TOKEN"
       - name: Open an issue
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ROLLBACK: ${{ steps.rollback.outcome }}
         run: |
+          if [ "$ROLLBACK" = success ]; then
+            STATE="Production was rolled back to the previous deployment."
+          else
+            STATE="Automatic rollback FAILED (no previous deployment, or CLI error): production still serves the failing version."
+          fi
           gh issue create --repo "${{ github.repository }}" \
-            --title "Production checks failed — rolled back ($(echo "${{ github.sha }}" | cut -c1-7))" \
-            --body "Post-deploy checks failed on ${{ inputs.url }} for commit ${{ github.sha }}. Production was rolled back to the previous deployment. Run: $RUN_URL
+            --title "Production checks failed ($(echo "${{ github.sha }}" | cut -c1-7))" \
+            --body "Post-deploy checks failed on ${{ inputs.url }} for commit ${{ github.sha }}.
+
+          $STATE
+
+          Run: $RUN_URL
 
           Note: after a Vercel rollback, automatic production domain assignment is paused until the next \`vercel promote\` or a fixed deployment."
+      - name: Fail the job
+        run: exit 1

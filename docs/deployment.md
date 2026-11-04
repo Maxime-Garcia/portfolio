@@ -2,7 +2,9 @@
 
 Hébergement sur Vercel ([ADR 0002](decisions/0002-vercel.md)). Chaque PR passe par la CI. Chaque merge sur `main` part en production.
 
-> Fichiers : `.github/workflows/ci.yml`, `deploy.yml`, `post-deploy.yml` (workflow réutilisable appelé par `deploy.yml`, lançable aussi à la main), `release-please.yml`. Tant que les secrets Vercel manquent, `deploy.yml` passe au vert en sautant le déploiement (avertissement dans le résumé). Variable de dépôt optionnelle `PRODUCTION_URL` : URL vérifiée après déploiement (sinon l'URL de déploiement Vercel).
+> Fichiers : `.github/workflows/ci.yml`, `deploy.yml`, `post-deploy.yml` (workflow réutilisable appelé par `deploy.yml`, lançable aussi à la main), `release-please.yml`. Tant que les secrets Vercel manquent, `deploy.yml` passe au vert en sautant le déploiement (avertissement dans le résumé). Variable de dépôt `PRODUCTION_URL` (actuellement https://portfolio-umber-five-g3sqam9gtt.vercel.app) : URL publique vérifiée après déploiement. Indispensable : les URL propres à chaque déploiement Vercel sont protégées par authentification, les tests y verraient la page de connexion Vercel.
+>
+> L'intégration Git de Vercel est **déconnectée** (`vercel git disconnect`) : seuls nos workflows déploient, pour garder les vérifications et le rollback. Pour la réactiver : `vercel git connect`.
 
 ## Workflows
 

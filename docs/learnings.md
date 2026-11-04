@@ -28,6 +28,15 @@ claude plugin install example-skills@anthropic-agent-skills
 **e. Prettier reformatait `.claude/` et `.devcontainer/`.**
 Les deux dossiers sont ajoutés à `.prettierignore`, avec les fichiers générés (`CHANGELOG.md`, `PROJECT.md`, lock files).
 
+**f. Les URL de déploiement Vercel sont protégées.**
+Les smoke tests visaient `portfolio-<hash>-<équipe>.vercel.app` : Vercel y sert une page de connexion (302), et axe signalait ses contrastes à elle. Seul le domaine de production est public. Solution : variable de dépôt `PRODUCTION_URL`.
+
+**g. `vercel rollback` exige un projet lié.**
+Dans un job sans `.vercel/`, le CLI échoue (« Could not retrieve Project Settings »). Lancer `vercel pull --yes --environment=production` d'abord. Le premier déploiement n'a rien vers quoi revenir : l'issue doit être ouverte même si le rollback échoue.
+
+**h. Créer le projet depuis le site Vercel connecte l'intégration Git.**
+Résultat : deux déploiements par push (Vercel + nos workflows), et une production qui contourne les vérifications. Déconnectée avec `vercel git disconnect`.
+
 ### Ce qui a été appris
 
 - La spec `PROJECT.md` cite Astro 5. La stable actuelle est Astro 7 : voir [ADR 0001](decisions/0001-astro.md).
