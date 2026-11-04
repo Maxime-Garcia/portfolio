@@ -19,14 +19,16 @@ const index = String(sections.indexOf(id) + 1).padStart(2, '0');
   aria-labelledby={`${id}-title`}
   class="mx-auto flex min-h-[80dvh] max-w-6xl flex-col justify-center px-4 py-24"
 >
-  <p class="font-mono text-sm text-signal" aria-hidden="true">
-    {index} / 06
-  </p>
-  <h2 id={`${id}-title`} class="mt-2 font-display text-3xl font-bold sm:text-5xl">
-    {t(`section.${id}`)}
-  </h2>
-  {lead && <p class="mt-4 max-w-2xl text-lg text-muted">{t(lead)}</p>}
-  <div class="mt-10">
+  <div data-reveal>
+    <p class="font-mono text-sm text-signal" aria-hidden="true">
+      {index} / 06
+    </p>
+    <h2 id={`${id}-title`} class="mt-2 font-display text-3xl font-bold sm:text-5xl">
+      {t(`section.${id}`)}
+    </h2>
+    {lead && <p class="mt-4 max-w-2xl text-lg text-muted">{t(lead)}</p>}
+  </div>
+  <div data-reveal class="mt-10">
     <slot>
       <p class="text-muted">{t('section.soon')}</p>
     </slot>

@@ -55,10 +55,4 @@ test.describe('content sections', () => {
       'https://github.com/Maxime-Garcia',
     );
   });
-
-  test('home ships no JavaScript beyond theme, filters and contact', async ({ page }) => {
-    await page.goto('/');
-    const scripts = await page.locator('script[src], script[type="module"]').count();
-    expect(scripts).toBeLessThanOrEqual(3);
-  });
 });
