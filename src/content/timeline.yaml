@@ -1,0 +1,30 @@
+# Journey shown in "About". Entries flagged `placeholder: true` show a "To be completed" badge.
+- id: childhood
+  order: 1
+  period: { fr: Enfance, en: Childhood }
+  title: { fr: Le déclic, en: The spark }
+  text:
+    fr: La curiosité pour les machines naît très tôt et ne me quitte plus.
+    en: Curiosity about machines starts early and never leaves me.
+- id: studies
+  order: 2
+  placeholder: true # TODO(maxime): school, degree, years.
+  period: { fr: Formation, en: Education }
+  title: { fr: Études et premiers projets, en: Studies and first projects }
+  text:
+    fr: École, diplôme et premiers programmes. Détails à venir.
+    en: School, degree and first programs. Details coming soon.
+- id: cgi
+  order: 3
+  period: { fr: Aujourd’hui, en: Today }
+  title: { fr: Développeur intégration chez CGI, en: Integration developer at CGI }
+  text:
+    fr: Expertise MuleSoft, flux entre systèmes et chaîne de livraison.
+    en: MuleSoft expertise, flows between systems and delivery pipelines.
+- id: next
+  order: 4
+  period: { fr: Et ensuite, en: Next }
+  title: { fr: Jeux et musique, en: Games and music }
+  text:
+    fr: Game design et guitare, deux passions qui nourrissent le reste.
+    en: Game design and guitar, two passions that feed everything else.
