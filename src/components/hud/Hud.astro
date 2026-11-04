@@ -1,0 +1,75 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { sections } from '../../i18n/ui';
+import { localizePath, otherLang, useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const target = otherLang(lang);
+const switchHref = localizePath(target, Astro.url.pathname);
+---
+
+<header class="fixed inset-x-0 top-0 z-40 border-b border-line bg-bg/85 font-mono text-sm backdrop-blur">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
+    <a href="#hero" class="font-display text-base font-bold tracking-tight text-ink">
+      MG
+      <span class="text-plasma" aria-hidden="true">
+        ·
+      </span>
+      <span class="sr-only">{t('hud.home')}</span>
+    </a>
+
+    <nav
+      aria-label={t('hud.label')}
+      class="order-last w-full overflow-x-auto md:order-none md:w-auto"
+    >
+      <ol class="flex gap-1">
+        {sections.map((id, index) => (
+          <li>
+            <a
+              href={`#${id}`}
+              class="block rounded-md px-2 py-1 whitespace-nowrap text-muted transition-colors hover:text-ink motion-reduce:transition-none"
+            >
+              <span class="text-signal" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>{' '}
+              {t(`section.${id}`)}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <div class="ml-auto flex items-center gap-2">
+      <button
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+        hidden
+        class="rounded-md border border-line px-3 py-1 text-muted transition-colors hover:text-ink aria-pressed:border-amp aria-pressed:text-ink motion-reduce:transition-none"
+      >
+        {t('hud.theme')}
+      </button>
+      <a
+        href={switchHref}
+        hreflang={target}
+        lang={target}
+        aria-label={t('hud.lang.label')}
+        class="rounded-md border border-line px-3 py-1 text-muted transition-colors hover:text-ink motion-reduce:transition-none"
+      >
+        {t('hud.lang')}
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  import { initThemeToggle } from '../../scripts/theme';
+
+  initThemeToggle();
+  document.addEventListener('astro:page-load', initThemeToggle);
+</script>

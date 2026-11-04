@@ -1,0 +1,28 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+import { SITE } from '../../lib/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section
+  id="hero"
+  aria-labelledby="hero-title"
+  class="mx-auto flex min-h-dvh max-w-6xl flex-col justify-center px-4 pt-28 pb-16"
+>
+  <p class="font-mono text-sm text-signal">01 / 06 · {t('section.hero')}</p>
+  <h1
+    id="hero-title"
+    class="mt-4 font-display text-5xl leading-none font-extrabold tracking-tight sm:text-8xl"
+  >
+    {SITE.name}
+  </h1>
+  <p class="mt-6 font-mono text-base text-amp sm:text-lg">{t('site.role')}</p>
+  <p class="mt-4 max-w-xl text-lg text-muted sm:text-xl">{t('hero.tagline')}</p>
+</section>
