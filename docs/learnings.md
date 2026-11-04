@@ -2,6 +2,25 @@
 
 Journal de veille. Une entrée par session de travail, la plus récente en haut. Chaque entrée : ce qui a été appris, les pièges rencontrés, les liens utiles.
 
+## 2026-11-04 : jalon 5, couche jeu
+
+### Choix
+
+- **Toasts en TypeScript simple**, pas en island React : une région `aria-live` persistante (`transition:persist`) suffit, et on évite environ 60 Ko de React sur chaque page.
+- **Terminal en island React + Motion** (`LazyMotion`, `m`, `strict`), hydraté par une directive générique `client:event="orbite:terminal"`. L'événement qui déclenche l'hydratation arrive avant l'écouteur du composant : un drapeau `data-terminal="requested"` sur `<html>` fait le relais.
+- **Couverture à 100 %** de la logique de jeu (`achievements`, `commands`, `konami`) imposée par les seuils Vitest, et vérifiée en CI (`pnpm test:coverage`).
+
+### Pièges
+
+**a. `aria-label` sur un bouton « esc ».**
+Même règle WCAG 2.5.3 qu'au jalon 1 : texte visible `aria-hidden`, plus un libellé `sr-only`.
+
+**b. Konami et préfixes répétés.**
+Un compteur simple rate ↑ ↑ ↑ ↓ … : une fenêtre glissante sur les dernières touches est plus juste.
+
+**c. `filter` sur `body`.**
+Il crée un bloc conteneur pour les éléments `fixed` : le HUD sautait pendant l'effet. Appliquer le filtre à `main` et au calque 3D seulement.
+
 ## 2026-11-04 : jalon 4, scène spatiale
 
 ### Pièges
