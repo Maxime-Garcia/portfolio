@@ -1,30 +1,67 @@
 ---
+import { Font } from 'astro:assets';
 import '../styles/global.css';
-import { SITE, pageTitle } from '../lib/site';
+import { pageTitle } from '../lib/site';
+import { alternates, getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const { title, description = SITE.description } = Astro.props;
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const { title, description = t('meta.description') } = Astro.props;
+const site = Astro.site;
+const canonical = site ? new URL(Astro.url.pathname, site).href : undefined;
+const links = site ? alternates(Astro.url.pathname, site) : [];
 ---
 
 <!doctype html>
-<html lang={SITE.locale}>
+<html lang={lang} data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="dark light" />
+    <!-- Applies the saved (or system) theme before first paint; re-applied after page swaps. -->
+    <script is:inline>
+      (() => {
+        const apply = () => {
+          let theme = null;
+          try {
+            theme = localStorage.getItem('theme');
+          } catch {
+            /* storage blocked: fall back to the system preference */
+          }
+          if (theme !== 'light' && theme !== 'dark') {
+            theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          }
+          document.documentElement.dataset.theme = theme;
+        };
+        apply();
+        document.addEventListener('astro:after-swap', apply);
+      })();
+    </script>
+    <Font cssVariable="--font-unbounded" preload />
+    <Font cssVariable="--font-atkinson" />
+    <Font cssVariable="--font-jetbrains" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     {canonical && <link rel="canonical" href={canonical} />}
+    {links.map((link) => (
+      <link rel="alternate" hreflang={link.hreflang} href={link.href} />
+    ))}
     <title>{pageTitle(title)}</title>
   </head>
-  <body class="min-h-dvh bg-[#05060f] text-slate-100 antialiased">
+  <body class="min-h-dvh bg-bg font-sans text-ink antialiased">
+    <a
+      href="#main"
+      class="sr-only z-50 rounded-md bg-surface px-4 py-2 font-mono text-sm text-ink focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+    >
+      {t('skip.link')}
+    </a>
     <slot />
   </body>
 </html>

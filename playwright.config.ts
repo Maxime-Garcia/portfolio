@@ -16,7 +16,8 @@ export default defineConfig({
   webServer: process.env.BASE_URL
     ? undefined
     : {
-        command: 'pnpm build && pnpm preview',
+        // --ignore-lock keeps the server in the foreground (Astro 7 backgrounds it under AI agents).
+        command: 'pnpm build && pnpm preview --ignore-lock',
         url: baseURL,
         reuseExistingServer: !process.env.CI,
         timeout: 180_000,

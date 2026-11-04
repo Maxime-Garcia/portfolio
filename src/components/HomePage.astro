@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hud from './hud/Hud.astro';
+import Hero from './sections/Hero.astro';
+import Section from './sections/Section.astro';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<BaseLayout>
+  <Hud lang={lang} />
+  <main id="main" tabindex="-1" class="outline-none">
+    <Hero lang={lang} />
+    <Section id="about" lang={lang} />
+    <Section id="skills" lang={lang} />
+    <Section id="projects" lang={lang} />
+    <Section id="passions" lang={lang} />
+    <Section id="contact" lang={lang} />
+  </main>
+</BaseLayout>

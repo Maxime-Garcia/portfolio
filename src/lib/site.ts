@@ -1,9 +1,6 @@
 export const SITE = {
   name: 'Maxime Garcia',
-  role: 'Integration developer · MuleSoft',
-  description:
-    'Portfolio of Maxime Garcia — integration developer at CGI, MuleSoft expert, game designer and guitarist.',
-  locale: 'en',
+  github: 'https://github.com/Maxime-Garcia',
 } as const;
 
 /** Builds the document title: "Page · Maxime Garcia", or the site name alone. */
