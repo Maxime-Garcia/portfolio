@@ -8,6 +8,7 @@ import { localizePath, otherLang, useTranslations } from '../../i18n/utils';
 import { soundEnabled } from '../../stores/sound';
 import { unlock } from '../../stores/achievements';
 import { runCommand } from './commands';
+import { TERMINAL_EVENT } from '../../scripts/shortcuts';
 
 interface Line {
   id: number;
@@ -19,8 +20,6 @@ interface TerminalProps {
   lang: Lang;
   projects: { title: string; href: string }[];
 }
-
-export const TERMINAL_EVENT = 'orbite:terminal';
 
 /** Flight terminal: a modal <dialog>, loaded on demand (HUD button or Ctrl/Cmd+K). */
 export default function Terminal({ lang, projects }: TerminalProps) {

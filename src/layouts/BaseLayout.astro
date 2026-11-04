@@ -96,10 +96,16 @@ const terminalProjects = sortProjects(
     <Terminal client:event="orbite:terminal" lang={lang} projects={terminalProjects} />
     <script>
       import { initMotion } from '../scripts/motion';
-      import { initGame } from '../scripts/game';
+      import { initShortcuts } from '../scripts/shortcuts';
 
       initMotion();
-      initGame();
+      initShortcuts();
+      // The game layer is not needed for the first paint: load it when the browser is idle.
+      const idle = (task: () => void) =>
+        'requestIdleCallback' in window
+          ? requestIdleCallback(task, { timeout: 2000 })
+          : setTimeout(task, 200);
+      idle(() => void import('../scripts/game').then(({ initGame }) => initGame()));
     </script>
   </body>
 </html>
