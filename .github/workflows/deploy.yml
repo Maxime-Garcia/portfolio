@@ -1,0 +1,83 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  deploy:
+    # Skip cleanly until the Vercel token is configured, and never deploy fork PRs.
+    if: >-
+      github.event_name == 'push' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: ${{ github.event_name == 'push' && 'production' || 'preview' }}
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - name: Check Vercel secrets
+        id: secrets
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "::warning::Vercel secrets missing (VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID): deployment skipped."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v7
+        if: steps.secrets.outputs.ready == 'true'
+      - uses: pnpm/action-setup@v6
+        if: steps.secrets.outputs.ready == 'true'
+      - uses: actions/setup-node@v7
+        if: steps.secrets.outputs.ready == 'true'
+        with:
+          node-version-file: package.json
+          cache: pnpm
+      - name: Build and deploy with Vercel CLI
+        id: deploy
+        if: steps.secrets.outputs.ready == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          TARGET: ${{ github.event_name == 'push' && 'production' || 'preview' }}
+        run: |
+          pnpm install --frozen-lockfile
+          PROD_FLAG=""; [ "$TARGET" = production ] && PROD_FLAG="--prod"
+          pnpm dlx vercel@65 pull --yes --environment="$TARGET" --token="$VERCEL_TOKEN"
+          pnpm dlx vercel@65 build $PROD_FLAG --token="$VERCEL_TOKEN"
+          URL=$(pnpm dlx vercel@65 deploy --prebuilt $PROD_FLAG --token="$VERCEL_TOKEN")
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+          echo "Deployed ($TARGET): $URL" >> "$GITHUB_STEP_SUMMARY"
+      - name: Comment preview URL
+        if: github.event_name == 'pull_request' && steps.deploy.outputs.url
+        env:
+          GH_TOKEN: ${{ github.token }}
+          URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --body "🚀 Preview: $URL"
+
+  post-deploy:
+    needs: deploy
+    if: github.event_name == 'push' && needs.deploy.outputs.url
+    uses: ./.github/workflows/post-deploy.yml
+    with:
+      url: ${{ vars.PRODUCTION_URL || needs.deploy.outputs.url }}
+    secrets: inherit
+    permissions:
+      contents: read
+      issues: write
