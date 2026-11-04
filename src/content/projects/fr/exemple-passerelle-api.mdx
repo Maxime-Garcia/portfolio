@@ -1,0 +1,23 @@
+---
+# TODO(maxime): replace with a real project.
+title: Passerelle d’API pour un système de commandes
+summary: Exemple de fiche. Exposer un système de commandes historique via des API MuleSoft documentées, sécurisées et supervisées.
+year: 2026
+tags: [integration]
+stack: [MuleSoft, RAML, RabbitMQ, Azure DevOps]
+placeholder: true
+---
+
+## Contexte
+
+Fiche d’exemple, en attendant les vrais projets. Un système de commandes historique n’offrait qu’un accès en base de données. Plusieurs applications avaient besoin de ses données en temps réel.
+
+## Ce que j’ai fait
+
+- Conception d’un contrat d’API en RAML, validé avec les équipes consommatrices.
+- Couche d’API en trois niveaux (expérience, processus, système) sur MuleSoft.
+- Publication des événements de commande dans RabbitMQ pour les traitements asynchrones.
+
+## Résultat
+
+Un point d’entrée unique, documenté et supervisé, à la place d’accès directs à la base.
