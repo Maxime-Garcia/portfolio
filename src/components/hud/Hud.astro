@@ -34,7 +34,8 @@ const home = localizePath(lang, '/');
           <li>
             <a
               href={`${home}#${id}`}
-              class="block rounded-md px-2 py-1 whitespace-nowrap text-muted transition-colors hover:text-ink motion-reduce:transition-none"
+              data-hud-section={id}
+              class="block rounded-md px-2 py-1 whitespace-nowrap text-muted transition-colors hover:text-ink aria-[current]:bg-surface aria-[current]:text-ink motion-reduce:transition-none"
             >
               <span class="text-signal" aria-hidden="true">
                 {String(index + 1).padStart(2, '0')}
