@@ -1,0 +1,21 @@
+---
+interface Props {
+  tone?: 'amp' | 'signal' | 'plasma';
+}
+
+const { tone = 'amp' } = Astro.props;
+const tones = {
+  amp: 'border-amp text-amp',
+  signal: 'border-signal text-signal',
+  plasma: 'border-plasma text-plasma',
+} as const;
+---
+
+<span
+  class:list={[
+    'inline-block rounded-full border px-2 py-0.5 font-mono text-xs tracking-wide uppercase',
+    tones[tone],
+  ]}
+>
+  <slot />
+</span>

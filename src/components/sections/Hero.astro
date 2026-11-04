@@ -9,6 +9,8 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const button =
+  'inline-flex items-center rounded-md px-5 py-3 font-mono text-sm font-bold transition-colors motion-reduce:transition-none';
 ---
 
 <section
@@ -25,4 +27,15 @@ const t = useTranslations(lang);
   </h1>
   <p class="mt-6 font-mono text-base text-amp sm:text-lg">{t('site.role')}</p>
   <p class="mt-4 max-w-xl text-lg text-muted sm:text-xl">{t('hero.tagline')}</p>
+  <div class="mt-10 flex flex-wrap gap-3">
+    <a href="#projects" class:list={[button, 'bg-plasma text-bg hover:bg-ink']}>
+      {t('hero.cta.projects')}
+    </a>
+    <a
+      href="#contact"
+      class:list={[button, 'border border-line text-ink hover:border-signal hover:text-signal']}
+    >
+      {t('hero.cta.contact')}
+    </a>
+  </div>
 </section>

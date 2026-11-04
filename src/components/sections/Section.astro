@@ -1,14 +1,15 @@
 ---
-import type { Lang, SectionId } from '../../i18n/ui';
+import type { Lang, SectionId, UiKey } from '../../i18n/ui';
 import { sections } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 
 interface Props {
   id: Exclude<SectionId, 'hero'>;
   lang: Lang;
+  lead?: UiKey;
 }
 
-const { id, lang } = Astro.props;
+const { id, lang, lead } = Astro.props;
 const t = useTranslations(lang);
 const index = String(sections.indexOf(id) + 1).padStart(2, '0');
 ---
@@ -24,7 +25,10 @@ const index = String(sections.indexOf(id) + 1).padStart(2, '0');
   <h2 id={`${id}-title`} class="mt-2 font-display text-3xl font-bold sm:text-5xl">
     {t(`section.${id}`)}
   </h2>
-  <slot>
-    <p class="mt-4 text-muted">{t('section.soon')}</p>
-  </slot>
+  {lead && <p class="mt-4 max-w-2xl text-lg text-muted">{t(lead)}</p>}
+  <div class="mt-10">
+    <slot>
+      <p class="text-muted">{t('section.soon')}</p>
+    </slot>
+  </div>
 </section>
