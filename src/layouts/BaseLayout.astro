@@ -1,5 +1,6 @@
 ---
 import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import { pageTitle } from '../lib/site';
 import { alternates, getLangFromUrl, useTranslations } from '../i18n/utils';
@@ -39,6 +40,11 @@ const links = site ? alternates(Astro.url.pathname, site) : [];
             theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
           }
           document.documentElement.dataset.theme = theme;
+          // Motion hidden states (see global.css) only when animations are allowed.
+          document.documentElement.classList.toggle(
+            'motion',
+            !matchMedia('(prefers-reduced-motion: reduce)').matches,
+          );
         };
         apply();
         document.addEventListener('astro:after-swap', apply);
@@ -54,6 +60,7 @@ const links = site ? alternates(Astro.url.pathname, site) : [];
       <link rel="alternate" hreflang={link.hreflang} href={link.href} />
     ))}
     <title>{pageTitle(title)}</title>
+    <ClientRouter />
   </head>
   <body class="min-h-dvh bg-bg font-sans text-ink antialiased">
     <a
@@ -63,5 +70,10 @@ const links = site ? alternates(Astro.url.pathname, site) : [];
       {t('skip.link')}
     </a>
     <slot />
+    <script>
+      import { initMotion } from '../scripts/motion';
+
+      initMotion();
+    </script>
   </body>
 </html>
