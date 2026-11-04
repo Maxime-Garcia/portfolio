@@ -2,6 +2,22 @@
 
 Journal de veille. Une entrée par session de travail, la plus récente en haut. Chaque entrée : ce qui a été appris, les pièges rencontrés, les liens utiles.
 
+## 2026-11-04 : jalon 4, scène spatiale
+
+### Pièges
+
+**a. Chrome émet un `pointermove` au chargement.**
+Quand le curseur est déjà sur la page, Chrome envoie un `pointermove` de confiance, sans mouvement. Avec un simple écouteur, la 3D se chargeait sans aucune intention. Solution : ignorer les `pointermove` dont `movementX` et `movementY` sont nuls. Même chose pour `scroll`, émis sans action de l'utilisateur : retiré des déclencheurs.
+
+**b. Le clic Playwright est lui-même une intention.**
+`click()` déplace la souris : la scène se charge, le bouton disparaît avant le clic. Dans les tests, utiliser `dispatchEvent('click')`.
+
+**c. R3F rend un `<canvas>` en SSR.**
+Avec une directive personnalisée, le composant est rendu côté serveur. Solution : ne rien rendre avant le montage (`useEffect`).
+
+**d. Fondu de profondeur opaque.**
+Mélanger la couleur vers le fond laisse des disques sombres qui masquent les étoiles. Il faut jouer sur l'alpha (`transparent`).
+
 ## 2026-11-04 : jalon 3, motion et scroll
 
 ### Pièges
