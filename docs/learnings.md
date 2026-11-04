@@ -2,6 +2,19 @@
 
 Journal de veille. Une entrée par session de travail, la plus récente en haut. Chaque entrée : ce qui a été appris, les pièges rencontrés, les liens utiles.
 
+## 2026-11-04 : jalon 6, son
+
+### Pièges
+
+**a. Runner CI à 4 cœurs = « téléphone faible ».**
+Le profil Playwright mobile a un pointeur tactile ; avec les 4 cœurs du runner GitHub, la règle de capacité coupe la 3D. Les tests 3D simulent un appareil puissant (`navigator.hardwareConcurrency` redéfini), et un test couvre explicitement le cas faible.
+
+**b. HUD trop chargé.**
+Avec six ancres et six contrôles, la barre passait sur deux lignes à 1280 px. Les contrôles sont devenus des icônes avec un libellé `sr-only` et une infobulle `title`.
+
+**c. `createMediaElementSource` détourne la sortie.**
+Une fois l'élément branché, le son passe par l'`AudioContext` : s'il est suspendu, la musique est muette. Il faut appeler `resume()` à chaque `play`.
+
 ## 2026-11-04 : jalon 5, couche jeu
 
 ### Choix
