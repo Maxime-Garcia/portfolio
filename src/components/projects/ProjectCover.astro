@@ -1,0 +1,71 @@
+---
+import type { ProjectTag } from '../../lib/schemas';
+
+interface Props {
+  slug: string;
+  tag: ProjectTag;
+  class?: string;
+}
+
+// Temporary generated artwork: a planet derived from the slug, coloured by the main tag.
+// TODO(maxime): replace with real project visuals when available.
+const { slug, tag, class: className } = Astro.props;
+let hash = 0;
+for (const char of slug) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+const tilt = (hash % 50) - 25;
+const moons = 1 + (hash % 3);
+const accent = {
+  integration: 'signal',
+  devops: 'amp',
+  web: 'signal',
+  game: 'plasma',
+  music: 'plasma',
+}[tag];
+const gradient = `cover-${slug}`;
+---
+
+<svg
+  viewBox="0 0 320 180"
+  aria-hidden="true"
+  class={className}
+  preserveAspectRatio="xMidYMid slice"
+>
+  <defs>
+    <radialGradient id={gradient} cx="38%" cy="32%" r="80%">
+      <stop offset="0%" stop-color={`var(--${accent})`}></stop>
+      <stop offset="100%" stop-color="var(--surface)"></stop>
+    </radialGradient>
+  </defs>
+  <rect width="320" height="180" fill="var(--surface)"></rect>
+  {Array.from({ length: 14 }, (_, i) => (
+    <circle
+      cx={(hash >> i) % 320}
+      cy={((hash >> (i + 3)) * 7) % 180}
+      r={i % 4 === 0 ? 1.4 : 0.8}
+      fill="var(--ink)"
+      opacity="0.5"
+    />
+  ))}
+  <g transform={`rotate(${tilt} 160 90)`}>
+    <circle cx="160" cy="90" r="46" fill={`url(#${gradient})`}></circle>
+    <ellipse
+      cx="160"
+      cy="90"
+      rx="84"
+      ry="16"
+      fill="none"
+      stroke="var(--ink)"
+      stroke-opacity="0.45"
+      stroke-width="1.5"
+    ></ellipse>
+  </g>
+  {Array.from({ length: moons }, (_, i) => (
+    <circle
+      cx={60 + i * 95 + (hash % 30)}
+      cy={30 + ((hash >> i) % 120)}
+      r={4 + i}
+      fill={`var(--${accent})`}
+      opacity="0.8"
+    />
+  ))}
+</svg>

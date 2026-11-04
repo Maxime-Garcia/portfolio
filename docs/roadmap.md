@@ -12,7 +12,7 @@ Pour chaque jalon : `/build`, puis `/review`, puis `/ship`. Une branche, une PR 
 
 - [x] Bootstrap : Astro 7, outillage, CI/CD, docs, page « Hello, universe » en production.
 - [x] Jalon 1 `feat/design-system-i18n`
-- [ ] Jalon 2 `feat/content-sections`
+- [x] Jalon 2 `feat/content-sections` (livré en deux PR : sections, puis `feat/projects-collection`)
 - [ ] Jalon 3 `feat/motion-scroll`
 - [ ] Jalon 4 `feat/space-scene`
 - [ ] Jalon 5 `feat/game-layer`

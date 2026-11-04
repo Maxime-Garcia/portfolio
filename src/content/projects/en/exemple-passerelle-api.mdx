@@ -1,0 +1,23 @@
+---
+# TODO(maxime): replace with a real project.
+title: API gateway for an order system
+summary: Example entry. Exposing a legacy order system through documented, secured and monitored MuleSoft APIs.
+year: 2026
+tags: [integration]
+stack: [MuleSoft, RAML, RabbitMQ, Azure DevOps]
+placeholder: true
+---
+
+## Context
+
+Example entry, until the real projects land. A legacy order system was only reachable through its database. Several applications needed its data in real time.
+
+## What I did
+
+- Designed an API contract in RAML, reviewed with the consuming teams.
+- Built a three-layer API (experience, process, system) on MuleSoft.
+- Published order events to RabbitMQ for asynchronous processing.
+
+## Outcome
+
+A single, documented and monitored entry point, instead of direct database access.

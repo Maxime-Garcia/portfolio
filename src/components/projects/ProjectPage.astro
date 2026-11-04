@@ -1,0 +1,72 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../i18n/ui';
+import { localizePath, useTranslations } from '../../i18n/utils';
+import Hud from '../hud/Hud.astro';
+import Badge from '../ui/Badge.astro';
+import ProjectCover from './ProjectCover.astro';
+import { parseProjectId } from '../../lib/projects';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  lang: Lang;
+}
+
+const { project, lang } = Astro.props;
+const t = useTranslations(lang);
+const { slug } = parseProjectId(project.id);
+const { title, summary, year, tags, stack, links, placeholder } = project.data;
+const { Content } = await render(project);
+const back = `${localizePath(lang, '/')}#projects`;
+---
+
+<BaseLayout title={title} description={summary}>
+  <Hud lang={lang} />
+  <main id="main" tabindex="-1" class="mx-auto max-w-3xl px-4 pt-32 pb-24 outline-none">
+    <a href={back} class="font-mono text-sm text-signal hover:underline">
+      ← {t('projects.back')}
+    </a>
+    <article class="mt-8">
+      <header>
+        <div class="flex flex-wrap items-center gap-2 font-mono text-sm text-muted">
+          <span>{tags.map((tag) => t(`tag.${tag}`)).join(' · ')}</span>
+          {placeholder && <Badge>{t('placeholder.badge')}</Badge>}
+        </div>
+        <h1 class="mt-3 font-display text-3xl leading-tight font-extrabold sm:text-5xl">{title}</h1>
+        <p class="mt-4 text-lg text-muted">{summary}</p>
+        {placeholder && (
+          <p class="mt-4 rounded-md border border-amp p-3 text-ink">{t('projects.placeholder')}</p>
+        )}
+      </header>
+      <ProjectCover
+        slug={slug}
+        tag={tags[0]}
+        class="mt-8 aspect-video w-full rounded-xl border border-line"
+      />
+      <dl class="mt-8 grid gap-4 font-mono text-sm sm:grid-cols-[8rem_1fr]">
+        <dt class="text-muted">{t('projects.year')}</dt>
+        <dd class="text-ink">{year}</dd>
+        <dt class="text-muted">{t('projects.stack')}</dt>
+        <dd class="text-ink">{stack.join(' · ')}</dd>
+      </dl>
+      <div class="mt-10 [&_h2]:mt-10 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_li]:mt-2 [&_p]:mt-4 [&_p]:text-muted [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:text-muted">
+        <Content />
+      </div>
+      {(links.repo || links.demo) && (
+        <p class="mt-10 flex flex-wrap gap-4 font-mono text-sm">
+          {links.repo && (
+            <a href={links.repo} class="text-signal underline underline-offset-4">
+              {t('projects.repo')}
+            </a>
+          )}
+          {links.demo && (
+            <a href={links.demo} class="text-signal underline underline-offset-4">
+              {t('projects.demo')}
+            </a>
+          )}
+        </p>
+      )}
+    </article>
+  </main>
+</BaseLayout>

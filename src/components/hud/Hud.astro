@@ -11,11 +11,13 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const target = otherLang(lang);
 const switchHref = localizePath(target, Astro.url.pathname);
+// Absolute anchors so the map also works from project pages.
+const home = localizePath(lang, '/');
 ---
 
 <header class="fixed inset-x-0 top-0 z-40 border-b border-line bg-bg/85 font-mono text-sm backdrop-blur">
   <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
-    <a href="#hero" class="font-display text-base font-bold tracking-tight text-ink">
+    <a href={`${home}#hero`} class="font-display text-base font-bold tracking-tight text-ink">
       MG
       <span class="text-plasma" aria-hidden="true">
         ·
@@ -31,7 +33,7 @@ const switchHref = localizePath(target, Astro.url.pathname);
         {sections.map((id, index) => (
           <li>
             <a
-              href={`#${id}`}
+              href={`${home}#${id}`}
               class="block rounded-md px-2 py-1 whitespace-nowrap text-muted transition-colors hover:text-ink motion-reduce:transition-none"
             >
               <span class="text-signal" aria-hidden="true">

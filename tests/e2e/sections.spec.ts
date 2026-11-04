@@ -56,9 +56,9 @@ test.describe('content sections', () => {
     );
   });
 
-  test('home ships no JavaScript beyond theme and contact', async ({ page }) => {
+  test('home ships no JavaScript beyond theme, filters and contact', async ({ page }) => {
     await page.goto('/');
     const scripts = await page.locator('script[src], script[type="module"]').count();
-    expect(scripts).toBeLessThanOrEqual(2);
+    expect(scripts).toBeLessThanOrEqual(3);
   });
 });

@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+import { sortProjects, usedTags } from '../../lib/projects';
+import { projectTags } from '../../lib/schemas';
+import ProjectCard from '../projects/ProjectCard.astro';
+import Section from './Section.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const projects = sortProjects(
+  await getCollection('projects', ({ id }) => id.startsWith(`${lang}/`)),
+);
+const tags = usedTags(projects, projectTags);
+const filterButton =
+  'rounded-full border border-line px-4 py-1.5 font-mono text-sm text-muted transition-colors hover:text-ink aria-pressed:border-signal aria-pressed:bg-signal aria-pressed:text-bg motion-reduce:transition-none';
+---
+
+<Section id="projects" lang={lang} lead="projects.lead">
+  <!-- Filters only appear with JavaScript; without it every project stays listed. -->
+  <div data-filters hidden data-count-template={t('projects.count')}>
+    <div role="group" aria-label={t('projects.filters')} class="flex flex-wrap gap-2">
+      <button type="button" data-filter="all" aria-pressed="true" class={filterButton}>
+        {t('projects.filter.all')}
+      </button>
+      {tags.map((tag) => (
+        <button type="button" data-filter={tag} aria-pressed="false" class={filterButton}>
+          {t(`tag.${tag}`)}
+        </button>
+      ))}
+    </div>
+    <p data-filter-count aria-live="polite" class="mt-4 font-mono text-sm text-muted"></p>
+  </div>
+  <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {projects.map((project) => (
+      <ProjectCard project={project} lang={lang} />
+    ))}
+  </ul>
+</Section>
+
+<script>
+  import { initFilters } from '../../scripts/filters';
+
+  initFilters();
+  document.addEventListener('astro:page-load', initFilters);
+</script>
