@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO(maxime): update when the custom domain is live.
+Sitemap: https://portfolio-umber-five-g3sqam9gtt.vercel.app/sitemap-index.xml

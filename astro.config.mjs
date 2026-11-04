@@ -3,6 +3,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { intentDirective } from './src/directives/register.ts';
 
@@ -11,7 +12,16 @@ export default defineConfig({
   // TODO(maxime): replace with the custom domain once it is bought.
   site: 'https://portfolio-umber-five-g3sqam9gtt.vercel.app',
 
-  integrations: [react(), mdx(), intentDirective()],
+  integrations: [
+    react(),
+    mdx(),
+    intentDirective(),
+    // hreflang alternates in the sitemap; the 404 page is not indexable.
+    sitemap({
+      i18n: { defaultLocale: 'fr', locales: { fr: 'fr', en: 'en' } },
+      filter: (page) => !page.includes('/404'),
+    }),
+  ],
 
   // FR lives at the root, EN under /en/. No redirect, no browser-language detection.
   i18n: {
