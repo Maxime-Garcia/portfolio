@@ -1,0 +1,84 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+import Badge from '../ui/Badge.astro';
+import Section from './Section.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const timeline = (await getCollection('timeline')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Section id="about" lang={lang}>
+  <div class="grid gap-12 md:grid-cols-[minmax(0,1fr)_16rem]">
+    <div>
+      <p class="text-xl text-ink sm:text-2xl">{t('about.lead')}</p>
+      <p class="mt-6 max-w-2xl text-lg text-muted">{t('about.body')}</p>
+    </div>
+    <!-- TODO(maxime): replace the generated portrait with a real photo. -->
+    <figure class="order-first md:order-none">
+      <svg
+        viewBox="0 0 200 200"
+        role="img"
+        aria-label={t('about.photo')}
+        class="aspect-square w-40 md:w-full"
+      >
+        <defs>
+          <radialGradient id="about-planet" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="var(--signal)"></stop>
+            <stop offset="55%" stop-color="var(--plasma)"></stop>
+            <stop offset="100%" stop-color="var(--surface)"></stop>
+          </radialGradient>
+        </defs>
+        <ellipse
+          cx="100"
+          cy="100"
+          rx="96"
+          ry="28"
+          fill="none"
+          stroke="var(--amp)"
+          stroke-width="2"
+          transform="rotate(-18 100 100)"
+        ></ellipse>
+        <circle cx="100" cy="100" r="70" fill="url(#about-planet)"></circle>
+        <text
+          x="100"
+          y="114"
+          text-anchor="middle"
+          font-family="var(--font-display)"
+          font-size="42"
+          font-weight="800"
+          fill="var(--bg)"
+        >
+          MG
+        </text>
+      </svg>
+      <figcaption class="mt-2 font-mono text-xs text-muted">{t('placeholder.todo')}</figcaption>
+    </figure>
+  </div>
+
+  <h3 class="mt-16 font-display text-xl font-bold">{t('about.timeline')}</h3>
+  <ol class="mt-6 grid gap-6 border-l border-line pl-6 md:grid-cols-4 md:border-t md:border-l-0 md:pt-6 md:pl-0">
+    {timeline.map(({ data }) => (
+      <li class="relative">
+        <span
+          aria-hidden="true"
+          class="absolute top-1.5 -left-[1.85rem] size-3 rounded-full bg-signal md:-top-[1.95rem] md:left-0"
+        />
+        <p class="font-mono text-sm text-amp">{data.period[lang]}</p>
+        <p class="mt-1 font-bold text-ink">{data.title[lang]}</p>
+        <p class="mt-1 text-muted">{data.text[lang]}</p>
+        {data.placeholder && (
+          <p class="mt-2">
+            <Badge>{t('placeholder.todo')}</Badge>
+          </p>
+        )}
+      </li>
+    ))}
+  </ol>
+</Section>
