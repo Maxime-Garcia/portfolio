@@ -11,7 +11,7 @@ Pour chaque jalon : `/build`, puis `/review`, puis `/ship`. Une branche, une PR 
 ## État au 2026-11-04
 
 - [x] Bootstrap : Astro 7, outillage, CI/CD, docs, page « Hello, universe » en production.
-- [ ] Jalon 1 `feat/design-system-i18n`
+- [x] Jalon 1 `feat/design-system-i18n`
 - [ ] Jalon 2 `feat/content-sections`
 - [ ] Jalon 3 `feat/motion-scroll`
 - [ ] Jalon 4 `feat/space-scene`
@@ -219,6 +219,8 @@ tests/unit/*.test.ts  tests/e2e/{home,i18n,projects,a11y,game}.spec.ts  scripts/
 - **Tests sur une URL Vercel :** les URL de déploiement sont protégées par authentification, il faut tester le domaine de production.
 
 ## À fournir par Maxime (remplace les `TODO(maxime)`)
+
+Liste détaillée, fichier par fichier : [a-remplacer.md](a-remplacer.md).
 
 - Projets réels : titre, description, technos, liens, visuels.
 - Photo, URL LinkedIn, morceaux de guitare ou vidéos.

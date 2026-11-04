@@ -2,6 +2,30 @@
 
 Journal de veille. Une entrée par session de travail, la plus récente en haut. Chaque entrée : ce qui a été appris, les pièges rencontrés, les liens utiles.
 
+## 2026-11-04 : jalon 1, design system et i18n
+
+### Pièges
+
+**a. `astro preview` passe en arrière-plan sous un agent IA.**
+Astro 7 détecte l'agent et lance la preview en tâche de fond : Playwright voit le `webServer` quitter et échoue (« exited early »). Un verrou peut aussi survivre d'une session à l'autre. Solution : `pnpm preview --ignore-lock` dans `playwright.config.ts`, et `astro preview stop` pour un verrou orphelin.
+
+**b. Chromium sans bibliothèques système dans un conteneur neuf.**
+Exit 127 au lancement. Solution : `sudo env "PATH=$PATH" npx playwright install-deps chromium`.
+
+**c. Lighthouse local échoue sans `--no-sandbox`.**
+En local : `lhci collect --settings.chromeFlags="--no-sandbox --headless=new"` avec `CHROME_PATH` vers le Chromium de Playwright. La CI n'en a pas besoin.
+
+**d. axe `label-content-name-mismatch`.**
+Un `aria-label` doit contenir le texte visible (WCAG 2.5.3). Pour le logo « MG » : texte visible et `sr-only`, sans `aria-label`.
+
+**e. `gh auth login` sans terminal interactif.**
+Lancer `gh auth login --web` en arrière-plan, lire le code d'appareil dans sa sortie, le saisir sur github.com/login/device.
+
+### Ce qui a été appris
+
+- Tailwind 4 : `@theme inline` pour des utilitaires (`bg-bg`, `text-ink`) qui pointent vers des variables changeant selon `data-theme`.
+- L'API Fonts d'Astro 7 est stable (clé `fonts` au premier niveau).
+
 ## 2026-11-04 : bootstrap du projet
 
 ### Pièges

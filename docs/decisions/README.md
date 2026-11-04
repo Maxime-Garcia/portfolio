@@ -4,10 +4,13 @@ Un ADR par décision technique importante. Numérotés dans l'ordre, jamais ré�
 
 ## Index
 
-| N°                     | Titre                     | Statut  | Date       |
-| ---------------------- | ------------------------- | ------- | ---------- |
-| [0001](0001-astro.md)  | Astro comme framework     | Accepté | 2026-11-04 |
-| [0002](0002-vercel.md) | Vercel pour l'hébergement | Accepté | 2026-11-04 |
+| N°                                | Titre                      | Statut  | Date       |
+| --------------------------------- | -------------------------- | ------- | ---------- |
+| [0001](0001-astro.md)             | Astro comme framework      | Accepté | 2026-11-04 |
+| [0002](0002-vercel.md)            | Vercel pour l'hébergement  | Accepté | 2026-11-04 |
+| [0003](0003-navigation-orbite.md) | Navigation « Orbite »      | Accepté | 2026-11-04 |
+| [0004](0004-i18n.md)              | i18n, FR racine, EN `/en/` | Accepté | 2026-11-04 |
+| [0005](0005-astro-fonts.md)       | API Fonts d'Astro          | Accepté | 2026-11-04 |
 
 ## Modèle
 
