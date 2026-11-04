@@ -92,6 +92,67 @@ html[data-space='ready'] [data-ignite] {
   display: inline-flex;
 }
 
+/* Controls that need JavaScript stay out of the way without it. */
+html:not(.js) [data-js-only] {
+  display: none !important;
+}
+
+.toasts {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  display: grid;
+  gap: 0.5rem;
+  max-width: min(22rem, calc(100vw - 2rem));
+  pointer-events: none;
+}
+
+.toast {
+  border: 1px solid var(--amp);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  color: var(--ink);
+  padding: 0.75rem 1rem;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
+  animation: toast-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.toast-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--amp);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+
+/* Konami easter egg: a short hyperdrive colour shift. */
+html.hyperdrive .space-layer,
+html.hyperdrive main {
+  animation: hyperdrive 1.5s ease-in-out;
+}
+
+@keyframes hyperdrive {
+  50% {
+    filter: hue-rotate(150deg) saturate(1.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast,
+  html.hyperdrive .space-layer,
+  html.hyperdrive main {
+    animation: none;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

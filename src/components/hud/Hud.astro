@@ -56,6 +56,25 @@ const home = localizePath(lang, '/');
         <span aria-hidden="true">▲</span>
         {t('hud.ignite')}
       </button>
+      <p class="hidden items-center gap-1 text-muted sm:flex" data-js-only>
+        <span aria-hidden="true" class="text-amp">
+          ★
+        </span>
+        <span class="sr-only">{t('hud.achievements')} :</span>
+        <span data-achievements-progress>0/6</span>
+      </p>
+      <button
+        type="button"
+        data-terminal-open
+        data-js-only
+        aria-keyshortcuts="Control+K Meta+K"
+        class="rounded-md border border-line px-3 py-1 text-muted transition-colors hover:text-ink motion-reduce:transition-none"
+      >
+        <span aria-hidden="true" class="text-signal">
+          ›_
+        </span>
+        {t('hud.terminal')}
+      </button>
       <button
         type="button"
         data-theme-toggle
@@ -67,6 +86,7 @@ const home = localizePath(lang, '/');
       </button>
       <a
         href={switchHref}
+        data-lang-switch
         hreflang={target}
         lang={target}
         aria-label={t('hud.lang.label')}

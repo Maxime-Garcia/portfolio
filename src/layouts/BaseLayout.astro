@@ -4,6 +4,9 @@ import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import { pageTitle } from '../lib/site';
 import SpaceScene from '../components/space/SpaceScene';
+import Terminal from '../components/terminal/Terminal';
+import { getCollection } from 'astro:content';
+import { parseProjectId, projectPath, sortProjects } from '../lib/projects';
 import { alternates, getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
@@ -17,6 +20,12 @@ const { title, description = t('meta.description') } = Astro.props;
 const site = Astro.site;
 const canonical = site ? new URL(Astro.url.pathname, site).href : undefined;
 const links = site ? alternates(Astro.url.pathname, site) : [];
+const terminalProjects = sortProjects(
+  await getCollection('projects', ({ id }) => id.startsWith(`${lang}/`)),
+).map((project) => ({
+  title: project.data.title,
+  href: projectPath(lang, parseProjectId(project.id).slug),
+}));
 ---
 
 <!doctype html>
@@ -30,6 +39,7 @@ const links = site ? alternates(Astro.url.pathname, site) : [];
     <!-- Applies the saved (or system) theme before first paint; re-applied after page swaps. -->
     <script is:inline>
       (() => {
+        document.documentElement.classList.add('js');
         const apply = () => {
           let theme = null;
           try {
@@ -75,10 +85,21 @@ const links = site ? alternates(Astro.url.pathname, site) : [];
       <SpaceScene client:intent />
     </div>
     <slot />
+    <!-- Achievement toasts: one persistent polite live region. -->
+    <div
+      id="toasts"
+      transition:persist="toasts"
+      role="status"
+      aria-live="polite"
+      class="toasts"
+    ></div>
+    <Terminal client:event="orbite:terminal" lang={lang} projects={terminalProjects} />
     <script>
       import { initMotion } from '../scripts/motion';
+      import { initGame } from '../scripts/game';
 
       initMotion();
+      initGame();
     </script>
   </body>
 </html>
