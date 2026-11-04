@@ -14,7 +14,7 @@ Pour chaque jalon : `/build`, puis `/review`, puis `/ship`. Une branche, une PR 
 - [x] Jalon 1 `feat/design-system-i18n`
 - [x] Jalon 2 `feat/content-sections` (livré en deux PR : sections, puis `feat/projects-collection`)
 - [x] Jalon 3 `feat/motion-scroll`
-- [ ] Jalon 4 `feat/space-scene`
+- [x] Jalon 4 `feat/space-scene`
 - [ ] Jalon 5 `feat/game-layer`
 - [ ] Jalon 6 `feat/sound`
 - [ ] Jalon 7 `feat/seo-polish`

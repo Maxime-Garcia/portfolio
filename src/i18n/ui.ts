@@ -25,6 +25,7 @@ const fr = {
   'hud.theme': 'Thème clair',
   'hud.lang': 'English',
   'hud.lang.label': 'Read this page in English',
+  'hud.ignite': 'Allumer les moteurs',
 
   'section.hero': 'Départ',
   'section.about': 'À propos',
@@ -108,6 +109,7 @@ const en: Record<UiKey, string> = {
   'hud.theme': 'Light theme',
   'hud.lang': 'Français',
   'hud.lang.label': 'Lire cette page en français',
+  'hud.ignite': 'Ignite the engines',
 
   'section.hero': 'Launch',
   'section.about': 'About',
