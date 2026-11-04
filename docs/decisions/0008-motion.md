@@ -14,7 +14,7 @@ La spec demande des animations riches et un défilement fluide, avec un budget d
 - **États masqués seulement sous `html.motion`**, posé avant l'affichage si le mouvement est autorisé. Un failsafe CSS affiche tout après 2,5 s si le JavaScript ne s'exécute pas. `html.motion-ready` coupe ce failsafe dès que GSAP prend la main (une animation CSS l'emporterait sur ses styles inline).
 - **Mouvement réduit** : pas de `html.motion`, donc aucun état masqué ; `gsap.matchMedia` fige tout ; Lenis passe en 1:1 et les ancres sautent.
 - **Nettoyage** : tout est arrêté sur `astro:before-swap` et relancé sur `astro:page-load`.
-- **Motion** (la librairie React) reste réservée aux islands du jalon 5.
+- **Motion** (la librairie React) reste réservée aux islands : seul le terminal l'utilise (`LazyMotion` + `m`), chargé à la demande.
 
 ## Conséquences
 
