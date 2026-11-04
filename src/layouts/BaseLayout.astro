@@ -97,9 +97,11 @@ const terminalProjects = sortProjects(
     <script>
       import { initMotion } from '../scripts/motion';
       import { initShortcuts } from '../scripts/shortcuts';
+      import { initSound } from '../scripts/sound';
 
       initMotion();
       initShortcuts();
+      initSound();
       // The game layer is not needed for the first paint: load it when the browser is idle.
       const idle = (task: () => void) =>
         'requestIdleCallback' in window

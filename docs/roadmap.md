@@ -16,7 +16,7 @@ Pour chaque jalon : `/build`, puis `/review`, puis `/ship`. Une branche, une PR 
 - [x] Jalon 3 `feat/motion-scroll`
 - [x] Jalon 4 `feat/space-scene`
 - [x] Jalon 5 `feat/game-layer`
-- [ ] Jalon 6 `feat/sound`
+- [x] Jalon 6 `feat/sound`
 - [ ] Jalon 7 `feat/seo-polish`
 
 Infra en place : dépôt public `Maxime-Garcia/portfolio` (main protégée : PR, check `ci`, historique linéaire) ; Vercel, projet `nova-eddf/portfolio`, intégration Git déconnectée, seuls nos workflows déploient ; production https://portfolio-umber-five-g3sqam9gtt.vercel.app (variable `PRODUCTION_URL`) ; secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.

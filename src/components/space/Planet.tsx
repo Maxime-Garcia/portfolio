@@ -4,6 +4,7 @@ import { DoubleSide, type Mesh, type ShaderMaterial } from 'three';
 import type { PlanetSpec } from './layout';
 import type { Palette } from './palette';
 import { planetFragment, planetVertex } from './shaders/planet';
+import { audioLevel } from '../../stores/audio';
 
 /** Fog range (camera distance). The active planet is ~12 away, the next one ~35. */
 export const FOG_NEAR = 18;
@@ -39,7 +40,15 @@ export function Planet({ spec, palette, seed, animate, segments }: PlanetProps) 
 
   useFrame((_, delta) => {
     if (!animate) return;
-    if (mesh.current) mesh.current.rotation.y += delta * 0.05;
+    if (mesh.current) {
+      mesh.current.rotation.y += delta * 0.05;
+      // The Passions planet pulses with the music (level is 0 under reduced motion).
+      if (spec.id === 'passions') {
+        const target = 1 + audioLevel.value * 0.35;
+        const s = mesh.current.scale.x + (target - mesh.current.scale.x) * Math.min(1, delta * 10);
+        mesh.current.scale.setScalar(s);
+      }
+    }
     if (material.current) material.current.uniforms.uTime.value += delta;
   });
 

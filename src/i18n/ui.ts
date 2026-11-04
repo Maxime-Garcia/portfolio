@@ -28,6 +28,7 @@ const fr = {
   'hud.ignite': 'Allumer les moteurs',
 
   'hud.terminal': 'Terminal',
+  'hud.sound': 'Son',
   'hud.achievements': 'Succès débloqués',
   'ach.toast': 'Succès débloqué',
   'ach.planets': 'Grand tour : les six planètes visitées',
@@ -108,6 +109,7 @@ const fr = {
   'passions.music.track': 'Arpèges de démonstration (synthèse, provisoire)',
   'passions.music.fallback': 'Votre navigateur ne lit pas l’audio.',
   'passions.music.download': 'Télécharger le morceau',
+  'passions.music.visualizer': 'Visualiseur du morceau en cours',
   'passions.games.title': 'Jeux vidéo et game design',
   'passions.games.body':
     'Joueur depuis toujours, je conçois aussi des jeux : mécaniques, rythme, sensations. Ce site en est un petit : explorez-le.',
@@ -145,6 +147,7 @@ const en: Record<UiKey, string> = {
   'hud.ignite': 'Ignite the engines',
 
   'hud.terminal': 'Terminal',
+  'hud.sound': 'Sound',
   'hud.achievements': 'Achievements unlocked',
   'ach.toast': 'Achievement unlocked',
   'ach.planets': 'Grand tour: all six planets visited',
@@ -225,6 +228,7 @@ const en: Record<UiKey, string> = {
   'passions.music.track': 'Demo arpeggios (synthesised, placeholder)',
   'passions.music.fallback': 'Your browser cannot play audio.',
   'passions.music.download': 'Download the track',
+  'passions.music.visualizer': 'Visualiser for the playing track',
   'passions.games.title': 'Video games and game design',
   'passions.games.body':
     'A lifelong player, I also design games: mechanics, pacing, feel. This site is a small one: explore it.',
