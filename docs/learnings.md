@@ -2,6 +2,22 @@
 
 Journal de veille. Une entrée par session de travail, la plus récente en haut. Chaque entrée : ce qui a été appris, les pièges rencontrés, les liens utiles.
 
+## 2026-11-04 : jalon 3, motion et scroll
+
+### Pièges
+
+**a. Une animation CSS l'emporte sur les styles inline.**
+Le failsafe `animation: … forwards` (opacité à 1) écrasait les styles inline de GSAP : la révélation devenait invisible. Solution : une classe `motion-ready` qui coupe l'animation CSS dès que GSAP prend la main.
+
+**b. axe pendant une animation.**
+Les contrastes sont mesurés à mi-fondu, et le test devient instable sous charge. Solution : attendre `document.getAnimations()` avant `analyze()`.
+
+**c. Playwright émule un système en thème clair par défaut.**
+Un test de bascule de thème doit fixer `emulateMedia({ colorScheme })`.
+
+**d. Budget JavaScript.**
+GSAP, Lenis et le ClientRouter font déjà 39,5 Ko gzip : il faut un import dynamique et une entrée du Hero en CSS (voir [ADR 0008](decisions/0008-motion.md)).
+
 ## 2026-11-04 : jalon 1, design system et i18n
 
 ### Pièges
