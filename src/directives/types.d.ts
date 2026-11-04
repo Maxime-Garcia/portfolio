@@ -4,5 +4,7 @@ declare module 'astro' {
   interface AstroClientDirectives {
     /** Hydrate on first user intent or on `orbite:ignite`. */
     'client:intent'?: boolean;
+    /** Hydrate the first time this window event is dispatched. */
+    'client:event'?: string;
   }
 }
