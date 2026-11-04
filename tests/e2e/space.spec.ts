@@ -1,8 +1,17 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
 
 const isSceneChunk = (url: string) => /SpaceScene|three|react-three/i.test(url);
 
+/** Simulates a capable device; CI runners have 4 cores, which counts as a weak phone. */
+async function strongDevice(page: Page, cores = 8) {
+  await page.addInitScript((value) => {
+    Object.defineProperty(navigator, 'hardwareConcurrency', { get: () => value });
+  }, cores);
+}
+
 test.describe('3D scene', () => {
+  test.beforeEach(async ({ page }) => strongDevice(page));
+
   test('loads nothing 3D before the first intent', async ({ page }) => {
     const requested: string[] = [];
     page.on('request', (request) => {
@@ -41,6 +50,20 @@ test.describe('3D scene', () => {
       'Pipeline de livraison avec contrôle qualité',
     );
     await expect(page.locator('#space canvas')).toHaveAttribute('data-marker', 'kept');
+  });
+
+  test('stays off on a weak touch device', async ({ browser }) => {
+    const context = await browser.newContext({
+      hasTouch: true,
+      isMobile: true,
+      viewport: { width: 400, height: 800 },
+    });
+    const page = await context.newPage();
+    await strongDevice(page, 4);
+    await page.goto('/');
+    await expect(page.locator('html')).toHaveAttribute('data-space', 'off');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Maxime Garcia');
+    await context.close();
   });
 
   test.describe('without WebGL', () => {
