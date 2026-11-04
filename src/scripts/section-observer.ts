@@ -6,7 +6,11 @@ export function startSectionObserver(): () => void {
   const elements = sections
     .map((id) => document.getElementById(id))
     .filter((el): el is HTMLElement => el !== null);
-  if (elements.length === 0) return () => {};
+  if (elements.length === 0) {
+    // Project pages orbit the projects planet.
+    if (location.pathname.includes('/projects/')) activeSection.set('projects');
+    return () => {};
+  }
 
   let frame = 0;
   const measure = () => {

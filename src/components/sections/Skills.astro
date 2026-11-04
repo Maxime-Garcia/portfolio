@@ -15,7 +15,7 @@ const t = useTranslations(lang);
 <Section id="skills" lang={lang} lead="skills.lead">
   <div class="grid gap-6 md:grid-cols-3">
     {skillGroups.map((group) => (
-      <div class="rounded-xl border border-line bg-surface/60 p-6">
+      <div class="rounded-xl border border-line bg-surface/90 p-6">
         <h3 class="font-mono text-sm tracking-wide text-signal uppercase">{t(group.label)}</h3>
         <ul class="mt-4 flex flex-wrap gap-2">
           {group.skills.map((skill) => (

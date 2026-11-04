@@ -3,6 +3,7 @@ import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import { pageTitle } from '../lib/site';
+import SpaceScene from '../components/space/SpaceScene';
 import { alternates, getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
@@ -69,6 +70,10 @@ const links = site ? alternates(Astro.url.pathname, site) : [];
     >
       {t('skip.link')}
     </a>
+    <!-- Decorative 3D background, loaded on first intent, kept across page swaps. -->
+    <div id="space" transition:persist="space" aria-hidden="true" class="space-layer">
+      <SpaceScene client:intent />
+    </div>
     <slot />
     <script>
       import { initMotion } from '../scripts/motion';

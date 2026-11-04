@@ -50,6 +50,14 @@ const home = localizePath(lang, '/');
     <div class="ml-auto flex items-center gap-2">
       <button
         type="button"
+        data-ignite
+        class="items-center gap-1 rounded-md border border-line px-3 py-1 text-signal transition-colors hover:border-signal motion-reduce:transition-none"
+      >
+        <span aria-hidden="true">▲</span>
+        {t('hud.ignite')}
+      </button>
+      <button
+        type="button"
         data-theme-toggle
         aria-pressed="false"
         hidden
@@ -75,4 +83,11 @@ const home = localizePath(lang, '/');
 
   initThemeToggle();
   document.addEventListener('astro:page-load', initThemeToggle);
+
+  // "Ignite the engines": explicit way to load the 3D scene (see client:intent).
+  document.addEventListener('click', (event) => {
+    if ((event.target as Element | null)?.closest('[data-ignite]')) {
+      window.dispatchEvent(new Event('orbite:ignite'));
+    }
+  });
 </script>

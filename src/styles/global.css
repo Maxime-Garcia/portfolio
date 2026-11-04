@@ -53,6 +53,45 @@
   --nebula-b: rgb(0 98 110 / 0.06);
 }
 
+/* 3D layer: behind the content, never interactive. Dimmed on narrow screens for legibility. */
+.space-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.space-layer canvas {
+  display: block;
+}
+
+html[data-space='on'] .space-layer {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  html[data-space='on'] .space-layer {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .space-layer {
+    transition: none;
+  }
+}
+
+/* The ignite button only makes sense while the scene can load but has not yet. */
+[data-ignite] {
+  display: none;
+}
+
+html[data-space='ready'] [data-ignite] {
+  display: inline-flex;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
