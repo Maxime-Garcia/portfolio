@@ -2,6 +2,8 @@
 
 Spécification complète : [PROJECT.md](PROJECT.md). La lire avant toute fonctionnalité nouvelle.
 
+Feuille de route en cours : [docs/roadmap.md](docs/roadmap.md) (concept « Orbite », jalons 1 à 7, état d'avancement). Pour reprendre le projet, exécuter le prochain jalon non coché, en autonomie complète.
+
 ## Règles
 
 - Toujours consulter Context7 avant d'utiliser une API de librairie.

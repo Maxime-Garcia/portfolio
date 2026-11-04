@@ -29,7 +29,7 @@ Prérequis : Node 22.23.4 ou plus, pnpm via `corepack enable`.
 
 ## Documentation
 
-La documentation technique est dans [`docs/`](docs/) : architecture, stack, workflow avec Claude Code, animations, Git, déploiement et [décisions d'architecture](docs/decisions/README.md).
+La documentation technique est dans [`docs/`](docs/) : architecture, stack, workflow avec Claude Code, animations, Git, déploiement [décisions d'architecture](docs/decisions/README.md) et [feuille de route](docs/roadmap.md).
 
 ## Licence
 
