@@ -32,7 +32,7 @@ test.describe('star fragments', () => {
     page,
   }) => {
     await page.goto('/');
-    const progress = page.locator('[data-fragments-progress]');
+    const progress = page.locator('header [data-fragments-progress]');
     await expect(progress).toHaveText('0/6');
 
     await page.locator('#hero').getByRole('button', { name: 'Fragment d’étoile' }).click();

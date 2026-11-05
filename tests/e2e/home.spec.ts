@@ -18,7 +18,7 @@ test.describe('home, French (root)', () => {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Maxime Garcia');
     const map = page.getByRole('navigation', { name: 'Carte stellaire' });
     await expect(map.getByRole('link')).toHaveCount(6);
-    for (const name of ['À propos', 'Compétences', 'Projets', 'Passions', 'Contact']) {
+    for (const name of ['Le pilote', 'La soute', 'Le hangar', 'Feu de camp', 'Fréquence ouverte']) {
       await expect(page.getByRole('heading', { level: 2, name })).toBeAttached();
     }
   });
@@ -53,7 +53,7 @@ test.describe('home, English (/en/)', () => {
     await page.goto('/en/');
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     await expect(page.getByRole('navigation', { name: 'Star map' })).toBeVisible();
-    await expect(page.getByRole('heading', { level: 2, name: 'Skills' })).toBeAttached();
+    await expect(page.getByRole('heading', { level: 2, name: 'The cargo hold' })).toBeAttached();
   });
 
   test('switches back to French', async ({ page }) => {

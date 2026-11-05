@@ -3,11 +3,11 @@ import { test, expect } from '@playwright/test';
 test.describe('content sections', () => {
   test('hero calls to action reach projects and contact', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('link', { name: 'Voir mes projets' })).toHaveAttribute(
+    await expect(page.getByRole('link', { name: 'Visiter le hangar' })).toHaveAttribute(
       'href',
       '#projects',
     );
-    await expect(page.getByRole('link', { name: 'Me contacter' })).toHaveAttribute(
+    await expect(page.getByRole('link', { name: 'Ouvrir une fréquence' })).toHaveAttribute(
       'href',
       '#contact',
     );
@@ -51,5 +51,31 @@ test.describe('content sections', () => {
       'href',
       'https://github.com/Maxime-Garcia',
     );
+  });
+});
+
+test.describe('campfire', () => {
+  test('lists the worlds that left a mark', async ({ page }) => {
+    await page.goto('/');
+    const passions = page.locator('#passions');
+    for (const name of ['Outer Wilds', 'Dofus', 'Tunic'])
+      await expect(passions.getByText(name, { exact: true })).toBeVisible();
+  });
+
+  test('the HUD games link leads to the games room, which launches every game', async ({
+    page,
+  }) => {
+    await page.goto('/');
+    await page.getByRole('link', { name: 'Jeux' }).click();
+    await expect(page).toHaveURL(/#arcade$/);
+    const arcade = page.getByRole('article', { name: 'Salle de jeux' });
+    await expect(arcade).toBeInViewport();
+    await arcade.getByRole('button', { name: /Jouer à Gravité/ }).click();
+    await expect(page.getByRole('dialog', { name: 'Gravité' })).toBeVisible();
+    await page.keyboard.press('Escape');
+    await arcade.getByRole('button', { name: /Ouvrir le terminal/ }).click();
+    await expect(page.getByRole('dialog', { name: 'Terminal de bord' })).toBeVisible({
+      timeout: 15_000,
+    });
   });
 });

@@ -7,7 +7,7 @@ test.describe('regressions', () => {
     await page.locator('[data-lang-switch]').click();
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     await expect(page.getByRole('button', { name: 'Sound' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Terminal' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Terminal', exact: true })).toBeVisible();
     await expect(page.locator('html')).toHaveClass(/(^|\s)js(\s|$)/);
   });
 
