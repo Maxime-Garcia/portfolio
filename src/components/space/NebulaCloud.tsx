@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { audioLevel } from '../../stores/audio';
+import { scrollVelocity } from '../../stores/velocity';
 import type { BodySpec } from './layout';
 import type { Palette } from './palette';
 import { nebula } from './generators';
@@ -14,7 +14,7 @@ interface NebulaCloudProps {
   clouds: number;
 }
 
-/** The Passions nebula: gas glows and swells with the music (audio level is 0 under reduced motion). */
+/** The Passions nebula: gas glows and swells as you fly through it (scroll speed). */
 export function NebulaCloud({ spec, palette, dark, animate, clouds }: NebulaCloudProps) {
   const data = useMemo(
     () =>
@@ -28,7 +28,7 @@ export function NebulaCloud({ spec, palette, dark, animate, clouds }: NebulaClou
   );
   const uniforms = useParticleUniforms(2.6);
   const group = useFade(spec.radius, (fade) => {
-    const pulse = animate ? audioLevel.value : 0;
+    const pulse = animate ? scrollVelocity.intensity : 0;
     uniforms.uScale.value += (1 + pulse * 0.6 - uniforms.uScale.value) * 0.15;
     uniforms.uOpacity.value = fade * (dark ? 0.7 + pulse * 0.5 : 0.6);
   });

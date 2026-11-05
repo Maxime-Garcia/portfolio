@@ -68,17 +68,4 @@ export function initSound(): void {
   onUnlock(() => {
     if (soundEnabled.get() && getContext()) void synth().then((s) => s.play('chime'));
   });
-
-  // Music visualiser: wired on the first play of the Passions track (a user action).
-  document.addEventListener(
-    'play',
-    (event) => {
-      const audio = event.target;
-      if (!(audio instanceof HTMLAudioElement) || !audio.matches('[data-passions-audio]')) return;
-      void import('../audio/analyser').then(({ attachAnalyser }) =>
-        attachAnalyser(audio, document.querySelector<HTMLCanvasElement>('[data-visualizer]')),
-      );
-    },
-    true,
-  );
 }
