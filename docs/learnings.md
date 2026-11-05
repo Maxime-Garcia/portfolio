@@ -15,6 +15,15 @@ Lenis (`anchors`) et le ClientRouter réagissaient tous les deux aux liens `/#se
 **c. Particules additives et bloom.**
 Des sprites de 400 px qui se superposent saturent au blanc. Il faut viser 40 à 120 px à l'écran, des couleurs à 10–30 % d'intensité, et des points de départ espacés.
 
+**d. Carillon sans geste.**
+Avec le son mémorisé à « on », le succès « son » se débloquait au chargement, et son carillon créait un `AudioContext` sans action. Les sons déclenchés hors d'un geste doivent vérifier qu'un contexte existe déjà.
+
+**e. Écouteurs chargés en différé.**
+Le jeu, chargé au temps mort du navigateur, ratait les sections vues avant son chargement. Le store de section (chargé tout de suite) garde l'historique, que le jeu rejoue.
+
+**f. Captures pendant un scroll fluide.**
+Une capture Playwright prise en plein défilement peut afficher un HUD « décroché » : c'est un artefact. Il faut mesurer `getBoundingClientRect()` pour trancher.
+
 ### Liens utiles
 
 - Textures planétaires (CC BY 4.0) : https://www.solarsystemscope.com/textures/

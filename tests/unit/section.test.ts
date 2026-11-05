@@ -22,3 +22,12 @@ describe('activeSection', () => {
     expect(activeSection.get()).toBe('hero');
   });
 });
+
+describe('visitedSections', () => {
+  it('remembers every section that became active', async () => {
+    const { activeSection, visitedSections } = await import('../../src/stores/section');
+    activeSection.set('skills');
+    activeSection.set('contact');
+    expect([...visitedSections]).toEqual(expect.arrayContaining(['hero', 'skills', 'contact']));
+  });
+});

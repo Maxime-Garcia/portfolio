@@ -83,6 +83,16 @@ html[data-space='on'] .space-layer {
   }
 }
 
+/* Anime speed lines: above the 3D, below the content, never interactive. */
+.speed-lines {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
 /* The ignite button only makes sense while the scene can load but has not yet. */
 [data-ignite] {
   display: none;
