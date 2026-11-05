@@ -65,6 +65,7 @@ function build(): HTMLDialogElement {
 
   const box = el('dialog', { className: 'game-dialog' });
   box.setAttribute('aria-labelledby', 'game-title');
+  box.setAttribute('data-lenis-prevent', '');
   const title = el(
     'h2',
     { id: 'game-title', className: 'font-display text-lg font-bold' },
