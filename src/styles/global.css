@@ -237,6 +237,12 @@ html.hyperdrive main {
       100% 100%;
   }
 
+  /* Sections focused by anchor links: focus moves for assistive tech, no ring on a whole section. */
+  section[tabindex='-1']:focus,
+  main[tabindex='-1']:focus {
+    outline: none;
+  }
+
   :focus-visible {
     outline: 2px solid var(--signal);
     outline-offset: 3px;
