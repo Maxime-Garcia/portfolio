@@ -1,5 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { settle } from './helpers';
 
 const KONAMI = [
   'ArrowUp',
@@ -58,9 +59,7 @@ test.describe('terminal', () => {
   test('has no WCAG A/AA violations when open', async ({ page }) => {
     await page.goto('/');
     await openTerminal(page);
-    await page.evaluate(() =>
-      Promise.all(document.getAnimations().map((a) => a.finished.catch(() => undefined))),
-    );
+    await settle(page);
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze();

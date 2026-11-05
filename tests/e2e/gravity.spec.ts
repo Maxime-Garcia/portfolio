@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { settle } from './helpers';
 import { launch, step } from '../../src/game/gravity/engine';
 import { levels } from '../../src/game/gravity/levels';
 
@@ -75,9 +76,7 @@ test.describe('Gravité mini-game', () => {
     await page.goto('/en/');
     await page.locator('#passions').getByRole('button', { name: 'Play Gravity' }).click();
     await expect(page.getByRole('dialog', { name: 'Gravity' })).toBeVisible();
-    await page.evaluate(() =>
-      Promise.all(document.getAnimations().map((a) => a.finished.catch(() => undefined))),
-    );
+    await settle(page);
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze();

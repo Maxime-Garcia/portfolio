@@ -20,3 +20,10 @@ Chaque contenu provisoire est marqué `TODO(maxime)` dans le code (`grep -rn "TO
 | Domaine dans `robots.txt` | `public/robots.txt` | URL Vercel |
 
 Quand les vrais projets sont ajoutés : supprimer les `exemple-*.mdx` et le test « lists the example projects still to replace » de `tests/unit/projects.test.ts`.
+
+## Journal de bord (page secrète, 6 fragments)
+
+| Quoi               | Où                                           | Provisoire actuel        |
+| ------------------ | -------------------------------------------- | ------------------------ |
+| Histoire de joueur | `src/i18n/ui.ts` (`journal.player.body`)     | Texte « à venir »        |
+| Jeux de chevet     | `src/components/JournalPage.astro` (`games`) | 4 cartes « À compléter » |
