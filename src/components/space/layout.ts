@@ -1,6 +1,6 @@
 import type { SectionId } from '../../i18n/ui';
 
-export type BodyKind = 'earth' | 'planet' | 'nebula' | 'galaxy';
+export type BodyKind = 'earth' | 'planet' | 'campfire' | 'galaxy';
 
 export interface BodySpec {
   id: SectionId;
@@ -19,7 +19,8 @@ export interface BodySpec {
 
 /**
  * One celestial body per section, a voyage outwards:
- * home planet → Mars → Jupiter → Saturn → a nebula → a whole galaxy.
+ * home planet → Mars → (asteroid belt) → Jupiter and its linked moons → Saturn
+ * → a little campfire world → the Sombrero galaxy.
  */
 export const bodies: readonly BodySpec[] = [
   { id: 'hero', kind: 'earth', position: [4, 0.4, 0], radius: 2.4, tilt: 0.41 },
@@ -48,8 +49,8 @@ export const bodies: readonly BodySpec[] = [
     radius: 2.6,
     tilt: 0.47,
   },
-  { id: 'passions', kind: 'nebula', position: [3, 0.5, -185], radius: 6, frame: [0, 3.5] },
-  { id: 'contact', kind: 'galaxy', position: [-2, 0, -240], radius: 7 },
+  { id: 'passions', kind: 'campfire', position: [3, 0.5, -185], radius: 2.2, frame: [-2.6, 0.8] },
+  { id: 'contact', kind: 'galaxy', position: [-2, 0, -240], radius: 9, frame: [0, 4] },
 ];
 
 /** Kept for callers that only need positions (tests, camera). */
@@ -83,3 +84,6 @@ export function cameraFor(
     target: [x + side, y + lift, z],
   };
 }
+
+/** The asteroid belt sits between Mars and Jupiter, around the camera's path. */
+export const ASTEROID_BELT_CENTER: [number, number, number] = [0, 0, -68];

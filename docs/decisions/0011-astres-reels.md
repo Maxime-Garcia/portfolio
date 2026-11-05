@@ -19,3 +19,11 @@ Maxime veut une 3D de fond « vraiment qualitative » : de vraies planètes du s
 ## Conséquences
 
 Le JavaScript initial ne bouge pas (la scène reste chargée sur intention). La scène est plus lourde (textures, postprocessing) : `PerformanceMonitor` bascule en qualité basse (textures `sd`, sans bloom, moins de particules). Les modèles glTF de la NASA ont été écartés : sphères texturées et shaders donnent un meilleur rendu pour bien moins de poids.
+
+## Mise à jour du 2026-11-05 : scènes plus personnelles
+
+- **Nébuleuse retirée** (jugée ratée). Passions devient un **planétoïde de feu de camp**, original : pins, feu qui éclaire le sol, guitare, braises et notes de musique.
+- **Galaxie photographique** : le Sombrero (M104, NASA/ESA et The Hubble Heritage Team (STScI/AURA), CC BY 4.0), imprimé à l'encre en thème clair.
+- **Jupiter** : les lunes galiléennes reliées par des flux de données, clin d'œil au métier d'intégration.
+- **Ceinture d'astéroïdes** traversée entre Mars et Jupiter (un seul draw call instancié).
+- **Textures plus fines, chargées progressivement** : la scène démarre en 2k (environ 400 Ko), puis les versions 4k et 8k (Terre et Voie lactée en 8k, environ 4 Mo) arrivent en arrière-plan si le GPU accepte des textures de 8192 px.
