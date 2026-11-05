@@ -2,6 +2,8 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import { Vector3 } from 'three';
 import type { SectionId } from '../../i18n/ui';
+import { scrollVelocity } from '../../stores/velocity';
+import type { PerspectiveCamera } from 'three';
 import { cameraFor, planets } from './layout';
 
 interface CameraRigProps {
@@ -9,6 +11,8 @@ interface CameraRigProps {
   wide: boolean;
   reduced: boolean;
 }
+
+export const BASE_FOV = 50;
 
 /** Travels to the active planet with exponential smoothing; jumps instead under reduced motion. */
 export function CameraRig({ section, wide, reduced }: CameraRigProps) {
@@ -35,6 +39,13 @@ export function CameraRig({ section, wide, reduced }: CameraRigProps) {
     camera.position.lerp(goal.position, t);
     look.current.lerp(goal.target, t);
     camera.lookAt(look.current);
+    // Warp: the field of view widens with scroll speed, like a jump to light speed.
+    const perspective = camera as PerspectiveCamera;
+    const fov = BASE_FOV + scrollVelocity.intensity * 14;
+    if (Math.abs(perspective.fov - fov) > 0.01) {
+      perspective.fov += (fov - perspective.fov) * 0.2;
+      perspective.updateProjectionMatrix();
+    }
   });
 
   return null;

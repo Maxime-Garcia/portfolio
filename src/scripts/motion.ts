@@ -1,4 +1,5 @@
 import { startSectionObserver } from './section-observer';
+import { startVelocityTracker } from './warp';
 
 let cleanups: (() => void)[] = [];
 let generation = 0;
@@ -7,13 +8,17 @@ let generation = 0;
 async function start(): Promise<void> {
   stop();
   const current = generation;
-  cleanups.push(startSectionObserver());
-  const [{ startLenis }, { startTimelines }] = await Promise.all([
+  cleanups.push(startSectionObserver(), startVelocityTracker());
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const [{ startLenis }, { startTimelines }, speedLines] = await Promise.all([
     import('../animations/lenis'),
     import('../animations/timeline'),
+    reduced ? Promise.resolve(undefined) : import('../animations/speedlines'),
   ]);
   if (current !== generation) return; // the page changed while loading
   cleanups.push(startLenis(), startTimelines());
+  // Anime speed lines while scrolling fast (never under reduced motion).
+  if (speedLines) cleanups.push(speedLines.startSpeedLines());
 }
 
 function stop(): void {
