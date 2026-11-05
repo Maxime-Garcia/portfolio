@@ -205,6 +205,31 @@ html.hyperdrive main {
   }
 }
 
+/* Games room buttons */
+.arcade-button {
+  align-self: flex-start;
+  border: 1px solid var(--plasma);
+  border-radius: 0.375rem;
+  padding: 0.4rem 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--plasma);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.arcade-button:hover {
+  background: var(--plasma);
+  color: var(--bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arcade-button {
+    transition: none;
+  }
+}
+
 /* Gravité mini-game */
 .game-dialog {
   margin: auto;

@@ -1,0 +1,54 @@
+---
+interface Props {
+  kind: 'outerwilds' | 'dofus' | 'tunic';
+}
+
+// Original, abstract illustrations evoking each game (no game assets are used).
+const { kind } = Astro.props;
+---
+
+<svg viewBox="0 0 160 100" aria-hidden="true" class="h-full w-full">
+  <rect width="160" height="100" fill="var(--bg)"></rect>
+  {kind === 'outerwilds' && (
+    <g>
+      <circle cx="128" cy="22" r="10" fill="var(--amp)" opacity="0.9" />
+      <circle cx="128" cy="22" r="18" fill="var(--amp)" opacity="0.15" />
+      <ellipse
+        cx="80"
+        cy="62"
+        rx="58"
+        ry="14"
+        fill="none"
+        stroke="var(--line)"
+        stroke-dasharray="2 4"
+      />
+      <circle cx="80" cy="78" r="30" fill="var(--signal)" opacity="0.85" />
+      <path d="M80 44 l-5 9 h10 z" fill="var(--amp)" />
+      <path d="M80 40 q4 6 0 10 q-4 -4 0 -10" fill="var(--plasma)" />
+      <circle cx="36" cy="30" r="1.2" fill="var(--ink)" />
+      <circle cx="58" cy="14" r="1" fill="var(--ink)" />
+      <circle cx="104" cy="40" r="1" fill="var(--ink)" />
+    </g>
+  )}
+  {kind === 'dofus' && (
+    <g>
+      <ellipse cx="80" cy="54" rx="26" ry="34" fill="var(--amp)" />
+      <ellipse cx="72" cy="40" rx="7" ry="10" fill="var(--ink)" opacity="0.25" />
+      <circle cx="90" cy="64" r="5" fill="var(--plasma)" />
+      <circle cx="70" cy="70" r="3.5" fill="var(--plasma)" />
+      <circle cx="94" cy="44" r="3" fill="var(--plasma)" />
+      <ellipse cx="80" cy="90" rx="34" ry="5" fill="var(--line)" />
+    </g>
+  )}
+  {kind === 'tunic' && (
+    <g>
+      <path d="M58 70 L70 30 L80 52 L90 30 L102 70 Z" fill="var(--amp)" />
+      <path d="M70 62 h20 l-10 12 z" fill="var(--ink)" opacity="0.8" />
+      <g stroke="var(--signal)" stroke-width="2" fill="none">
+        <path d="M20 20 l8 -6 l8 6 m-8 -6 v14" />
+        <path d="M124 78 l8 6 l8 -6 m-8 6 v-14" />
+        <path d="M126 18 h14 m-7 0 v10 l-5 4" />
+      </g>
+    </g>
+  )}
+</svg>

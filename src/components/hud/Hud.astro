@@ -29,7 +29,7 @@ const control =
 
     <nav
       aria-label={t('hud.label')}
-      class="order-last w-full overflow-x-auto md:order-none md:w-auto"
+      class="order-last w-full overflow-x-auto xl:order-none xl:w-auto"
     >
       <ol class="flex gap-1">
         {sections.map((id, index) => (
@@ -50,6 +50,14 @@ const control =
     </nav>
 
     <div class="ml-auto flex items-center gap-1.5">
+      <a
+        href={`${home}#arcade`}
+        data-js-only
+        class={`${control} gap-1 text-plasma hover:border-plasma`}
+      >
+        <span aria-hidden="true">▶</span>
+        {t('hud.games')}
+      </a>
       <button
         type="button"
         data-ignite
@@ -57,16 +65,16 @@ const control =
         class={`${control} items-center gap-1 text-signal hover:border-signal`}
       >
         <span aria-hidden="true">▲</span>
-        <span class="sr-only xl:not-sr-only">{t('hud.ignite')}</span>
+        <span class="sr-only">{t('hud.ignite')}</span>
       </button>
-      <p class="hidden items-center gap-1 px-1 text-muted sm:flex" data-js-only>
+      <p class="hidden items-center gap-1 px-1 text-muted 2xl:flex" data-js-only>
         <span aria-hidden="true" class="text-amp">
           ★
         </span>
         <span class="sr-only">{t('hud.achievements')} :</span>
         <span data-achievements-progress>0/6</span>
       </p>
-      <p class="hidden items-center gap-1 px-1 text-muted sm:flex" data-js-only>
+      <p class="hidden items-center gap-1 px-1 text-muted 2xl:flex" data-js-only>
         <span aria-hidden="true" class="text-signal">
           ✦
         </span>
