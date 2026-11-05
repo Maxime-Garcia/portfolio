@@ -37,3 +37,37 @@ test.describe('warp scroll', () => {
     });
   });
 });
+
+test.describe('hyperspace spread', () => {
+  test('a fast fling lifts the HUD and spreads the content, then everything returns', async ({
+    page,
+  }) => {
+    await page.goto('/');
+    await page.waitForTimeout(800);
+    await page.mouse.move(600, 400);
+    const states: string[] = [];
+    for (let i = 0; i < 8; i++) {
+      await page.mouse.wheel(0, 600);
+      states.push(
+        await page.evaluate(() => document.documentElement.style.getPropertyValue('--warp')),
+      );
+    }
+    expect(states.some((v) => Number(v) > 0.2)).toBe(true);
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.classList.contains('warping')), {
+        timeout: 5000,
+      })
+      .toBe(false);
+  });
+
+  test.describe('reduced motion', () => {
+    test.use({ reducedMotion: 'reduce' });
+
+    test('never spreads', async ({ page }) => {
+      await page.goto('/');
+      await page.mouse.move(600, 400);
+      for (let i = 0; i < 6; i++) await page.mouse.wheel(0, 600);
+      expect(await page.evaluate(() => document.querySelectorAll('.warp-block').length)).toBe(0);
+    });
+  });
+});

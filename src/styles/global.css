@@ -205,6 +205,18 @@ html.hyperdrive main {
   }
 }
 
+/* Hyperspace spread: --warp (0..1) is set per frame by animations/spread.ts on fast flings. */
+html.warping header {
+  transform: translateY(calc(var(--warp) * -130%));
+}
+
+html.warping .warp-block {
+  transform: translateX(calc(var(--side, 0) * var(--warp) * 45vw))
+    scale(calc(1 - var(--warp) * 0.12));
+  opacity: calc(1 - var(--warp) * 0.95);
+  will-change: transform, opacity;
+}
+
 /* Games room buttons */
 .arcade-button {
   align-self: flex-start;

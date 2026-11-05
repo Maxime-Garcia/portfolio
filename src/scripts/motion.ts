@@ -19,6 +19,11 @@ async function start(): Promise<void> {
   cleanups.push(startLenis(), startTimelines());
   // Anime speed lines while scrolling fast (never under reduced motion).
   if (speedLines) cleanups.push(speedLines.startSpeedLines());
+  // The UI spreads apart on fast flings (same reduced-motion guard).
+  if (!reduced) {
+    const { startSpread } = await import('../animations/spread');
+    if (current === generation) cleanups.push(startSpread());
+  }
 }
 
 function stop(): void {
