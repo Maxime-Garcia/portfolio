@@ -16,10 +16,10 @@ export default defineConfig({
     react(),
     mdx(),
     intentDirective(),
-    // hreflang alternates in the sitemap; the 404 page is not indexable.
+    // hreflang alternates in the sitemap; the 404 and the secret logbook are not indexed.
     sitemap({
       i18n: { defaultLocale: 'fr', locales: { fr: 'fr', en: 'en' } },
-      filter: (page) => !page.includes('/404'),
+      filter: (page) => !page.includes('/404') && !page.includes('/journal'),
     }),
   ],
 

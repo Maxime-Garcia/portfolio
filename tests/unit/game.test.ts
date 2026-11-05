@@ -119,6 +119,9 @@ describe('terminal commands', () => {
       { title: 'Beta', href: '/en/projects/beta/' },
     ],
     soundOn: false,
+    section: 'hero',
+    found: [],
+    journal: '/en/journal/',
     ...over,
   });
 
@@ -158,6 +161,32 @@ describe('terminal commands', () => {
     expect(runCommand('contact', ctx()).action).toEqual({ type: 'navigate', href: '/en/#contact' });
     expect(runCommand('about', ctx()).lines[0]).toContain('CGI');
     expect(runCommand('skills', ctx()).lines.join(' ')).toContain('MuleSoft');
+  });
+
+  it('runs the space adventure: scan, go, inventory, hint, journal', () => {
+    const onJupiter = runCommand('scan', ctx({ section: 'skills' }));
+    expect(onJupiter.action).toEqual({ type: 'collect', fragment: 'skills' });
+    expect(
+      runCommand('scan', ctx({ section: 'skills', found: ['skills'] })).action,
+    ).toBeUndefined();
+    expect(runCommand('scan', ctx({ section: 'about' })).lines.at(-1)).toBe(
+      'No anomaly here. Try "hint".',
+    );
+    expect(runCommand('go saturn', ctx()).action).toEqual({
+      type: 'navigate',
+      href: '/en/#projects',
+    });
+    expect(runCommand('go', ctx()).error).toBeFalsy();
+    expect(runCommand('go pluto', ctx()).error).toBe(true);
+    expect(runCommand('inventory', ctx({ found: ['hero'] })).lines[0]).toBe('Fragments: 1/6');
+    expect(runCommand('hint', ctx()).lines[0]).toContain('Earth');
+    const all = ['hero', 'about', 'skills', 'projects', 'passions', 'contact'] as const;
+    expect(runCommand('hint', ctx({ found: all })).lines[0]).toContain('journal');
+    expect(runCommand('journal', ctx()).error).toBe(true);
+    expect(runCommand('journal', ctx({ found: all })).action).toEqual({
+      type: 'navigate',
+      href: '/en/journal/',
+    });
   });
 
   it('returns side effects as actions', () => {

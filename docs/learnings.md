@@ -24,6 +24,12 @@ Le jeu, chargé au temps mort du navigateur, ratait les sections vues avant son 
 **g. Niveaux de jeu vérifiés par force brute.**
 Un test essaie des milliers de tirs (angle × puissance) sur chaque niveau de Gravité : soluble, mais pas trivial. Il a révélé un niveau 5 impossible. La boucle du jeu tourne à pas fixe (1/240 s) : un tir donne toujours la même trajectoire, et le test E2E peut rejouer un tir gagnant trouvé côté Node.
 
+**h. Animations infinies et attente d'axe.**
+Le scintillement des fragments boucle à l'infini : attendre « toutes » les animations bloquait les tests axe. `tests/e2e/helpers.ts` (`settle`) ignore les animations infinies.
+
+**i. `<Fragment>` est réservé dans Astro.**
+Un composant nommé `Fragment` entre en collision avec le `<Fragment>` natif. Renommé en `StarFragment`.
+
 **f. Captures pendant un scroll fluide.**
 Une capture Playwright prise en plein défilement peut afficher un HUD « décroché » : c'est un artefact. Il faut mesurer `getBoundingClientRect()` pour trancher.
 

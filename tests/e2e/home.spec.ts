@@ -1,16 +1,8 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { settle } from './helpers';
 
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
-
-/** Waits for running CSS/GSAP animations, so axe sees final colours, not mid-fade ones. */
-async function settle(page: Page) {
-  await page.evaluate(() =>
-    Promise.all(
-      document.getAnimations().map((animation) => animation.finished.catch(() => undefined)),
-    ),
-  );
-}
 
 async function expectNoAxeViolations(page: Page) {
   await settle(page);

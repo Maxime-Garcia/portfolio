@@ -1,0 +1,19 @@
+---
+import type { FragmentId } from '../../lib/fragments';
+import type { Lang } from '../../i18n/ui';
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  id: FragmentId;
+  lang: Lang;
+}
+
+// A hidden star fragment: discreet, but a real, keyboard-reachable button. Needs JS (the hunt does).
+const { id, lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<button type="button" data-fragment={id} data-js-only class="fragment">
+  <span aria-hidden="true">✦</span>
+  <span class="sr-only">{t('fragment.button')}</span>
+</button>
