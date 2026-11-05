@@ -2,7 +2,7 @@ import { isLang, useTranslations } from '../i18n/utils';
 import { defaultLang } from '../i18n/ui';
 import { progress } from '../lib/achievements';
 import { achievements, onUnlock, unlock, visitPlanet } from '../stores/achievements';
-import { activeSection } from '../stores/section';
+import { activeSection, visitedSections } from '../stores/section';
 import { soundEnabled } from '../stores/sound';
 import { listenKonami } from './konami';
 import { showToast } from './toasts';
@@ -35,6 +35,8 @@ export function initGame(): void {
     renderProgress();
   });
 
+  // Replay planets seen before this module loaded, then follow live.
+  for (const id of visitedSections) visitPlanet(id);
   activeSection.subscribe((id) => visitPlanet(id));
   soundEnabled.subscribe((on) => {
     if (on) unlock('sound');
