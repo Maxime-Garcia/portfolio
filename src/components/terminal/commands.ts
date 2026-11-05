@@ -1,5 +1,7 @@
 import type { UiKey } from '../../i18n/ui';
 import { skillGroups } from '../../lib/skills';
+import { fragmentIds, nextMissing, resolveBody, type FragmentId } from '../../lib/fragments';
+import type { SectionId } from '../../i18n/ui';
 
 export const commandNames = [
   'help',
@@ -11,6 +13,11 @@ export const commandNames = [
   'sound',
   'lang',
   'play',
+  'scan',
+  'go',
+  'inventory',
+  'hint',
+  'journal',
   'clear',
   'exit',
 ] as const;
@@ -23,6 +30,7 @@ export type Action =
   | { type: 'sound' }
   | { type: 'lang' }
   | { type: 'play' }
+  | { type: 'collect'; fragment: FragmentId }
   | { type: 'clear' }
   | { type: 'exit' };
 
@@ -38,6 +46,11 @@ export interface CommandContext {
   home: string;
   projects: { title: string; href: string }[];
   soundOn: boolean;
+  /** Section (= celestial body) currently in view. */
+  section: SectionId;
+  found: readonly FragmentId[];
+  /** Localized path of the logbook page. */
+  journal: string;
 }
 
 export const fill = (template: string, values: Record<string, string>) =>
@@ -96,6 +109,46 @@ export function runCommand(input: string, ctx: CommandContext): CommandResult {
       return { lines: [t('term.lang')], action: { type: 'lang' } };
     case 'play':
       return { lines: [t('term.play')], action: { type: 'play' } };
+    case 'scan': {
+      const lines = [`${t(`body.${ctx.section}`)} · ${t(`scan.${ctx.section}`)}`];
+      if (ctx.section === 'skills' && !ctx.found.includes('skills')) {
+        return {
+          lines: [...lines, t('scan.found')],
+          action: { type: 'collect', fragment: 'skills' },
+        };
+      }
+      return { lines: [...lines, t('scan.none')] };
+    }
+    case 'go': {
+      const target = args[0] ? resolveBody(args[0]) : undefined;
+      if (!target) return { lines: [t('term.go.usage')], error: Boolean(args[0]) };
+      return {
+        lines: [fill(t('term.go'), { body: t(`body.${target}`) })],
+        action: { type: 'navigate', href: `${ctx.home}#${target}` },
+      };
+    }
+    case 'inventory':
+      return {
+        lines: [
+          fill(t('term.inventory'), { n: String(ctx.found.length) }),
+          ...fragmentIds.map(
+            (id) =>
+              `  ${ctx.found.includes(id) ? '✦' : '·'} ${fill(t('fragment.name'), { body: t(`body.${id}`) })}`,
+          ),
+        ],
+      };
+    case 'hint': {
+      const missing = nextMissing(ctx.found);
+      return { lines: [t(missing ? `hint.${missing}` : 'hint.done')] };
+    }
+    case 'journal':
+      if (ctx.found.length < fragmentIds.length) {
+        return {
+          lines: [fill(t('term.journal.locked'), { n: String(ctx.found.length) })],
+          error: true,
+        };
+      }
+      return { lines: [t('term.journal')], action: { type: 'navigate', href: ctx.journal } };
     case 'clear':
       return { lines: [], action: { type: 'clear' } };
     case 'exit':

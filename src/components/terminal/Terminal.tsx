@@ -7,6 +7,9 @@ import type { Lang } from '../../i18n/ui';
 import { localizePath, otherLang, useTranslations } from '../../i18n/utils';
 import { soundEnabled } from '../../stores/sound';
 import { unlock } from '../../stores/achievements';
+import { activeSection } from '../../stores/section';
+import { collectFragment, fragments } from '../../stores/fragments';
+import { scrollToElement } from '../../scripts/scroller';
 import { runCommand } from './commands';
 import { GAME_EVENT, TERMINAL_EVENT } from '../../scripts/shortcuts';
 
@@ -25,6 +28,8 @@ interface TerminalProps {
 export default function Terminal({ lang, projects }: TerminalProps) {
   const t = useTranslations(lang);
   const soundOn = useStore(soundEnabled);
+  const section = useStore(activeSection);
+  const found = useStore(fragments);
   const dialog = useRef<HTMLDialogElement>(null);
   const input = useRef<HTMLInputElement>(null);
   const log = useRef<HTMLDivElement>(null);
@@ -66,14 +71,37 @@ export default function Terminal({ lang, projects }: TerminalProps) {
     const entry = value;
     setValue('');
     push('in', [`> ${entry}`]);
-    const result = runCommand(entry, { t, home: localizePath(lang, '/'), projects, soundOn });
+    const result = runCommand(entry, {
+      t,
+      home: localizePath(lang, '/'),
+      projects,
+      soundOn,
+      section,
+      found,
+      journal: localizePath(lang, '/journal/'),
+    });
     push(result.error ? 'err' : 'out', result.lines);
     const action = result.action;
     if (!action) return;
     switch (action.type) {
-      case 'navigate':
+      case 'navigate': {
         dialog.current?.close();
-        void navigate(action.href);
+        // Same page with a hash: scroll there (Lenis or native), like the star map does.
+        const url = new URL(action.href, location.href);
+        const target =
+          url.hash && url.pathname === location.pathname
+            ? document.getElementById(url.hash.slice(1))
+            : null;
+        if (target) {
+          history.pushState(history.state, '', url.hash);
+          scrollToElement(target);
+        } else {
+          void navigate(action.href);
+        }
+        break;
+      }
+      case 'collect':
+        collectFragment(action.fragment);
         break;
       case 'theme':
         document.querySelector<HTMLButtonElement>('[data-theme-toggle]')?.click();
