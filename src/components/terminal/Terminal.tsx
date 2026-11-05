@@ -130,6 +130,8 @@ export default function Terminal({ lang, projects }: TerminalProps) {
   return (
     <dialog
       ref={dialog}
+      // Lenis must not hijack the wheel: the log scrolls, not the page behind.
+      data-lenis-prevent
       aria-labelledby="terminal-title"
       className="m-auto w-[min(42rem,calc(100vw-2rem))] rounded-xl border border-line bg-bg p-0 text-ink shadow-2xl backdrop:bg-bg/70 backdrop:backdrop-blur-sm"
     >

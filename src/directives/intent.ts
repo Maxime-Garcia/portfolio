@@ -17,13 +17,25 @@ function isIntent(event: Event): boolean {
  * or when the HUD "ignite" button fires `orbite:ignite`. Never on incapable devices.
  * State is exposed on <html data-space="off|ready|on"> for CSS and the HUD.
  */
+// Module state, shared by every page's island: the canvas is persisted across ClientRouter swaps,
+// and swaps replace <html> attributes, so the state is re-applied after each one.
+let state: 'off' | 'ready' | 'on' | undefined;
+const setState = (next: NonNullable<typeof state>) => {
+  state = next;
+  document.documentElement.dataset.space = next;
+};
+document.addEventListener('astro:after-swap', () => {
+  if (state) document.documentElement.dataset.space = state;
+});
+
 const intent: ClientDirective = (load) => {
-  const root = document.documentElement;
+  // Already running (persisted canvas): nothing to hydrate again.
+  if (state === 'on') return;
   if (!canRender3D(readDeviceSignals())) {
-    root.dataset.space = 'off';
+    setState('off');
     return;
   }
-  root.dataset.space = 'ready';
+  setState('ready');
 
   let started = false;
   const start = async (event: Event) => {
@@ -33,7 +45,7 @@ const intent: ClientDirective = (load) => {
     window.removeEventListener('orbite:ignite', start);
     const hydrate = await load();
     await hydrate();
-    root.dataset.space = 'on';
+    setState('on');
   };
 
   for (const name of INTENT_EVENTS) window.addEventListener(name, start, { passive: true });
