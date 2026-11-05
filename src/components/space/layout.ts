@@ -1,84 +1,85 @@
 import type { SectionId } from '../../i18n/ui';
 
-export interface PlanetSpec {
+export type BodyKind = 'earth' | 'planet' | 'nebula' | 'galaxy';
+
+export interface BodySpec {
   id: SectionId;
+  kind: BodyKind;
   position: [number, number, number];
+  /** Visual radius: drives the camera distance and the distance fade. */
   radius: number;
-  bands: number;
-  ring: boolean;
-  /** Theme palette keys: base surface and accent. */
-  base: 'surface' | 'ink';
-  accent: 'plasma' | 'signal' | 'amp';
+  /** Texture name in public/textures/{hd,sd}/ (planets only). */
+  texture?: 'mars' | 'jupiter' | 'saturn';
+  ring?: boolean;
+  /** Axial tilt in radians. */
+  tilt?: number;
+  /** Extra screen framing [x, y] in world units: positive y shows the body higher. */
+  frame?: [number, number];
 }
 
-/** One planet per section, laid out along a gentle descending spiral. */
-export const planets: readonly PlanetSpec[] = [
-  {
-    id: 'hero',
-    position: [4, 0.5, 0],
-    radius: 2.4,
-    bands: 9,
-    ring: true,
-    base: 'surface',
-    accent: 'plasma',
-  },
+/**
+ * One celestial body per section, a voyage outwards:
+ * home planet → Mars → Jupiter → Saturn → a nebula → a whole galaxy.
+ */
+export const bodies: readonly BodySpec[] = [
+  { id: 'hero', kind: 'earth', position: [4, 0.4, 0], radius: 2.4, tilt: 0.41 },
   {
     id: 'about',
-    position: [-3, -2, -22],
+    kind: 'planet',
+    texture: 'mars',
+    position: [-3, -2, -45],
     radius: 1.6,
-    bands: 14,
-    ring: false,
-    base: 'surface',
-    accent: 'signal',
+    tilt: 0.44,
   },
   {
     id: 'skills',
-    position: [5, 1.5, -44],
-    radius: 2,
-    bands: 6,
-    ring: false,
-    base: 'surface',
-    accent: 'amp',
+    kind: 'planet',
+    texture: 'jupiter',
+    position: [5, 1.5, -90],
+    radius: 3.2,
+    tilt: 0.05,
   },
   {
     id: 'projects',
-    position: [-4, 2.5, -66],
-    radius: 2.8,
-    bands: 11,
+    kind: 'planet',
+    texture: 'saturn',
     ring: true,
-    base: 'surface',
-    accent: 'signal',
+    position: [-4, 2.5, -135],
+    radius: 2.6,
+    tilt: 0.47,
   },
-  {
-    id: 'passions',
-    position: [3.5, -1.5, -88],
-    radius: 1.8,
-    bands: 18,
-    ring: false,
-    base: 'surface',
-    accent: 'plasma',
-  },
-  {
-    id: 'contact',
-    position: [-2, 0, -110],
-    radius: 2.2,
-    bands: 8,
-    ring: false,
-    base: 'surface',
-    accent: 'amp',
-  },
+  { id: 'passions', kind: 'nebula', position: [3, 0.5, -185], radius: 6, frame: [0, 3.5] },
+  { id: 'contact', kind: 'galaxy', position: [-2, 0, -240], radius: 7 },
 ];
 
-/** Where the camera sits for a planet: in front of it and shifted left, so the planet sits right of the text. */
+/** Kept for callers that only need positions (tests, camera). */
+export const planets = bodies;
+
+/** Direction the sunlight comes from (world space): from the right, so night sides face the text. */
+export const SUN_DIRECTION: [number, number, number] = [1, 0.3, 0.2];
+
+/** Distance fade (distance to the body's surface): the active body is < 26 away, the next one ≥ 30. */
+export const FADE_NEAR = 26;
+export const FADE_FAR = 44;
+
+/** 1 when close, 0 when far: bodies dissolve with distance so they never clutter the text. */
+export function fadeFor(distanceToSurface: number): number {
+  const t = Math.min(1, Math.max(0, (distanceToSurface - FADE_NEAR) / (FADE_FAR - FADE_NEAR)));
+  return 1 - t * t * (3 - 2 * t);
+}
+
+/** Where the camera sits for a body: in front of it and shifted left, so it sits right of the text. */
 export function cameraFor(
-  spec: PlanetSpec,
+  spec: BodySpec,
   wide: boolean,
 ): { position: [number, number, number]; target: [number, number, number] } {
   const [x, y, z] = spec.position;
-  // Bigger planets sit further right so they never cover the headline.
-  const side = wide ? -(3 + spec.radius * 1.4) : 0;
+  const [frameX, frameY] = spec.frame ?? [0, 0];
+  // Bigger bodies sit further right so they never cover the headline.
+  const side = (wide ? -(3 + spec.radius * 1.4) : 0) - frameX;
+  const lift = -frameY;
   return {
-    position: [x + side, y + 0.6, z + spec.radius * 3.6 + 4],
-    target: [x + side, y, z],
+    position: [x + side, y + lift + 0.6, z + spec.radius * 3.6 + 4],
+    target: [x + side, y + lift, z],
   };
 }

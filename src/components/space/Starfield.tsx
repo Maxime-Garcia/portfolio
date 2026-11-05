@@ -31,9 +31,9 @@ export function Starfield({ count, palette, additive, animate }: StarfieldProps)
     const sizes = new Float32Array(count);
     const phases = new Float32Array(count);
     for (let i = 0; i < count; i++) {
-      positions[i * 3] = (random() - 0.5) * 120;
-      positions[i * 3 + 1] = (random() - 0.5) * 80;
-      positions[i * 3 + 2] = 20 - random() * 170;
+      positions[i * 3] = (random() - 0.5) * 160;
+      positions[i * 3 + 1] = (random() - 0.5) * 110;
+      positions[i * 3 + 2] = 20 - random() * 300;
       sizes[i] = 0.4 + random() * random() * 2.2;
       phases[i] = random() * Math.PI * 2;
     }
