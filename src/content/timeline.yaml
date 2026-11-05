@@ -17,7 +17,7 @@
 - id: cgi
   order: 3
   period: { fr: Aujourd’hui, en: Today }
-  title: { fr: Développeur intégration chez CGI, en: Integration developer at CGI }
+  title: { fr: MuleSoft Tech Lead chez CGI, en: MuleSoft Tech Lead at CGI }
   text:
     fr: Expertise MuleSoft, flux entre systèmes et chaîne de livraison.
     en: MuleSoft expertise, flows between systems and delivery pipelines.
