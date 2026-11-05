@@ -44,22 +44,4 @@ test.describe('sound', () => {
     await expect(page.getByRole('button', { name: 'Son' })).toHaveAttribute('aria-pressed', 'true');
     expect(await contexts(page)).toBe(0);
   });
-
-  test('wires the visualiser only when the track is played', async ({ page }) => {
-    await trackAudioContexts(page);
-    const audioRequests: string[] = [];
-    page.on('request', (r) => {
-      if (r.url().includes('/audio/')) audioRequests.push(r.url());
-    });
-    await page.goto('/');
-    await page.locator('#passions').scrollIntoViewIfNeeded();
-    expect(audioRequests).toEqual([]);
-    expect(await contexts(page)).toBe(0);
-    await page.locator('[data-passions-audio]').evaluate((audio: HTMLAudioElement) => {
-      audio.muted = true;
-      return audio.play();
-    });
-    await expect.poll(() => audioRequests.length).toBeGreaterThan(0);
-    await expect.poll(() => contexts(page)).toBe(1);
-  });
 });

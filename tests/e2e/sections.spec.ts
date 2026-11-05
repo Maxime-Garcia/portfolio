@@ -28,15 +28,14 @@ test.describe('content sections', () => {
     }
   });
 
-  test('audio is not requested before playback', async ({ page }) => {
-    const audioRequests: string[] = [];
-    page.on('request', (r) => {
-      if (r.url().includes('/audio/')) audioRequests.push(r.url());
-    });
+  test('music shows listening styles and artists linking to YouTube Music', async ({ page }) => {
     await page.goto('/');
-    await page.locator('#passions').scrollIntoViewIfNeeded();
-    await expect(page.locator('[data-passions-audio]')).toHaveAttribute('preload', 'none');
-    expect(audioRequests).toEqual([]);
+    const music = page.locator('#passions article').first();
+    await expect(music.getByRole('heading', { name: 'Ce que j’écoute' })).toBeVisible();
+    const artists = music.getByRole('link', { name: /YouTube Music, nouvel onglet/ });
+    expect(await artists.count()).toBeGreaterThan(3);
+    await expect(artists.first()).toHaveAttribute('href', /^https:\/\/music\.youtube\.com\//);
+    await expect(page.locator('audio')).toHaveCount(0);
   });
 
   test('contact form is disabled with a notice when Formspree is not configured', async ({
