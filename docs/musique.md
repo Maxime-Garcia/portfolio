@@ -17,7 +17,8 @@ Le fichier se trouve dans `Takeout/YouTube et YouTube Music/historique/watch-his
 node scripts/music-takeout.ts "chemin/vers/watch-history.json" --top 12 --since 2025-01-01
 ```
 
-- `--top` : nombre d'artistes affichés (12 par défaut).
+- `--top` : nombre d'artistes classés (12 par défaut).
+- `--tracks` : nombre de pochettes « En rotation » (6 par défaut).
 - `--since` : ne compter que les écoutes depuis cette date (facultatif).
 
 Le script :
@@ -28,6 +29,10 @@ Le script :
 
 ## Ce qui est publié
 
-Uniquement le classement des artistes et des styles, avec un lien YouTube Music par artiste. **Ni l'historique brut, ni les titres, ni les dates, ni le nombre d'écoutes** : ils restent sur ta machine. Ne pas committer le dossier Takeout.
+- **La dernière écoute**, avec son titre, son artiste, sa pochette et sa **date** (affichée « il y a 3 heures »).
+- **Les morceaux les plus écoutés** (« En rotation »), avec titre, artiste et pochette.
+- **Le classement des styles.**
+
+Les pochettes sont téléchargées depuis les miniatures YouTube, recadrées au carré et enregistrées dans `public/music/`. **Ni le reste de l'historique, ni le nombre d'écoutes** ne sont publiés. Ne pas committer le dossier Takeout.
 
 Pour rafraîchir, relancer le script et ouvrir une PR avec le nouveau `music.json`.

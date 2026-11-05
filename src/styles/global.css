@@ -217,6 +217,66 @@ html.warping .warp-block {
   will-change: transform, opacity;
 }
 
+/* Ship's radio */
+.radio-led {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--signal);
+  box-shadow: 0 0 8px var(--signal);
+}
+
+.radio-wave path {
+  fill: none;
+  stroke: var(--signal);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+
+.radio-cover img,
+.radio-cover svg {
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+
+.radio-cover:hover img,
+.radio-cover:hover svg,
+.radio-cover:focus-visible img,
+.radio-cover:focus-visible svg {
+  transform: translateY(-3px) rotate(-1.5deg);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .radio-led {
+    animation: led 2.4s ease-in-out infinite;
+  }
+
+  .radio-wave path {
+    animation: wave 1.6s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radio-cover img,
+  .radio-cover svg {
+    transition: none;
+  }
+}
+
+@keyframes led {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes wave {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
 /* Games room buttons */
 .arcade-button {
   align-self: flex-start;

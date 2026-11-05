@@ -150,6 +150,9 @@ const fr = {
   'arcade.fragments.progress': 'Fragments trouvés : {n}/6',
   'hud.games': 'Jeux',
   'arcade.close': 'Fermer la salle de jeux',
+  'radio.frequency': 'FRÉQ. 22.0 · réception',
+  'radio.latest': 'Dernier signal capté',
+  'radio.rotation': 'En rotation',
   'section.hero': 'Décollage',
   'section.about': 'Le pilote',
   'section.skills': 'La soute',
@@ -195,9 +198,9 @@ const fr = {
   'tag.music': 'Musique',
   'passions.lead':
     'Là où je pose le vaisseau quand l’écran de travail s’éteint : de la musique, des mondes, et des jeux qui se jouent ici même.',
-  'passions.music.title': 'Ce que j’écoute',
+  'passions.music.title': 'Radio de bord',
   'passions.music.body':
-    'Guitariste, je vis aussi la musique au casque. Mes styles et artistes les plus écoutés sur YouTube Music :',
+    'Ce qui passe dans mon casque entre deux riffs, capté depuis mon historique YouTube Music.',
   'passions.music.genres': 'Styles',
   'passions.music.artists': 'Artistes',
   'passions.music.newtab': '(YouTube Music, nouvel onglet)',
@@ -360,6 +363,9 @@ const en: Record<UiKey, string> = {
   'arcade.fragments.progress': 'Fragments found: {n}/6',
   'hud.games': 'Games',
   'arcade.close': 'Close the games room',
+  'radio.frequency': 'FREQ. 22.0 · receiving',
+  'radio.latest': 'Last signal received',
+  'radio.rotation': 'On rotation',
   'section.hero': 'Liftoff',
   'section.about': 'The pilot',
   'section.skills': 'The cargo hold',
@@ -405,9 +411,9 @@ const en: Record<UiKey, string> = {
   'tag.music': 'Music',
   'passions.lead':
     'Where I land the ship once the work screen goes dark: music, worlds, and games you can play right here.',
-  'passions.music.title': 'What I listen to',
+  'passions.music.title': "Ship's radio",
   'passions.music.body':
-    'A guitarist, I also live music through headphones. My most played styles and artists on YouTube Music:',
+    'What plays in my headphones between two riffs, picked up from my YouTube Music history.',
   'passions.music.genres': 'Styles',
   'passions.music.artists': 'Artists',
   'passions.music.newtab': '(YouTube Music, new tab)',

@@ -9,6 +9,10 @@ import {
   playsFromJson,
   topArtists,
   topGenres,
+  topTracks,
+  cleanTitle,
+  videoIdOf,
+  watchUrl,
 } from '../../src/lib/music';
 
 const json = [
@@ -50,7 +54,12 @@ describe('takeout parsing', () => {
       <div class="content-cell">Watched <a href="https://www.youtube.com/watch?v=2">Clip</a><br>
       <a href="https://www.youtube.com/channel/UC_y">Vlogger</a></div></div>`;
     expect(playsFromHtml(html)).toEqual([
-      { artist: 'Gamma & Co', channelUrl: 'https://www.youtube.com/channel/UC_x' },
+      {
+        artist: 'Gamma & Co',
+        channelUrl: 'https://www.youtube.com/channel/UC_x',
+        title: 'Song',
+        videoId: undefined,
+      },
     ]);
   });
 
@@ -62,6 +71,44 @@ describe('takeout parsing', () => {
     ]);
     expect(topArtists(plays, 5, '2025-01-01').map((a) => a.name)).toEqual(['Alpha']);
     expect(topArtists(plays, 1)[0].channelUrl).toBe('https://www.youtube.com/channel/UC_alpha');
+  });
+});
+
+describe('tracks', () => {
+  it('cleans titles and reads video ids', () => {
+    expect(cleanTitle('Watched Nocturne No. 2')).toBe('Nocturne No. 2');
+    expect(cleanTitle('Vous avez regardé Sheesh')).toBe('Sheesh');
+    expect(videoIdOf('https://music.youtube.com/watch?v=abc_123-X&list=1')).toBe('abc_123-X');
+    expect(videoIdOf(undefined)).toBeUndefined();
+    expect(watchUrl('abc123')).toBe('https://music.youtube.com/watch?v=abc123');
+  });
+
+  it('ranks the most played songs, most recent play first in the history', () => {
+    const plays = playsFromJson([
+      {
+        header: 'YouTube Music',
+        title: 'Watched Song A',
+        titleUrl: 'https://music.youtube.com/watch?v=aaaaaa',
+        subtitles: [{ name: 'X - Topic' }],
+      },
+      {
+        header: 'YouTube Music',
+        title: 'Watched Song B',
+        titleUrl: 'https://music.youtube.com/watch?v=bbbbbb',
+        subtitles: [{ name: 'Y' }],
+      },
+      {
+        header: 'YouTube Music',
+        title: 'Watched Song A',
+        titleUrl: 'https://music.youtube.com/watch?v=aaaaaa',
+        subtitles: [{ name: 'X - Topic' }],
+      },
+    ]);
+    expect(plays[0]).toMatchObject({ title: 'Song A', videoId: 'aaaaaa', artist: 'X' });
+    expect(topTracks(plays, 5)).toEqual([
+      { videoId: 'aaaaaa', title: 'Song A', artist: 'X' },
+      { videoId: 'bbbbbb', title: 'Song B', artist: 'Y' },
+    ]);
   });
 });
 

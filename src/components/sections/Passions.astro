@@ -1,12 +1,10 @@
 ---
 import type { Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
-import Badge from '../ui/Badge.astro';
 import Section from './Section.astro';
 import StarFragment from '../ui/StarFragment.astro';
 import GameArt from '../passions/GameArt.astro';
-import musicData from '../../content/music.json';
-import { musicSchema } from '../../lib/music';
+import MusicRadio from '../passions/MusicRadio.astro';
 
 interface Props {
   lang: Lang;
@@ -14,8 +12,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-// TODO(maxime): run `node scripts/music-takeout.ts <watch-history>` to fill this from YouTube Music.
-const music = musicSchema.parse(musicData);
 const worlds = [
   { id: 'outerwilds', name: 'Outer Wilds' },
   { id: 'dofus', name: 'Dofus' },
@@ -25,46 +21,7 @@ const worlds = [
 
 <Section id="passions" lang={lang} lead="passions.lead">
   <div class="grid gap-6 md:grid-cols-2">
-    <article class="rounded-xl border border-line bg-surface/90 p-6">
-      <div class="flex flex-wrap items-center gap-2">
-        <h3 class="font-display text-xl font-bold">{t('passions.music.title')}</h3>
-        {music.placeholder && <Badge>{t('placeholder.badge')}</Badge>}
-      </div>
-      <p class="mt-3 text-muted">{t('passions.music.body')}</p>
-      <h4 class="mt-6 font-mono text-sm text-ink">{t('passions.music.genres')}</h4>
-      <ul class="mt-3 flex flex-wrap items-baseline gap-2">
-        {music.genres.map((genre) => (
-          <li
-            class="rounded-full border border-plasma px-3 py-1 font-mono text-plasma"
-            style={`font-size: ${(0.75 + genre.weight * 0.4).toFixed(2)}rem`}
-          >
-            {genre.name}
-          </li>
-        ))}
-      </ul>
-      <h4 class="mt-6 font-mono text-sm text-ink">{t('passions.music.artists')}</h4>
-      <ul class="mt-3 flex flex-wrap gap-2">
-        {music.artists.map((artist) => (
-          <li>
-            <a
-              href={artist.url}
-              rel="noopener"
-              target="_blank"
-              class="inline-flex items-center gap-1.5 rounded-full border border-line bg-bg/60 px-3 py-1.5 text-sm text-ink transition-colors hover:border-signal hover:text-signal motion-reduce:transition-none"
-            >
-              <span aria-hidden="true" class="text-signal">
-                ♪
-              </span>
-              {artist.name}
-              <span class="sr-only">{t('passions.music.newtab')}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-      <p class="mt-6 font-mono text-xs text-muted">
-        {t('passions.music.source')} · {music.generatedAt}
-      </p>
-    </article>
+    <MusicRadio lang={lang} />
     <article class="rounded-xl border border-line bg-surface/90 p-6">
       <h3 class="flex items-center gap-1 font-display text-xl font-bold">
         {t('passions.games.title')}

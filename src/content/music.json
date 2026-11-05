@@ -2,21 +2,109 @@
   "placeholder": true,
   "generatedAt": "2026-11-05",
   "genres": [
-    { "name": "style n°1", "weight": 1 },
-    { "name": "style n°2", "weight": 0.8 },
-    { "name": "style n°3", "weight": 0.65 },
-    { "name": "style n°4", "weight": 0.5 },
-    { "name": "style n°5", "weight": 0.4 },
-    { "name": "style n°6", "weight": 0.3 }
+    {
+      "name": "style n°1",
+      "weight": 1
+    },
+    {
+      "name": "style n°2",
+      "weight": 0.8
+    },
+    {
+      "name": "style n°3",
+      "weight": 0.65
+    },
+    {
+      "name": "style n°4",
+      "weight": 0.5
+    },
+    {
+      "name": "style n°5",
+      "weight": 0.4
+    },
+    {
+      "name": "style n°6",
+      "weight": 0.3
+    }
   ],
   "artists": [
-    { "name": "Artiste n°1", "url": "https://music.youtube.com/", "genres": ["style n°1"] },
-    { "name": "Artiste n°2", "url": "https://music.youtube.com/", "genres": ["style n°2"] },
-    { "name": "Artiste n°3", "url": "https://music.youtube.com/", "genres": ["style n°1"] },
-    { "name": "Artiste n°4", "url": "https://music.youtube.com/", "genres": ["style n°3"] },
-    { "name": "Artiste n°5", "url": "https://music.youtube.com/", "genres": ["style n°4"] },
-    { "name": "Artiste n°6", "url": "https://music.youtube.com/", "genres": ["style n°2"] },
-    { "name": "Artiste n°7", "url": "https://music.youtube.com/", "genres": ["style n°5"] },
-    { "name": "Artiste n°8", "url": "https://music.youtube.com/", "genres": ["style n°6"] }
+    {
+      "name": "Artiste n°1",
+      "url": "https://music.youtube.com/",
+      "genres": ["style n°1"]
+    },
+    {
+      "name": "Artiste n°2",
+      "url": "https://music.youtube.com/",
+      "genres": ["style n°2"]
+    },
+    {
+      "name": "Artiste n°3",
+      "url": "https://music.youtube.com/",
+      "genres": ["style n°1"]
+    },
+    {
+      "name": "Artiste n°4",
+      "url": "https://music.youtube.com/",
+      "genres": ["style n°3"]
+    },
+    {
+      "name": "Artiste n°5",
+      "url": "https://music.youtube.com/",
+      "genres": ["style n°4"]
+    },
+    {
+      "name": "Artiste n°6",
+      "url": "https://music.youtube.com/",
+      "genres": ["style n°2"]
+    },
+    {
+      "name": "Artiste n°7",
+      "url": "https://music.youtube.com/",
+      "genres": ["style n°5"]
+    },
+    {
+      "name": "Artiste n°8",
+      "url": "https://music.youtube.com/",
+      "genres": ["style n°6"]
+    }
+  ],
+  "latest": {
+    "title": "Morceau du moment",
+    "artist": "Artiste n°1",
+    "url": "https://music.youtube.com/",
+    "playedAt": "2026-11-05T08:00:00Z"
+  },
+  "tracks": [
+    {
+      "title": "Morceau n°1",
+      "artist": "Artiste n°1",
+      "url": "https://music.youtube.com/"
+    },
+    {
+      "title": "Morceau n°2",
+      "artist": "Artiste n°2",
+      "url": "https://music.youtube.com/"
+    },
+    {
+      "title": "Morceau n°3",
+      "artist": "Artiste n°3",
+      "url": "https://music.youtube.com/"
+    },
+    {
+      "title": "Morceau n°4",
+      "artist": "Artiste n°4",
+      "url": "https://music.youtube.com/"
+    },
+    {
+      "title": "Morceau n°5",
+      "artist": "Artiste n°5",
+      "url": "https://music.youtube.com/"
+    },
+    {
+      "title": "Morceau n°6",
+      "artist": "Artiste n°6",
+      "url": "https://music.youtube.com/"
+    }
   ]
 }

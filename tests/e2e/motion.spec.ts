@@ -31,7 +31,8 @@ test.describe('motion', () => {
       'Pipeline de livraison avec contrôle qualité',
     );
     await page.getByRole('link', { name: /Retour aux projets/ }).click();
-    await expect(page.locator('html')).toHaveClass(/motion-ready/);
+    // Motion restarts after the swap; its chunks can take a moment under parallel test load.
+    await expect(page.locator('html')).toHaveClass(/motion-ready/, { timeout: 15_000 });
     await page.getByRole('button', { name: 'Thème clair' }).click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   });

@@ -30,8 +30,8 @@ test.describe('content sections', () => {
 
   test('music shows listening styles and artists linking to YouTube Music', async ({ page }) => {
     await page.goto('/');
-    const music = page.locator('#passions article').first();
-    await expect(music.getByRole('heading', { name: 'Ce que j’écoute' })).toBeVisible();
+    const music = page.getByRole('article', { name: 'Radio de bord' });
+    await expect(music.getByRole('heading', { name: 'Radio de bord' })).toBeVisible();
     const artists = music.getByRole('link', { name: /YouTube Music, nouvel onglet/ });
     expect(await artists.count()).toBeGreaterThan(3);
     await expect(artists.first()).toHaveAttribute('href', /^https:\/\/music\.youtube\.com\//);
