@@ -14,8 +14,8 @@ export type SectionId = (typeof sections)[number];
 
 const fr = {
   'meta.description':
-    'Portfolio de Maxime Garcia, développeur intégration chez CGI, expert MuleSoft, game designer et guitariste.',
-  'site.role': 'Développeur intégration · MuleSoft',
+    'Portfolio de Maxime Garcia, MuleSoft Tech Lead chez CGI, game designer et guitariste.',
+  'site.role': 'MuleSoft Tech Lead',
   'skip.link': 'Aller au contenu',
   'placeholder.badge': 'Exemple',
   'placeholder.todo': 'À compléter',
@@ -77,7 +77,7 @@ const fr = {
   'hero.cta.contact': 'Me contacter',
 
   'about.lead':
-    'Passionné de technologie depuis l’enfance, je suis aujourd’hui développeur intégration chez CGI, spécialisé MuleSoft.',
+    'Passionné de technologie depuis l’enfance, je suis aujourd’hui MuleSoft Tech Lead chez CGI.',
   'about.body':
     'Mon métier : faire dialoguer des systèmes qui ne se connaissaient pas (API, files de messages, transferts de fichiers), de façon fiable et observable. Polyvalent, je touche aussi bien au code qu’à la chaîne qui le livre. En dehors du travail, je conçois des jeux et je joue de la guitare.',
   'about.photo': 'Photo de Maxime Garcia (provisoire)',
@@ -136,8 +136,8 @@ export type UiKey = keyof typeof fr;
 
 const en: Record<UiKey, string> = {
   'meta.description':
-    'Portfolio of Maxime Garcia, integration developer at CGI, MuleSoft expert, game designer and guitarist.',
-  'site.role': 'Integration developer · MuleSoft',
+    'Portfolio of Maxime Garcia, MuleSoft Tech Lead at CGI, game designer and guitarist.',
+  'site.role': 'MuleSoft Tech Lead',
   'skip.link': 'Skip to content',
   'placeholder.badge': 'Example',
   'placeholder.todo': 'To be completed',
@@ -198,8 +198,7 @@ const en: Record<UiKey, string> = {
   'hero.cta.projects': 'See my projects',
   'hero.cta.contact': 'Contact me',
 
-  'about.lead':
-    'Into technology since childhood, I am now an integration developer at CGI, specialised in MuleSoft.',
+  'about.lead': 'Into technology since childhood, I am now a MuleSoft Tech Lead at CGI.',
   'about.body':
     'My job: getting systems that never met to talk to each other (APIs, message queues, file transfers), reliably and observably. A generalist, I work on the code as much as on the pipeline that ships it. Outside work, I design games and play the guitar.',
   'about.photo': 'Photo of Maxime Garcia (placeholder)',
