@@ -7,10 +7,12 @@ import { activeSection } from '../../stores/section';
 import { quality } from '../../stores/quality';
 import { CameraRig } from './CameraRig';
 import { Earth } from './Earth';
-import { Galaxy } from './Galaxy';
+import { AsteroidBelt } from './AsteroidBelt';
+import { Campfire } from './Campfire';
+import { IntegrationNetwork } from './IntegrationNetwork';
+import { Sombrero } from './Sombrero';
 import { useMedia, useStore, useTheme } from './hooks';
-import { SUN_DIRECTION, bodies, cameraFor, type BodySpec } from './layout';
-import { NebulaCloud } from './NebulaCloud';
+import { ASTEROID_BELT_CENTER, SUN_DIRECTION, bodies, cameraFor, type BodySpec } from './layout';
 import { palettes } from './palette';
 import { Sky } from './Sky';
 import { Starfield } from './Starfield';
@@ -22,7 +24,8 @@ const hasTexture = (
 ): spec is BodySpec & { texture: NonNullable<BodySpec['texture']> } => spec.texture !== undefined;
 
 /**
- * Background voyage: Earth, Mars, Jupiter, Saturn, a nebula, a galaxy — one per section.
+ * Background voyage: Earth, Mars, the asteroid belt, Jupiter's linked moons, Saturn,
+ * a campfire world and the Sombrero galaxy — one body per section.
  * The camera follows the visible section. Decorative only (the wrapper is aria-hidden);
  * the page is complete without it. Textures: Solar System Scope, CC BY 4.0.
  */
@@ -69,38 +72,27 @@ export default function SpaceScene() {
             return (
               <Earth key={spec.id} spec={spec} tier={tier} animate={animate} segments={segments} />
             );
-          if (spec.kind === 'nebula')
-            return (
-              <NebulaCloud
-                key={spec.id}
-                spec={spec}
-                palette={palette}
-                dark={dark}
-                animate={animate}
-                clouds={low ? 360 : 900}
-              />
-            );
+          if (spec.kind === 'campfire')
+            return <Campfire key={spec.id} spec={spec} animate={animate} />;
           if (spec.kind === 'galaxy')
-            return (
-              <Galaxy
-                key={spec.id}
-                spec={spec}
-                palette={palette}
-                dark={dark}
-                animate={animate}
-                count={low ? 18000 : 60000}
-              />
-            );
+            return <Sombrero key={spec.id} spec={spec} tier={tier} dark={dark} palette={palette} />;
           return hasTexture(spec) ? (
-            <TexturedPlanet
-              key={spec.id}
-              spec={spec}
-              tier={tier}
-              animate={animate}
-              segments={segments}
-            />
+            <group key={spec.id}>
+              <TexturedPlanet spec={spec} tier={tier} animate={animate} segments={segments} />
+              {spec.id === 'skills' && (
+                <group position={spec.position}>
+                  <IntegrationNetwork
+                    radius={spec.radius}
+                    palette={palette}
+                    animate={animate}
+                    dark={dark}
+                  />
+                </group>
+              )}
+            </group>
           ) : null;
         })}
+        <AsteroidBelt center={ASTEROID_BELT_CENTER} count={low ? 180 : 420} animate={animate} />
       </Suspense>
       {dark && !low && (
         <EffectComposer multisampling={coarse ? 0 : 4}>
