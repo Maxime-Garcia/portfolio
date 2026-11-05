@@ -4,6 +4,7 @@ import { useTranslations } from '../../i18n/utils';
 import Badge from '../ui/Badge.astro';
 import Section from './Section.astro';
 import StarFragment from '../ui/StarFragment.astro';
+import GameArt from '../passions/GameArt.astro';
 import musicData from '../../content/music.json';
 import { musicSchema } from '../../lib/music';
 
@@ -15,8 +16,11 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 // TODO(maxime): run `node scripts/music-takeout.ts <watch-history>` to fill this from YouTube Music.
 const music = musicSchema.parse(musicData);
-// TODO(maxime): the games that shaped you.
-const games = [1, 2, 3];
+const worlds = [
+  { id: 'outerwilds', name: 'Outer Wilds' },
+  { id: 'dofus', name: 'Dofus' },
+  { id: 'tunic', name: 'Tunic' },
+] as const;
 ---
 
 <Section id="passions" lang={lang} lead="passions.lead">
@@ -62,34 +66,58 @@ const games = [1, 2, 3];
       </p>
     </article>
     <article class="rounded-xl border border-line bg-surface/90 p-6">
-      <h3 class="font-display text-xl font-bold">{t('passions.games.title')}</h3>
-      <p class="mt-3 text-muted">{t('passions.games.body')}</p>
-      <p class="mt-4" data-js-only>
-        <button
-          type="button"
-          data-game-open
-          class="inline-flex items-center gap-2 rounded-md border border-plasma px-4 py-2 font-mono text-sm text-plasma transition-colors hover:bg-plasma hover:text-bg motion-reduce:transition-none"
-        >
-          <span aria-hidden="true">▶</span>
-          {t('game.play')}
-        </button>
-      </p>
-      <h4 class="mt-6 flex items-center gap-1 font-mono text-sm text-ink">
-        {t('passions.games.list')}
+      <h3 class="flex items-center gap-1 font-display text-xl font-bold">
+        {t('passions.games.title')}
         <StarFragment id="passions" lang={lang} />
-      </h4>
-      <ul class="mt-3 grid grid-cols-3 gap-3">
-        {games.map((n) => (
-          <li class="flex aspect-[3/4] flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-line p-2 text-center">
-            <span class="font-display text-2xl text-muted" aria-hidden="true">
-              ?
-            </span>
-            <span class="font-mono text-xs text-muted">
-              {t('placeholder.todo')} {n}
-            </span>
+      </h3>
+      <p class="mt-3 text-muted">{t('passions.games.body')}</p>
+      <ul class="mt-6 grid gap-4">
+        {worlds.map((world) => (
+          <li class="grid grid-cols-[6rem_1fr] items-center gap-4">
+            <div class="aspect-[16/10] overflow-hidden rounded-lg border border-line">
+              <GameArt kind={world.id} />
+            </div>
+            <div>
+              <p class="font-display font-bold text-ink">{world.name}</p>
+              <p class="mt-1 text-sm text-muted">{t(`games.${world.id}`)}</p>
+            </div>
           </li>
         ))}
       </ul>
     </article>
   </div>
+
+  <article
+    id="arcade"
+    aria-labelledby="arcade-title"
+    class="mt-6 rounded-xl border border-plasma bg-surface/90 p-6"
+    data-js-only
+  >
+    <h3 id="arcade-title" class="font-display text-xl font-bold">
+      {t('arcade.title')}
+    </h3>
+    <p class="mt-2 text-muted">{t('arcade.lead')}</p>
+    <ul class="mt-6 grid gap-4 md:grid-cols-3">
+      <li class="flex flex-col gap-3 rounded-lg border border-line bg-bg/60 p-4">
+        <p class="flex-1 text-sm text-ink">{t('arcade.gravity')}</p>
+        <button type="button" data-game-open class="arcade-button">
+          ▶ {t('game.play')}
+        </button>
+      </li>
+      <li class="flex flex-col gap-3 rounded-lg border border-line bg-bg/60 p-4">
+        <p class="flex-1 text-sm text-ink">{t('arcade.fragments')}</p>
+        <p class="font-mono text-sm text-signal">
+          <span aria-hidden="true">✦</span>
+          <span class="sr-only">{t('hud.fragments')} :</span>
+          <span data-fragments-progress>0/6</span>
+        </p>
+      </li>
+      <li class="flex flex-col gap-3 rounded-lg border border-line bg-bg/60 p-4">
+        <p class="flex-1 text-sm text-ink">{t('arcade.terminal')}</p>
+        <button type="button" data-terminal-open class="arcade-button">
+          ›_ {t('arcade.open.terminal')}
+        </button>
+      </li>
+    </ul>
+  </article>
 </Section>

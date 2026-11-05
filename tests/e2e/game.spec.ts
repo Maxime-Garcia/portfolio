@@ -16,7 +16,7 @@ const KONAMI = [
 ];
 
 async function openTerminal(page: Page) {
-  await page.getByRole('button', { name: 'Terminal' }).click();
+  await page.getByRole('button', { name: 'Terminal', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: 'Terminal de bord' });
   await expect(dialog).toBeVisible({ timeout: 15_000 });
   return dialog;
@@ -36,7 +36,7 @@ test.describe('terminal', () => {
     await expect(dialog.getByText(/Commande inconnue : nope/)).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();
-    await expect(page.getByRole('button', { name: 'Terminal' })).toBeFocused();
+    await expect(page.getByRole('button', { name: 'Terminal', exact: true })).toBeFocused();
   });
 
   test('opens with Ctrl+K and drives the site', async ({ page, browserName }) => {
@@ -88,7 +88,7 @@ test.describe('achievements', () => {
     page,
   }) => {
     await page.goto('/');
-    const progress = page.locator('[data-achievements-progress]');
+    const progress = page.locator('header [data-achievements-progress]');
     await expect(progress).toHaveText(/^\d\/6$/);
     const dialog = await openTerminal(page);
     await expect(page.locator('#toasts').getByText(/Pilote/)).toBeVisible();
@@ -119,7 +119,7 @@ test.describe('without JavaScript', () => {
 
   test('hides controls that need it', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('button', { name: 'Terminal' })).toBeHidden();
-    await expect(page.locator('[data-achievements-progress]')).toBeHidden();
+    await expect(page.getByRole('button', { name: 'Terminal', exact: true })).toBeHidden();
+    await expect(page.locator('header [data-achievements-progress]')).toBeHidden();
   });
 });

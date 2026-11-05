@@ -14,7 +14,7 @@ export type SectionId = (typeof sections)[number];
 
 const fr = {
   'meta.description':
-    'Portfolio de Maxime Garcia, MuleSoft Tech Lead chez CGI, game designer et guitariste.',
+    'Maxime Garcia, MuleSoft Tech Lead le jour. Le reste du temps : guitariste, concepteur de jeux et explorateur de systèmes solaires imaginaires.',
   'site.role': 'MuleSoft Tech Lead',
   'skip.link': 'Aller au contenu',
   'footer.credits': 'Textures des planètes et de la Voie lactée',
@@ -45,7 +45,7 @@ const fr = {
   'term.title': 'Terminal de bord',
   'term.close': 'Fermer le terminal',
   'term.input': 'Commande',
-  'term.welcome': 'Terminal de bord. Tapez « help » pour la liste des commandes.',
+  'term.welcome': 'Liaison établie. « help » si tu es perdu, « scan » si tu es curieux.',
   'term.unknown': 'Commande inconnue : {cmd}. Tapez « help ».',
   'term.help': 'Commandes disponibles :',
   'term.cmd.help': 'affiche cette aide',
@@ -133,31 +133,50 @@ const fr = {
   'journal.games': 'Jeux de chevet',
   'journal.gravity': 'Tes records Gravité',
   'journal.gravity.none': 'Aucun niveau gagné pour l’instant.',
-  'section.hero': 'Départ',
-  'section.about': 'À propos',
-  'section.skills': 'Compétences',
-  'section.projects': 'Projets',
-  'section.passions': 'Passions',
-  'section.contact': 'Contact',
+  'games.outerwilds':
+    'Un système solaire miniature, vingt-deux minutes avant que le soleil n’explose, et la curiosité pour seul équipement.',
+  'games.dofus':
+    'Le Monde des Douze, des œufs de dragon convoités et mille quêtes qui se vivent à plusieurs.',
+  'games.tunic':
+    'Un petit renard, un manuel écrit dans une langue inconnue, et des secrets cachés jusque dans ses pages.',
+  'arcade.title': 'Salle de jeux',
+  'arcade.lead': 'Le vaisseau se joue aussi. Trois façons de s’y perdre.',
+  'arcade.gravity':
+    'Gravité : lance une sonde et laisse les planètes courber sa route. Cinq niveaux.',
+  'arcade.fragments':
+    'Chasse aux fragments : six éclats d’étoile sont cachés à bord. Réunis-les pour ouvrir le journal de bord.',
+  'arcade.terminal': 'Aventure en terminal : scan, go, hint… le vaisseau répond à qui lui parle.',
+  'arcade.open.terminal': 'Ouvrir le terminal',
+  'arcade.fragments.progress': 'Fragments trouvés : {n}/6',
+  'hud.games': 'Jeux',
+  'arcade.close': 'Fermer la salle de jeux',
+  'section.hero': 'Décollage',
+  'section.about': 'Le pilote',
+  'section.skills': 'La soute',
+  'section.projects': 'Le hangar',
+  'section.passions': 'Feu de camp',
+  'section.contact': 'Fréquence ouverte',
   'section.soon': 'Planète en cours d’exploration.',
 
-  'hero.tagline': 'Je relie les systèmes entre eux. Bienvenue à bord.',
-  'hero.cta.projects': 'Voir mes projets',
-  'hero.cta.contact': 'Me contacter',
+  'hero.tagline':
+    'Le jour, je fais dialoguer des machines qui s’ignorent. La nuit, je gratte des riffs, j’invente des mondes et je repars explorer un système solaire qui recommence toutes les vingt-deux minutes.',
+  'hero.cta.projects': 'Visiter le hangar',
+  'hero.cta.contact': 'Ouvrir une fréquence',
 
-  'about.lead':
-    'Passionné de technologie depuis l’enfance, je suis aujourd’hui MuleSoft Tech Lead chez CGI.',
+  'about.lead': 'Fiche pilote : curieux chronique, relieur de systèmes, joueur au long cours.',
   'about.body':
-    'Mon métier : faire dialoguer des systèmes qui ne se connaissaient pas (API, files de messages, transferts de fichiers), de façon fiable et observable. Polyvalent, je touche aussi bien au code qu’à la chaîne qui le livre. En dehors du travail, je conçois des jeux et je joue de la guitare.',
+    'Depuis l’enfance, une même question me suit : comment ça marche, et que se passe-t-il si on relie les morceaux ? Elle a fait de moi un MuleSoft Tech Lead chez CGI. Mais elle ne reste pas au bureau. Elle me fait démonter des jeux pour comprendre leurs règles, chercher sur le manche la note qui manque, et lever les yeux vers un ciel toujours trop grand pour une seule vie.',
   'about.photo': 'Photo de Maxime Garcia (provisoire)',
-  'about.timeline': 'Parcours',
+  'about.timeline': 'Journal de vol',
 
-  'skills.lead': 'Les outils avec lesquels je construis des ponts entre les systèmes.',
-  'skills.group.integration': 'Intégration',
-  'skills.group.delivery': 'Livraison et qualité',
-  'skills.group.creative': 'Création',
+  'skills.lead':
+    'Ce que j’embarque à chaque mission. Rangé par usage, pas par niveau : je ne colle pas d’étoiles sur mes outils.',
+  'skills.group.integration': 'Relier',
+  'skills.group.delivery': 'Livrer',
+  'skills.group.creative': 'Inventer',
 
-  'projects.lead': 'Une sélection de missions. Filtrez par domaine.',
+  'projects.lead':
+    'Ce qui est sorti de l’atelier. Certains volent déjà, d’autres attendent leur pilote : ce sont les fiches « Exemple ».',
   'projects.filters': 'Filtrer les projets',
   'projects.filter.all': 'Tous',
   'projects.count': '{count} projet(s) affiché(s)',
@@ -174,7 +193,8 @@ const fr = {
   'tag.web': 'Web',
   'tag.game': 'Jeu',
   'tag.music': 'Musique',
-  'passions.lead': 'Ce qui m’anime quand l’écran de travail s’éteint.',
+  'passions.lead':
+    'Là où je pose le vaisseau quand l’écran de travail s’éteint : de la musique, des mondes, et des jeux qui se jouent ici même.',
   'passions.music.title': 'Ce que j’écoute',
   'passions.music.body':
     'Guitariste, je vis aussi la musique au casque. Mes styles et artistes les plus écoutés sur YouTube Music :',
@@ -182,12 +202,12 @@ const fr = {
   'passions.music.artists': 'Artistes',
   'passions.music.newtab': '(YouTube Music, nouvel onglet)',
   'passions.music.source': 'D’après mon historique YouTube Music',
-  'passions.games.title': 'Jeux vidéo et game design',
-  'passions.games.body':
-    'Joueur depuis toujours, je conçois aussi des jeux : mécaniques, rythme, sensations. Ce site en est un petit : explorez-le.',
-  'passions.games.list': 'Jeux qui m’ont marqué',
+  'passions.games.title': 'Les mondes qui m’ont marqué',
+  'passions.games.body': 'Trois jeux, trois façons de rendre la curiosité irrésistible.',
+  'passions.games.list': 'Mondes visités',
 
-  'contact.lead': 'Un projet d’intégration, une idée de jeu, un riff à partager ? Écrivez-moi.',
+  'contact.lead':
+    'Un flux à brancher, un jeu à prototyper, un riff à échanger ? Le canal est ouvert.',
   'contact.name': 'Nom',
   'contact.email': 'E-mail',
   'contact.message': 'Message',
@@ -205,7 +225,7 @@ export type UiKey = keyof typeof fr;
 
 const en: Record<UiKey, string> = {
   'meta.description':
-    'Portfolio of Maxime Garcia, MuleSoft Tech Lead at CGI, game designer and guitarist.',
+    'Maxime Garcia, MuleSoft Tech Lead by day. The rest of the time: guitarist, game designer and explorer of imaginary solar systems.',
   'site.role': 'MuleSoft Tech Lead',
   'skip.link': 'Skip to content',
   'footer.credits': 'Planet and Milky Way textures',
@@ -236,7 +256,7 @@ const en: Record<UiKey, string> = {
   'term.title': 'Flight terminal',
   'term.close': 'Close the terminal',
   'term.input': 'Command',
-  'term.welcome': 'Flight terminal. Type "help" for the list of commands.',
+  'term.welcome': 'Link established. "help" if you are lost, "scan" if you are curious.',
   'term.unknown': 'Unknown command: {cmd}. Type "help".',
   'term.help': 'Available commands:',
   'term.cmd.help': 'show this help',
@@ -324,30 +344,49 @@ const en: Record<UiKey, string> = {
   'journal.games': 'Bedside games',
   'journal.gravity': 'Your Gravity records',
   'journal.gravity.none': 'No level won yet.',
-  'section.hero': 'Launch',
-  'section.about': 'About',
-  'section.skills': 'Skills',
-  'section.projects': 'Projects',
-  'section.passions': 'Passions',
-  'section.contact': 'Contact',
+  'games.outerwilds':
+    'A miniature solar system, twenty-two minutes before the sun explodes, and curiosity as your only gear.',
+  'games.dofus':
+    'The World of Twelve, coveted dragon eggs and a thousand quests best lived together.',
+  'games.tunic':
+    'A small fox, a manual written in an unknown tongue, and secrets hidden down to its pages.',
+  'arcade.title': 'Games room',
+  'arcade.lead': 'The ship is also a game. Three ways to get lost in it.',
+  'arcade.gravity': 'Gravity: launch a probe and let planets bend its path. Five levels.',
+  'arcade.fragments':
+    'Fragment hunt: six star shards are hidden aboard. Gather them to open the logbook.',
+  'arcade.terminal': 'Terminal adventure: scan, go, hint… the ship answers whoever talks to it.',
+  'arcade.open.terminal': 'Open the terminal',
+  'arcade.fragments.progress': 'Fragments found: {n}/6',
+  'hud.games': 'Games',
+  'arcade.close': 'Close the games room',
+  'section.hero': 'Liftoff',
+  'section.about': 'The pilot',
+  'section.skills': 'The cargo hold',
+  'section.projects': 'The hangar',
+  'section.passions': 'Campfire',
+  'section.contact': 'Open frequency',
   'section.soon': 'Planet under exploration.',
 
-  'hero.tagline': 'I connect systems together. Welcome aboard.',
-  'hero.cta.projects': 'See my projects',
-  'hero.cta.contact': 'Contact me',
+  'hero.tagline':
+    'By day, I get machines that ignore each other talking. By night, I play riffs, invent worlds and head back into a solar system that restarts every twenty-two minutes.',
+  'hero.cta.projects': 'Tour the hangar',
+  'hero.cta.contact': 'Open a frequency',
 
-  'about.lead': 'Into technology since childhood, I am now a MuleSoft Tech Lead at CGI.',
+  'about.lead': 'Pilot file: chronically curious, system weaver, long-haul player.',
   'about.body':
-    'My job: getting systems that never met to talk to each other (APIs, message queues, file transfers), reliably and observably. A generalist, I work on the code as much as on the pipeline that ships it. Outside work, I design games and play the guitar.',
+    'Since childhood, one question has followed me: how does it work, and what happens if we connect the pieces? It made me a MuleSoft Tech Lead at CGI. But it doesn’t stay at the office. It makes me take games apart to understand their rules, hunt the missing note along the fretboard, and look up at a sky that is always too big for one lifetime.',
   'about.photo': 'Photo of Maxime Garcia (placeholder)',
-  'about.timeline': 'Journey',
+  'about.timeline': 'Flight log',
 
-  'skills.lead': 'The tools I use to build bridges between systems.',
-  'skills.group.integration': 'Integration',
-  'skills.group.delivery': 'Delivery and quality',
-  'skills.group.creative': 'Creative',
+  'skills.lead':
+    'What I take on every mission. Sorted by use, not by level: I don’t put stars on my tools.',
+  'skills.group.integration': 'Connect',
+  'skills.group.delivery': 'Ship',
+  'skills.group.creative': 'Invent',
 
-  'projects.lead': 'A selection of missions. Filter by field.',
+  'projects.lead':
+    'What came out of the workshop. Some already fly, others are waiting for their pilot: those are the “Example” cards.',
   'projects.filters': 'Filter projects',
   'projects.filter.all': 'All',
   'projects.count': '{count} project(s) shown',
@@ -364,7 +403,8 @@ const en: Record<UiKey, string> = {
   'tag.web': 'Web',
   'tag.game': 'Game',
   'tag.music': 'Music',
-  'passions.lead': 'What drives me once the work screen goes dark.',
+  'passions.lead':
+    'Where I land the ship once the work screen goes dark: music, worlds, and games you can play right here.',
   'passions.music.title': 'What I listen to',
   'passions.music.body':
     'A guitarist, I also live music through headphones. My most played styles and artists on YouTube Music:',
@@ -372,12 +412,11 @@ const en: Record<UiKey, string> = {
   'passions.music.artists': 'Artists',
   'passions.music.newtab': '(YouTube Music, new tab)',
   'passions.music.source': 'From my YouTube Music history',
-  'passions.games.title': 'Video games and game design',
-  'passions.games.body':
-    'A lifelong player, I also design games: mechanics, pacing, feel. This site is a small one: explore it.',
-  'passions.games.list': 'Games that shaped me',
+  'passions.games.title': 'Worlds that left a mark',
+  'passions.games.body': 'Three games, three ways to make curiosity irresistible.',
+  'passions.games.list': 'Worlds visited',
 
-  'contact.lead': 'An integration project, a game idea, a riff to share? Write to me.',
+  'contact.lead': 'A flow to plug in, a game to prototype, a riff to trade? The channel is open.',
   'contact.name': 'Name',
   'contact.email': 'Email',
   'contact.message': 'Message',

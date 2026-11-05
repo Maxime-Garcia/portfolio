@@ -30,7 +30,7 @@ test.describe('star map anchors', () => {
 
   test('hero calls to action reach their sections', async ({ page }) => {
     await page.goto('/en/');
-    await page.getByRole('link', { name: 'Contact me' }).click();
+    await page.getByRole('link', { name: 'Open a frequency' }).click();
     expect(Math.abs((await settledTop(page, 'contact')) - 96)).toBeLessThanOrEqual(4);
   });
 

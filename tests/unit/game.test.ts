@@ -159,7 +159,7 @@ describe('terminal commands', () => {
 
   it('navigates to contact and prints about and skills', () => {
     expect(runCommand('contact', ctx()).action).toEqual({ type: 'navigate', href: '/en/#contact' });
-    expect(runCommand('about', ctx()).lines[0]).toContain('CGI');
+    expect(runCommand('about', ctx()).lines[0]).toContain('Pilot file');
     expect(runCommand('skills', ctx()).lines.join(' ')).toContain('MuleSoft');
   });
 
