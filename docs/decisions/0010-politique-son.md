@@ -14,6 +14,8 @@ La spec veut une « musique vivante » : micro-sons et visuels qui réagissent a
 - **Micro-sons synthétisés** (oscillateurs et enveloppes, `src/audio/blips.ts`), sans fichier audio. Le synthé est chargé à la demande.
 - **Musique** : `<audio preload="none">` natif. L'`AnalyserNode` est branché au premier `play` ; il alimente un visualiseur 2D et la pulsation de la planète Passions. Les deux sont figés en mouvement réduit. La musique ne dépend pas du bouton ♪, qui ne concerne que les sons d'interface.
 
+- **Vent au scroll** (ajout du 2026-11-05) : bruit blanc en boucle à travers un passe-bande dont la fréquence et le volume suivent la vitesse de défilement. Il ne tourne que si le son est activé, et ne démarre qu'au premier clic ou à la première touche. Le carillon des succès n'utilise qu'un contexte déjà créé par un geste.
+
 ## Conséquences
 
 Testé en E2E : aucun `AudioContext` avant une action, même après rechargement avec le son activé ; aucune requête audio avant la lecture.
