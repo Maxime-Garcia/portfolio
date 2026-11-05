@@ -1,5 +1,6 @@
 import { onUnlock } from '../stores/achievements';
 import { soundEnabled } from '../stores/sound';
+import { getContext } from '../audio/engine';
 
 type Audio = typeof import('../audio/blips');
 let blips: Audio | undefined;
@@ -8,6 +9,19 @@ let blips: Audio | undefined;
 async function synth(): Promise<Audio> {
   blips ??= await import('../audio/blips');
   return blips;
+}
+
+let stopWind: (() => void) | undefined;
+
+/** Scroll wind: runs while sound is on. Only ever called from a user-gesture handler. */
+async function wind(on: boolean): Promise<void> {
+  if (on && !stopWind) {
+    const { startWind } = await import('../audio/wind');
+    stopWind ??= startWind();
+  } else if (!on && stopWind) {
+    stopWind();
+    stopWind = undefined;
+  }
 }
 
 function syncButtons(on: boolean): void {
@@ -30,6 +44,7 @@ export function initSound(): void {
       const on = !soundEnabled.get();
       soundEnabled.set(on);
       if (on) void synth().then((s) => s.play('toggle'));
+      void wind(on);
       return;
     }
     if (soundEnabled.get() && target?.closest('button, a, [role="button"]')) {
@@ -37,8 +52,21 @@ export function initSound(): void {
     }
   });
 
+  // Sound left on from a previous visit: the wind starts on the first gesture (autoplay rules).
+  const resume = () => {
+    if (soundEnabled.get()) void wind(true);
+  };
+  window.addEventListener('pointerdown', resume, { once: true });
+  window.addEventListener('keydown', resume, { once: true });
+  // Turned off from elsewhere (terminal command): stop the wind too.
+  soundEnabled.listen((on) => {
+    if (!on) void wind(false);
+  });
+
+  // Unlocks can happen without a gesture (e.g. the "sound" achievement on load):
+  // chime only through an AudioContext a gesture already created.
   onUnlock(() => {
-    if (soundEnabled.get()) void synth().then((s) => s.play('chime'));
+    if (soundEnabled.get() && getContext()) void synth().then((s) => s.play('chime'));
   });
 
   // Music visualiser: wired on the first play of the Passions track (a user action).
