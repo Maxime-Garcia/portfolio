@@ -21,6 +21,9 @@ Avec le son mémorisé à « on », le succès « son » se débloquait au charg
 **e. Écouteurs chargés en différé.**
 Le jeu, chargé au temps mort du navigateur, ratait les sections vues avant son chargement. Le store de section (chargé tout de suite) garde l'historique, que le jeu rejoue.
 
+**g. Niveaux de jeu vérifiés par force brute.**
+Un test essaie des milliers de tirs (angle × puissance) sur chaque niveau de Gravité : soluble, mais pas trivial. Il a révélé un niveau 5 impossible. La boucle du jeu tourne à pas fixe (1/240 s) : un tir donne toujours la même trajectoire, et le test E2E peut rejouer un tir gagnant trouvé côté Node.
+
 **f. Captures pendant un scroll fluide.**
 Une capture Playwright prise en plein défilement peut afficher un HUD « décroché » : c'est un artefact. Il faut mesurer `getBoundingClientRect()` pour trancher.
 

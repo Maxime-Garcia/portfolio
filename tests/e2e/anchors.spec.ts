@@ -35,7 +35,7 @@ test.describe('star map anchors', () => {
   });
 
   test('from a project page, the map goes back to the right section', async ({ page }) => {
-    await page.goto('/projects/exemple-jeu-orbite/');
+    await page.goto('/projects/gravite/');
     await page.locator('[data-hud-section="skills"]').click();
     await expect(page).toHaveURL(/\/#skills$/);
     await expect(page.locator('#skills h2')).toBeInViewport();
