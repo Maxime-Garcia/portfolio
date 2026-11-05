@@ -4,8 +4,8 @@
   period: { fr: Enfance, en: Childhood }
   title: { fr: Le déclic, en: The spark }
   text:
-    fr: La curiosité pour les machines naît très tôt et ne me quitte plus.
-    en: Curiosity about machines starts early and never leaves me.
+    fr: Une machine, un écran, et l’envie irrépressible de voir ce qu’il y a derrière.
+    en: A machine, a screen, and an irresistible urge to see what lies behind.
 - id: studies
   order: 2
   placeholder: true # TODO(maxime): school, degree, years.
@@ -19,12 +19,12 @@
   period: { fr: Aujourd’hui, en: Today }
   title: { fr: MuleSoft Tech Lead chez CGI, en: MuleSoft Tech Lead at CGI }
   text:
-    fr: Expertise MuleSoft, flux entre systèmes et chaîne de livraison.
-    en: MuleSoft expertise, flows between systems and delivery pipelines.
+    fr: Des systèmes qui ne se parlaient pas, et qui s’écoutent désormais.
+    en: Systems that never spoke to each other, now listening.
 - id: next
   order: 4
   period: { fr: Et ensuite, en: Next }
-  title: { fr: Jeux et musique, en: Games and music }
+  title: { fr: Hors des sentiers, en: Off the beaten orbit }
   text:
-    fr: Game design et guitare, deux passions qui nourrissent le reste.
-    en: Game design and guitar, two passions that feed everything else.
+    fr: Concevoir des jeux, jouer de la guitare, garder le ciel en ligne de mire.
+    en: Designing games, playing guitar, keeping the sky in sight.
