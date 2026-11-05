@@ -2,6 +2,23 @@
 
 Journal de veille. Une entrée par session de travail, la plus récente en haut. Chaque entrée : ce qui a été appris, les pièges rencontrés, les liens utiles.
 
+## 2026-11-05 : ancres du HUD et astres réels
+
+### Pièges
+
+**a. Deux propriétaires pour les ancres.**
+Lenis (`anchors`) et le ClientRouter réagissaient tous les deux aux liens `/#section` : après le premier clic, chaque saut dérivait de la hauteur du HUD. Un seul gestionnaire en phase de capture, et Lenis sans `anchors`.
+
+**b. Décalage appliqué deux fois.**
+`lenis.scrollTo(el)` tient déjà compte de `scroll-padding-top` : avec un `offset` en plus, la section atterrissait 96 px trop bas.
+
+**c. Particules additives et bloom.**
+Des sprites de 400 px qui se superposent saturent au blanc. Il faut viser 40 à 120 px à l'écran, des couleurs à 10–30 % d'intensité, et des points de départ espacés.
+
+### Liens utiles
+
+- Textures planétaires (CC BY 4.0) : https://www.solarsystemscope.com/textures/
+
 ## 2026-11-05 : jalon 7, SEO et finitions
 
 ### Pièges
