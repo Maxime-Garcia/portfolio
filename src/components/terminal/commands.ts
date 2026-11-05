@@ -10,6 +10,7 @@ export const commandNames = [
   'theme',
   'sound',
   'lang',
+  'play',
   'clear',
   'exit',
 ] as const;
@@ -21,6 +22,7 @@ export type Action =
   | { type: 'theme' }
   | { type: 'sound' }
   | { type: 'lang' }
+  | { type: 'play' }
   | { type: 'clear' }
   | { type: 'exit' };
 
@@ -92,6 +94,8 @@ export function runCommand(input: string, ctx: CommandContext): CommandResult {
       };
     case 'lang':
       return { lines: [t('term.lang')], action: { type: 'lang' } };
+    case 'play':
+      return { lines: [t('term.play')], action: { type: 'play' } };
     case 'clear':
       return { lines: [], action: { type: 'clear' } };
     case 'exit':

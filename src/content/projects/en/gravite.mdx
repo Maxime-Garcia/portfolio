@@ -1,0 +1,25 @@
+---
+title: Gravity, a space navigation mini-game
+summary: A small game playable inside this portfolio. Launch a probe into a target ring using the pull of planets. 5 levels, keyboard or mouse.
+year: 2026
+tags: [game, web]
+stack: [TypeScript, Canvas 2D, Game design]
+links:
+  repo: https://github.com/Maxime-Garcia/portfolio
+playable: true
+---
+
+## The idea
+
+Make gravity fun to play with in a few seconds. Aim, launch, watch the path bend, correct.
+
+## What I did
+
+- A minimal, tested physics engine: softened attraction, semi-implicit Euler integration, sub-steps for close fly-bys.
+- Five hand-made levels, each checked by a test that tries thousands of shots: solvable, but not trivial.
+- Aim with the mouse or the keyboard (arrows, Space), a predicted path, and status announced to screen readers.
+- Loaded only on first play: zero bytes for those who do not play.
+
+## Outcome
+
+A few-minute game built into the site, with a best score per level and stars based on attempts.

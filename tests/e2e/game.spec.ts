@@ -51,7 +51,7 @@ test.describe('terminal', () => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
     await input.fill('projects 1');
     await input.press('Enter');
-    await expect(page).toHaveURL(/\/projects\/exemple-passerelle-api\/$/);
+    await expect(page).toHaveURL(/\/projects\/gravite\/$/);
     await expect(dialog).toBeHidden();
   });
 
@@ -95,7 +95,7 @@ test.describe('achievements', () => {
     await expect(page.locator('#toasts').getByText(/Pilote/)).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();
-    await page.getByRole('link', { name: 'Prototype de jeu d’exploration spatiale' }).click();
+    await page.getByRole('link', { name: 'Gravité, un mini-jeu de navigation spatiale' }).click();
     await expect(page.locator('#toasts').getByText(/Archiviste/)).toBeVisible();
     await page.getByRole('link', { name: 'Read this page in English' }).click();
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');

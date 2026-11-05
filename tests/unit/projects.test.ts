@@ -38,11 +38,7 @@ describe('project files', () => {
   it('lists the example projects still to replace', () => {
     const examples = list('fr').filter((name) => name.startsWith('exemple-'));
     // Fails on purpose once real projects exist: then drop the examples and this test.
-    expect(examples).toEqual([
-      'exemple-jeu-orbite.mdx',
-      'exemple-passerelle-api.mdx',
-      'exemple-pipeline-qualite.mdx',
-    ]);
+    expect(examples).toEqual(['exemple-passerelle-api.mdx', 'exemple-pipeline-qualite.mdx']);
   });
 });
 

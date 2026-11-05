@@ -165,6 +165,7 @@ describe('terminal commands', () => {
     expect(runCommand('sound', ctx()).lines).toEqual(['Sound on.']);
     expect(runCommand('sound', ctx({ soundOn: true })).lines).toEqual(['Sound off.']);
     expect(runCommand('lang', ctx()).action).toEqual({ type: 'lang' });
+    expect(runCommand('play', ctx()).action).toEqual({ type: 'play' });
     expect(runCommand('clear', ctx()).action).toEqual({ type: 'clear' });
     expect(runCommand('exit', ctx()).action).toEqual({ type: 'exit' });
   });

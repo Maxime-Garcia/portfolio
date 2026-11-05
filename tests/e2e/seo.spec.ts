@@ -19,12 +19,12 @@ test.describe('seo', () => {
   });
 
   test('project pages are articles without a Person block', async ({ page }) => {
-    await page.goto('/projects/exemple-jeu-orbite/');
+    await page.goto('/projects/gravite/');
     expect(await page.locator('meta[property="og:type"]').getAttribute('content')).toBe('article');
     await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(0);
     await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute(
       'href',
-      /\/en\/projects\/exemple-jeu-orbite\/$/,
+      /\/en\/projects\/gravite\/$/,
     );
   });
 
@@ -33,7 +33,7 @@ test.describe('seo', () => {
     expect(robots).toMatch(/Sitemap: https:\/\/.+\/sitemap-index\.xml/);
     const sitemap = await (await request.get('/sitemap-0.xml')).text();
     expect(sitemap).toContain('hreflang="en"');
-    expect(sitemap).toContain('/en/projects/exemple-jeu-orbite/');
+    expect(sitemap).toContain('/en/projects/gravite/');
     expect(sitemap).not.toContain('404');
   });
 });

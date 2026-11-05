@@ -2,11 +2,11 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 test.describe('projects', () => {
-  test('lists the three examples with a badge', async ({ page }) => {
+  test('lists three projects, the examples with a badge', async ({ page }) => {
     await page.goto('/');
     const cards = page.locator('[data-project]');
     await expect(cards).toHaveCount(3);
-    await expect(cards.filter({ hasText: 'Exemple' })).toHaveCount(3);
+    await expect(cards.filter({ hasText: 'Exemple' })).toHaveCount(2);
   });
 
   test('filters with aria-pressed and a live count', async ({ page }) => {
@@ -60,12 +60,12 @@ test.describe('projects', () => {
   });
 
   test('detail page switches language on the same project', async ({ page }) => {
-    await page.goto('/projects/exemple-jeu-orbite/');
+    await page.goto('/projects/gravite/');
     await expect(page.locator('html')).toHaveAttribute('lang', 'fr');
     await page.getByRole('link', { name: 'Read this page in English' }).click();
-    await expect(page).toHaveURL(/\/en\/projects\/exemple-jeu-orbite\/$/);
+    await expect(page).toHaveURL(/\/en\/projects\/gravite\/$/);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      'Space exploration game prototype',
+      'Gravity, a space navigation mini-game',
     );
   });
 

@@ -1,0 +1,25 @@
+---
+title: Gravité, un mini-jeu de navigation spatiale
+summary: Un petit jeu jouable dans ce portfolio. On lance une sonde vers un anneau cible en se servant de la gravité des planètes. 5 niveaux, au clavier comme à la souris.
+year: 2026
+tags: [game, web]
+stack: [TypeScript, Canvas 2D, Game design]
+links:
+  repo: https://github.com/Maxime-Garcia/portfolio
+playable: true
+---
+
+## L’idée
+
+Rendre la gravité amusante à manipuler en quelques secondes. Viser, lancer, regarder la trajectoire se courber, corriger.
+
+## Ce que j’ai fait
+
+- Un moteur physique minimal et testé : attraction adoucie, intégration d’Euler semi-implicite, sous-pas pour les frôlements.
+- Cinq niveaux faits main, chacun vérifié par un test qui essaie des milliers de tirs : soluble, mais pas trivial.
+- Visée à la souris ou au clavier (flèches, Espace), trajectoire prévisionnelle, statut annoncé aux lecteurs d’écran.
+- Chargé seulement au premier lancement : zéro octet pour qui ne joue pas.
+
+## Résultat
+
+Un jeu de quelques minutes, intégré au site, avec record par niveau et étoiles selon le nombre d’essais.

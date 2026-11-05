@@ -8,7 +8,7 @@ import { localizePath, otherLang, useTranslations } from '../../i18n/utils';
 import { soundEnabled } from '../../stores/sound';
 import { unlock } from '../../stores/achievements';
 import { runCommand } from './commands';
-import { TERMINAL_EVENT } from '../../scripts/shortcuts';
+import { GAME_EVENT, TERMINAL_EVENT } from '../../scripts/shortcuts';
 
 interface Line {
   id: number;
@@ -85,6 +85,10 @@ export default function Terminal({ lang, projects }: TerminalProps) {
         unlock('lang');
         dialog.current?.close();
         void navigate(localizePath(otherLang(lang), location.pathname));
+        break;
+      case 'play':
+        dialog.current?.close();
+        window.dispatchEvent(new Event(GAME_EVENT));
         break;
       case 'clear':
         setLines([]);
