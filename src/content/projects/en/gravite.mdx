@@ -1,24 +1,25 @@
 ---
-# TODO(maxime): replace with a real project.
-title: Space exploration game prototype
-summary: Example entry. A small web game where you steer a probe between planets, built to test a gravity mechanic.
-year: 2024
+title: Gravity, a space navigation mini-game
+summary: A small game playable inside this portfolio. Launch a probe into a target ring using the pull of planets. 5 levels, keyboard or mouse.
+year: 2026
 tags: [game, web]
-stack: [TypeScript, Three.js, Game design]
+stack: [TypeScript, Canvas 2D, Game design]
 links:
-  repo: https://github.com/Maxime-Garcia
-placeholder: true
+  repo: https://github.com/Maxime-Garcia/portfolio
+playable: true
 ---
 
-## Context
+## The idea
 
-Example entry. The idea: make gravity fun to play with in a few seconds.
+Make gravity fun to play with in a few seconds. Aim, launch, watch the path bend, correct.
 
 ## What I did
 
-- A short game loop: aim, launch, correct the trajectory.
-- Quick prototyping, then playtests to tune the difficulty.
+- A minimal, tested physics engine: softened attraction, semi-implicit Euler integration, sub-steps for close fly-bys.
+- Five hand-made levels, each checked by a test that tries thousands of shots: solvable, but not trivial.
+- Aim with the mouse or the keyboard (arrows, Space), a predicted path, and status announced to screen readers.
+- Loaded only on first play: zero bytes for those who do not play.
 
 ## Outcome
 
-A mechanic that reads from the very first run, and a basis for this portfolio's navigation.
+A few-minute game built into the site, with a best score per level and stars based on attempts.

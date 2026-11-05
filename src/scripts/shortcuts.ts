@@ -1,5 +1,12 @@
 export const TERMINAL_EVENT = 'orbite:terminal';
 
+export const GAME_EVENT = 'orbite:game';
+
+/** Loads and opens the Gravité mini-game (its code is fetched on first use only). */
+export function openGame(): void {
+  void import('../game/gravity/ui').then(({ openGravityGame }) => openGravityGame());
+}
+
 export function openTerminal(): void {
   document.documentElement.dataset.terminal = 'requested';
   window.dispatchEvent(new Event(TERMINAL_EVENT));
@@ -15,6 +22,9 @@ export function initShortcuts(): void {
     }
   });
   document.addEventListener('click', (event) => {
-    if ((event.target as Element | null)?.closest('[data-terminal-open]')) openTerminal();
+    const target = event.target as Element | null;
+    if (target?.closest('[data-terminal-open]')) openTerminal();
+    if (target?.closest('[data-game-open]')) openGame();
   });
+  window.addEventListener(GAME_EVENT, openGame);
 }

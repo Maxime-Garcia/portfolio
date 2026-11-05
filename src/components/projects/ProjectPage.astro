@@ -16,7 +16,7 @@ interface Props {
 const { project, lang } = Astro.props;
 const t = useTranslations(lang);
 const { slug } = parseProjectId(project.id);
-const { title, summary, year, tags, stack, links, placeholder } = project.data;
+const { title, summary, year, tags, stack, links, placeholder, playable } = project.data;
 const { Content } = await render(project);
 const back = `${localizePath(lang, '/')}#projects`;
 ---
@@ -44,6 +44,18 @@ const back = `${localizePath(lang, '/')}#projects`;
           <p class="mt-4 rounded-md border border-amp p-3 text-ink">{t('projects.placeholder')}</p>
         )}
       </header>
+      {playable && (
+        <p class="mt-6" data-js-only>
+          <button
+            type="button"
+            data-game-open
+            class="inline-flex items-center gap-2 rounded-md bg-plasma px-5 py-3 font-mono text-sm font-bold text-bg hover:bg-ink"
+          >
+            <span aria-hidden="true">▶</span>
+            {t('game.play')}
+          </button>
+        </p>
+      )}
       <ProjectCover
         slug={slug}
         tag={tags[0]}

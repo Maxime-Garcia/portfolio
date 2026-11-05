@@ -1,24 +1,25 @@
 ---
-# TODO(maxime): replace with a real project.
-title: Prototype de jeu d’exploration spatiale
-summary: Exemple de fiche. Un petit jeu web où l’on pilote une sonde entre des planètes, conçu pour tester une mécanique de gravité.
-year: 2024
+title: Gravité, un mini-jeu de navigation spatiale
+summary: Un petit jeu jouable dans ce portfolio. On lance une sonde vers un anneau cible en se servant de la gravité des planètes. 5 niveaux, au clavier comme à la souris.
+year: 2026
 tags: [game, web]
-stack: [TypeScript, Three.js, Game design]
+stack: [TypeScript, Canvas 2D, Game design]
 links:
-  repo: https://github.com/Maxime-Garcia
-placeholder: true
+  repo: https://github.com/Maxime-Garcia/portfolio
+playable: true
 ---
 
-## Contexte
+## L’idée
 
-Fiche d’exemple. L’idée : rendre la gravité amusante à manipuler en quelques secondes.
+Rendre la gravité amusante à manipuler en quelques secondes. Viser, lancer, regarder la trajectoire se courber, corriger.
 
 ## Ce que j’ai fait
 
-- Boucle de jeu courte : viser, lancer, corriger sa trajectoire.
-- Prototypage rapide, puis tests de jeu pour régler la difficulté.
+- Un moteur physique minimal et testé : attraction adoucie, intégration d’Euler semi-implicite, sous-pas pour les frôlements.
+- Cinq niveaux faits main, chacun vérifié par un test qui essaie des milliers de tirs : soluble, mais pas trivial.
+- Visée à la souris ou au clavier (flèches, Espace), trajectoire prévisionnelle, statut annoncé aux lecteurs d’écran.
+- Chargé seulement au premier lancement : zéro octet pour qui ne joue pas.
 
 ## Résultat
 
-Une mécanique lisible dès la première partie, et une base pour la navigation de ce portfolio.
+Un jeu de quelques minutes, intégré au site, avec record par niveau et étoiles selon le nombre d’essais.

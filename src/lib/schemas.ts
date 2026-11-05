@@ -25,6 +25,8 @@ export const projectSchema = z.object({
   tags: z.array(z.enum(projectTags)).min(1),
   stack: z.array(z.string().min(1)).min(1),
   links: z.object({ repo: z.url().optional(), demo: z.url().optional() }).default({}),
+  /** Shows a "Play" button opening the Gravité mini-game. */
+  playable: z.boolean().default(false),
   /** Example project: shows an "Example" badge until Maxime adds real ones. */
   placeholder: z.boolean().default(false),
 });
