@@ -17,7 +17,7 @@ import {
 import { levels } from './levels';
 
 const BEST_KEY = 'orbite:gravity';
-export const GRAVITY_WIN_EVENT = 'orbite:gravity-win';
+import { GRAVITY_WIN_EVENT } from './events';
 
 let dialog: HTMLDialogElement | undefined;
 

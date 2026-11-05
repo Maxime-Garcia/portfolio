@@ -4,6 +4,7 @@ import type { Lang } from '../../i18n/ui';
 import { useTranslations } from '../../i18n/utils';
 import Badge from '../ui/Badge.astro';
 import Section from './Section.astro';
+import StarFragment from '../ui/StarFragment.astro';
 
 interface Props {
   lang: Lang;
@@ -71,7 +72,10 @@ const timeline = (await getCollection('timeline')).sort((a, b) => a.data.order -
           class="absolute top-1.5 -left-[1.85rem] size-3 rounded-full bg-signal md:-top-[1.95rem] md:left-0"
         />
         <p class="font-mono text-sm text-amp">{data.period[lang]}</p>
-        <p class="mt-1 font-bold text-ink">{data.title[lang]}</p>
+        <p class="mt-1 flex items-center gap-1 font-bold text-ink">
+          {data.title[lang]}
+          {data.id === 'childhood' && <StarFragment id="about" lang={lang} />}
+        </p>
         <p class="mt-1 text-muted">{data.text[lang]}</p>
         {data.placeholder && (
           <p class="mt-2">

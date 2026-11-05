@@ -163,6 +163,48 @@ html.hyperdrive main {
   }
 }
 
+/* Star fragments: discreet glints that brighten on hover/focus, then vanish once collected. */
+.fragment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  transition:
+    color 0.3s,
+    text-shadow 0.3s;
+}
+
+.fragment:hover,
+.fragment:focus-visible {
+  color: var(--amp);
+  text-shadow: 0 0 12px var(--amp);
+}
+
+.fragment[data-collected] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fragment span[aria-hidden] {
+    animation: glint 4s ease-in-out infinite;
+  }
+}
+
+@keyframes glint {
+  0%,
+  90%,
+  100% {
+    opacity: 0.55;
+  }
+  95% {
+    opacity: 1;
+  }
+}
+
 /* Gravité mini-game */
 .game-dialog {
   margin: auto;
