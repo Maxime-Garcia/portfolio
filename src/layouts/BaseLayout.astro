@@ -117,6 +117,25 @@ const terminalProjects = sortProjects(
       <SpaceScene client:intent />
     </div>
     <slot />
+    <footer class="mx-auto max-w-6xl px-4 pt-8 pb-12 font-mono text-xs text-muted">
+      <p>
+        © {new Date().getFullYear()} {SITE.name} ·{t('footer.credits')} :
+        <a
+          href="https://www.solarsystemscope.com/textures/"
+          class="underline underline-offset-2 hover:text-ink"
+        >
+          Solar System Scope
+        </a>
+        (
+        <a
+          href="https://creativecommons.org/licenses/by/4.0/"
+          class="underline underline-offset-2 hover:text-ink"
+        >
+          CC BY 4.0
+        </a>
+        )
+      </p>
+    </footer>
     <!-- Achievement toasts: one persistent polite live region. -->
     <div
       id="toasts"

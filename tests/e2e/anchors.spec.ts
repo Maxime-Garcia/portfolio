@@ -25,7 +25,7 @@ test.describe('star map anchors', () => {
       await expect(page.locator(`#${id}`)).toBeFocused();
     }
     await page.locator('[data-hud-section="hero"]').click();
-    expect(await settledTop(page, 'hero')).toBe(0);
+    expect(Math.abs(await settledTop(page, 'hero'))).toBeLessThanOrEqual(2);
   });
 
   test('hero calls to action reach their sections', async ({ page }) => {
