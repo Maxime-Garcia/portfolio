@@ -88,6 +88,22 @@ const games = [1, 2, 3, 4];
       </section>
     </div>
   </main>
+  <!-- Lock state applied before first paint (no layout shift); the module below keeps it in sync. -->
+  <script is:inline>
+    (() => {
+      let count = 0;
+      try {
+        count = JSON.parse(localStorage.getItem('orbite:fragments') || '[]').length;
+      } catch {
+        /* storage blocked: stays locked */
+      }
+      const complete = count >= 6;
+      const locked = document.querySelector('[data-journal-locked]');
+      const content = document.querySelector('[data-journal-content]');
+      if (locked) locked.hidden = complete;
+      if (content) content.hidden = !complete;
+    })();
+  </script>
 </BaseLayout>
 
 <script>
