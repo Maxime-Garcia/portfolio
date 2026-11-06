@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { timelineSchema } from '../../src/lib/schemas';
-import { skillGroups } from '../../src/lib/skills';
+import { skillGroups, skillNames } from '../../src/lib/skills';
+import { useTranslations } from '../../src/i18n/utils';
 import { submitContact } from '../../src/scripts/contact';
 
 // timeline.yaml itself is validated against this schema by `astro build`.
@@ -41,7 +42,7 @@ describe('timelineSchema', () => {
 
 describe('skills', () => {
   it('lists the skills from the spec', () => {
-    const all = skillGroups.flatMap((g) => g.skills);
+    const all = skillGroups.flatMap((g) => skillNames(g, useTranslations('en')));
     for (const skill of [
       'MuleSoft',
       'Azure DevOps',
@@ -50,6 +51,27 @@ describe('skills', () => {
       'GoAnywhere',
       'SonarQube',
       'Game design',
+      'Git',
+      'GitLab',
+      'GitHub',
+      'Level design',
+      'Game development',
+      'Unreal Engine',
+      'Unity',
+      'Phaser',
+      'AngularJS',
+      'Python',
+      'DataWeave',
+      'SQL',
+      'Salesforce',
+      'Smartsheet',
+      'Snowflake',
+      'Jira',
+      'Everbridge',
+      'Tuleap',
+      'Tableau',
+      'JavaScript',
+      'Business analysis',
     ]) {
       expect(all).toContain(skill);
     }

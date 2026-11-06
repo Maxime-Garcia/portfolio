@@ -154,6 +154,11 @@ const fr = {
   'radio.latest': 'Dernier signal capté',
   'radio.rotation': 'En rotation',
   'footer.galaxy': 'Galaxie du Sombrero',
+  'skills.group.code': 'Coder',
+  'skills.group.understand': 'Comprendre',
+  'skills.gamedev': 'Développement de jeux',
+  'skills.analysis': 'Analyse métier',
+  'skills.crate': 'Caisse',
   'section.hero': 'Décollage',
   'section.about': 'Le pilote',
   'section.skills': 'La soute',
@@ -169,7 +174,7 @@ const fr = {
 
   'about.lead': 'Fiche pilote : curieux chronique, relieur de systèmes, joueur au long cours.',
   'about.body':
-    'Depuis l’enfance, une même question me suit : comment ça marche, et que se passe-t-il si on relie les morceaux ? Elle a fait de moi un MuleSoft Tech Lead chez CGI. Mais elle ne reste pas au bureau. Elle me fait démonter des jeux pour comprendre leurs règles, chercher sur le manche la note qui manque, et lever les yeux vers un ciel toujours trop grand pour une seule vie.',
+    'Depuis l’enfance, une même question me suit : comment ça marche, et que se passe-t-il si on relie les morceaux ? Elle a fait de moi un MuleSoft Tech Lead. Mais elle ne reste pas au bureau. Elle me fait démonter des jeux pour comprendre leurs règles, chercher sur le manche la note qui manque, et lever les yeux vers un ciel toujours trop grand pour une seule vie.',
   'about.photo': 'Photo de Maxime Garcia (provisoire)',
   'about.timeline': 'Journal de vol',
 
@@ -368,6 +373,11 @@ const en: Record<UiKey, string> = {
   'radio.latest': 'Last signal received',
   'radio.rotation': 'On rotation',
   'footer.galaxy': 'Sombrero galaxy',
+  'skills.group.code': 'Code',
+  'skills.group.understand': 'Understand',
+  'skills.gamedev': 'Game development',
+  'skills.analysis': 'Business analysis',
+  'skills.crate': 'Crate',
   'section.hero': 'Liftoff',
   'section.about': 'The pilot',
   'section.skills': 'The cargo hold',
@@ -383,7 +393,7 @@ const en: Record<UiKey, string> = {
 
   'about.lead': 'Pilot file: chronically curious, system weaver, long-haul player.',
   'about.body':
-    'Since childhood, one question has followed me: how does it work, and what happens if we connect the pieces? It made me a MuleSoft Tech Lead at CGI. But it doesn’t stay at the office. It makes me take games apart to understand their rules, hunt the missing note along the fretboard, and look up at a sky that is always too big for one lifetime.',
+    'Since childhood, one question has followed me: how does it work, and what happens if we connect the pieces? It made me a MuleSoft Tech Lead. But it doesn’t stay at the office. It makes me take games apart to understand their rules, hunt the missing note along the fretboard, and look up at a sky that is always too big for one lifetime.',
   'about.photo': 'Photo of Maxime Garcia (placeholder)',
   'about.timeline': 'Flight log',
 
