@@ -265,6 +265,16 @@ function build(): HTMLDialogElement {
     // Planets with a soft halo showing their pull.
     for (const body of bodies) {
       const color = css(`--${body.tone}`, '#ff4fd8');
+      // Gravity wells: faint rings show how far each planet pulls.
+      context.strokeStyle = color;
+      context.lineWidth = 1;
+      for (let ring = 1; ring <= 3; ring++) {
+        context.globalAlpha = 0.18 / ring;
+        context.beginPath();
+        context.arc(body.x, body.y, body.r + ring * Math.sqrt(body.mass) * 18, 0, Math.PI * 2);
+        context.stroke();
+      }
+      context.globalAlpha = 1;
       const halo = context.createRadialGradient(
         body.x,
         body.y,

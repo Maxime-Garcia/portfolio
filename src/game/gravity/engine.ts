@@ -21,7 +21,8 @@ export interface Level {
 
 /** The play field, in world units. */
 export const WORLD = { width: 1000, height: 600 } as const;
-export const G = 9000;
+/** Strong pull: paths bend visibly and slingshots are possible (tuned with the solvability test). */
+export const G = 30000;
 export const MAX_SPEED = 420;
 export const MAX_TIME = 14;
 export const PROBE_RADIUS = 6;
