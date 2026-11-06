@@ -27,3 +27,9 @@ Le JavaScript initial ne bouge pas (la scène reste chargée sur intention). La 
 - **Jupiter** : les lunes galiléennes reliées par des flux de données, clin d'œil au métier d'intégration.
 - **Ceinture d'astéroïdes** traversée entre Mars et Jupiter (un seul draw call instancié).
 - **Textures plus fines, chargées progressivement** : la scène démarre en 2k (environ 400 Ko), puis les versions 4k et 8k (Terre et Voie lactée en 8k, environ 4 Mo) arrivent en arrière-plan si le GPU accepte des textures de 8192 px.
+
+## Mise à jour du 2026-11-06 : fondus et planétoïde refait
+
+- **Aucune apparition brutale** : `useFade` fond tous les matériaux d'un astre selon la distance et selon une entrée globale de 1,8 s (0,4 s en mouvement réduit), démarrée quand les textures sont prêtes (`IntroClock`). La Voie lactée apparaît aussi en fondu.
+- **Jupiter** : les arcs visibles sont retirés, seuls les paquets lumineux (ronds) circulent entre les lunes.
+- **Planétoïde du feu de camp refait, sur un design original** (pas de copie d'un monde de jeu existant) : relief fbm avec lacs, rivages, prairies et falaises, environ 15 000 triangles aux normales lissées, forêt instanciée en bosquets, feu entouré de pierres avec halo, guitare dessinée, fusée en bois, geyser intermittent, atmosphère fresnel, et une lueur lunaire côté nuit.
