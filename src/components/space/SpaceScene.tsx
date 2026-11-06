@@ -10,6 +10,7 @@ import { Earth } from './Earth';
 import { AsteroidBelt } from './AsteroidBelt';
 import { Campfire } from './Campfire';
 import { IntegrationNetwork } from './IntegrationNetwork';
+import { IntroClock } from './IntroClock';
 import { Sombrero } from './Sombrero';
 import { useMedia, useStore, useTheme } from './hooks';
 import { ASTEROID_BELT_CENTER, SUN_DIRECTION, bodies, cameraFor, type BodySpec } from './layout';
@@ -66,6 +67,7 @@ export default function SpaceScene() {
       />
       <Starfield count={low ? 900 : 2600} palette={palette} additive={dark} animate={animate} />
       <Suspense fallback={null}>
+        <IntroClock reduced={reduced} />
         {dark && <Sky tier={tier} />}
         {bodies.map((spec) => {
           if (spec.kind === 'earth')

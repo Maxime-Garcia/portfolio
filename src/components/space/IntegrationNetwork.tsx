@@ -2,7 +2,7 @@ import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 import {
   AdditiveBlending,
-  BufferGeometry,
+  CanvasTexture,
   Color,
   QuadraticBezierCurve3,
   Vector3,
@@ -10,6 +10,7 @@ import {
   type Points,
 } from 'three';
 import type { Palette } from './palette';
+import { useFade } from './useFade';
 
 interface IntegrationNetworkProps {
   radius: number;
@@ -26,13 +27,14 @@ const MOONS = [
 ];
 
 /**
- * Skills (Jupiter): the Galilean moons, linked to the planet and to each other by arcs where
- * data packets travel — the integration work, drawn as a planetary system.
+ * Skills (Jupiter): the Galilean moons, with data packets travelling between the planet and
+ * the moons along invisible arcs — the integration work, drawn as a planetary system.
  */
 export function IntegrationNetwork({ radius, palette, animate, dark }: IntegrationNetworkProps) {
   const system = useRef<Group>(null);
+  const faded = useFade(radius * 2.5);
   const packets = useRef<Points>(null);
-  const { moons, curves, lines } = useMemo(() => {
+  const { moons, curves } = useMemo(() => {
     const moons = MOONS.map((m) => ({
       ...m,
       position: new Vector3(
@@ -65,8 +67,7 @@ export function IntegrationNetwork({ radius, palette, animate, dark }: Integrati
         .add(new Vector3(0, radius * 0.25, 0));
       curves.push(new QuadraticBezierCurve3(a.clone(), mid, b.clone()));
     }
-    const lines = curves.map((curve) => new BufferGeometry().setFromPoints(curve.getPoints(40)));
-    return { moons, curves, lines };
+    return { moons, curves };
   }, [radius]);
 
   const packetData = useMemo(() => {
@@ -81,6 +82,21 @@ export function IntegrationNetwork({ radius, palette, animate, dark }: Integrati
     };
   }, [curves]);
   const point = useMemo(() => new Vector3(), []);
+  // Round, soft packets (default points are squares).
+  const dot = useMemo(() => {
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 64;
+    const context = canvas.getContext('2d');
+    if (context) {
+      const gradient = context.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gradient.addColorStop(0, 'rgba(255,255,255,1)');
+      gradient.addColorStop(0.35, 'rgba(255,255,255,0.7)');
+      gradient.addColorStop(1, 'rgba(255,255,255,0)');
+      context.fillStyle = gradient;
+      context.fillRect(0, 0, 64, 64);
+    }
+    return new CanvasTexture(canvas);
+  }, []);
 
   useFrame(({ clock }, delta) => {
     if (animate && system.current) system.current.rotation.y += delta * 0.04;
@@ -94,9 +110,8 @@ export function IntegrationNetwork({ radius, palette, animate, dark }: Integrati
     geometry.attributes.position.needsUpdate = true;
   });
 
-  const link = palette.signal.clone().multiplyScalar(dark ? 1 : 0.8);
   return (
-    <group rotation={[0.45, 0, 0.12]}>
+    <group ref={faded} rotation={[0.45, 0, 0.12]}>
       <group ref={system}>
         {moons.map((moon) => (
           <mesh key={moon.name} position={moon.position}>
@@ -104,24 +119,15 @@ export function IntegrationNetwork({ radius, palette, animate, dark }: Integrati
             <meshStandardMaterial color={moon.color} roughness={0.9} />
           </mesh>
         ))}
-        {lines.map((geometry, i) => (
-          <line key={i}>
-            <primitive object={geometry} attach="geometry" />
-            <lineBasicMaterial
-              color={link}
-              transparent
-              opacity={dark ? 0.45 : 0.6}
-              depthWrite={false}
-            />
-          </line>
-        ))}
         <points ref={packets}>
           <bufferGeometry>
             <bufferAttribute attach="attributes-position" args={[packetData.positions, 3]} />
           </bufferGeometry>
           <pointsMaterial
             color={new Color(palette.amp).multiplyScalar(dark ? 2.5 : 1)}
-            size={0.12}
+            size={0.22}
+            map={dot}
+            alphaTest={0.01}
             transparent
             depthWrite={false}
             blending={dark ? AdditiveBlending : undefined}
