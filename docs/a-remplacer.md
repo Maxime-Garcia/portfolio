@@ -21,6 +21,8 @@ Chaque contenu provisoire est marqué `TODO(maxime)` dans le code (`grep -rn "TO
 
 Quand les vrais projets sont ajoutés : supprimer les `exemple-*.mdx` et le test « lists the example projects still to replace » de `tests/unit/projects.test.ts`.
 
+| Visuels officiels des jeux (Outer Wilds, Dofus, Tunic) | `src/assets/games/` (voir son README) + `credits.json` | Illustrations abstraites originales |
+
 ## Journal de bord (page secrète, 6 fragments)
 
 | Quoi               | Où                                           | Provisoire actuel        |

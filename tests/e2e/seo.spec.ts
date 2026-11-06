@@ -16,7 +16,8 @@ test.describe('seo', () => {
     const person = JSON.parse(json ?? '{}');
     expect(person['@type']).toBe('Person');
     expect(person.name).toBe('Maxime Garcia');
-    expect(person.worksFor.name).toBe('CGI');
+    // The employer is deliberately not published.
+    expect(person.worksFor).toBeUndefined();
   });
 
   test('project pages are articles without a Person block', async ({ page }) => {

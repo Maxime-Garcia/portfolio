@@ -16,7 +16,7 @@ test.describe('content sections', () => {
   test('about shows the journey with a placeholder flag', async ({ page }) => {
     await page.goto('/');
     const about = page.locator('#about');
-    await expect(about.getByText('MuleSoft Tech Lead chez CGI', { exact: true })).toBeVisible();
+    await expect(about.getByText('MuleSoft Tech Lead', { exact: true })).toBeVisible();
     await expect(about.getByRole('listitem').filter({ hasText: 'À compléter' })).toHaveCount(1);
   });
 

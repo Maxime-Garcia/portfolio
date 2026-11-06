@@ -2,7 +2,6 @@ export const SITE = {
   name: 'Maxime Garcia',
   github: 'https://github.com/Maxime-Garcia',
   // TODO(maxime): LinkedIn URL, then add it to `sameAs` below and to the contact links.
-  employer: 'CGI',
   ogImage: '/og.png',
 } as const;
 
@@ -14,7 +13,6 @@ export function personJsonLd(url: string, jobTitle: string) {
     name: SITE.name,
     url,
     jobTitle,
-    worksFor: { '@type': 'Organization', name: SITE.employer },
     knowsAbout: ['MuleSoft', 'API integration', 'RabbitMQ', 'Azure DevOps', 'CI/CD', 'Game design'],
     sameAs: [SITE.github],
   };

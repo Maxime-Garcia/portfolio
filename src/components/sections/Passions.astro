@@ -4,6 +4,9 @@ import { useTranslations } from '../../i18n/utils';
 import Section from './Section.astro';
 import StarFragment from '../ui/StarFragment.astro';
 import GameArt from '../passions/GameArt.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import gameCredits from '../../assets/games/credits.json';
 import MusicRadio from '../passions/MusicRadio.astro';
 
 interface Props {
@@ -12,6 +15,15 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+// Official visuals, when Maxime adds them to src/assets/games/ (see the README there).
+const gameImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/games/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+const imageFor = (id: string) =>
+  Object.entries(gameImages).find(([path]) => path.split('/').pop()?.split('.')[0] === id)?.[1]
+    .default;
+const creditFor = (id: string) => (gameCredits as Record<string, string>)[id];
 const worlds = [
   { id: 'outerwilds', name: 'Outer Wilds' },
   { id: 'dofus', name: 'Dofus' },
@@ -32,11 +44,24 @@ const worlds = [
         {worlds.map((world) => (
           <li class="grid grid-cols-[6rem_1fr] items-center gap-4">
             <div class="aspect-[16/10] overflow-hidden rounded-lg border border-line">
-              <GameArt kind={world.id} />
+              {imageFor(world.id) ? (
+                <Image
+                  src={imageFor(world.id) as ImageMetadata}
+                  alt=""
+                  widths={[192, 384]}
+                  sizes="6rem"
+                  class="h-full w-full object-cover"
+                />
+              ) : (
+                <GameArt kind={world.id} />
+              )}
             </div>
             <div>
               <p class="font-display font-bold text-ink">{world.name}</p>
               <p class="mt-1 text-sm text-muted">{t(`games.${world.id}`)}</p>
+              {creditFor(world.id) && (
+                <p class="mt-1 font-mono text-[0.65rem] text-muted">{creditFor(world.id)}</p>
+              )}
             </div>
           </li>
         ))}

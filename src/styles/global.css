@@ -277,6 +277,69 @@ html.warping .warp-block {
   }
 }
 
+/* Cargo hold: one crate per skill family, with a loading-tape edge. */
+.crate {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  padding: 1.5rem 1.25rem 1.25rem;
+  overflow: hidden;
+}
+
+.crate::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 6px;
+  background: repeating-linear-gradient(-45deg, var(--amp) 0 10px, transparent 10px 20px);
+  opacity: 0.55;
+}
+
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+  padding: 0.4rem 0.75rem 0.4rem 0.5rem;
+  font-size: 0.875rem;
+  color: var(--ink);
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.skill-chip:hover {
+  border-color: var(--signal);
+  color: var(--signal);
+}
+
+.skill-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+.skill-mono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid currentColor;
+  border-radius: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-chip {
+    transition: none;
+  }
+}
+
 /* Games room buttons */
 .arcade-button {
   align-self: flex-start;

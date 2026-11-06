@@ -1,5 +1,5 @@
 import type { UiKey } from '../../i18n/ui';
-import { skillGroups } from '../../lib/skills';
+import { skillGroups, skillNames } from '../../lib/skills';
 import { fragmentIds, nextMissing, resolveBody, type FragmentId } from '../../lib/fragments';
 import type { SectionId } from '../../i18n/ui';
 
@@ -96,7 +96,9 @@ export function runCommand(input: string, ctx: CommandContext): CommandResult {
       return { lines: [t('about.lead')] };
     case 'skills':
       return {
-        lines: skillGroups.map((group) => `  ${t(group.label)} · ${group.skills.join(', ')}`),
+        lines: skillGroups.map(
+          (group) => `  ${t(group.label)} · ${skillNames(group, t).join(', ')}`,
+        ),
       };
     case 'theme':
       return { lines: [t('term.theme')], action: { type: 'theme' } };
