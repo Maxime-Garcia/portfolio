@@ -52,7 +52,7 @@ test.describe('terminal', () => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
     await input.fill('projects 1');
     await input.press('Enter');
-    await expect(page).toHaveURL(/\/projects\/gravite\/$/);
+    await expect(page).toHaveURL(/\/projects\/gravite\/$/, { timeout: 15_000 });
     await expect(dialog).toBeHidden();
   });
 

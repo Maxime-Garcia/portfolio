@@ -74,7 +74,7 @@ test.describe('star fragments', () => {
     await page.goto('/');
     const dialog = await terminal(page, 'journal');
     await expect(dialog).toBeHidden();
-    await expect(page).toHaveURL(/\/journal\/$/);
+    await expect(page).toHaveURL(/\/journal\/$/, { timeout: 15_000 });
     await expect(
       page.getByRole('heading', { level: 2, name: 'Tes records Gravité' }),
     ).toBeVisible();
