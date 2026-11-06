@@ -17,7 +17,7 @@
 - id: cgi
   order: 3
   period: { fr: Aujourd’hui, en: Today }
-  title: { fr: MuleSoft Tech Lead chez CGI, en: MuleSoft Tech Lead at CGI }
+  title: { fr: MuleSoft Tech Lead, en: MuleSoft Tech Lead }
   text:
     fr: Des systèmes qui ne se parlaient pas, et qui s’écoutent désormais.
     en: Systems that never spoke to each other, now listening.
